@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📗Bit Binder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-color-dark: #0d1117;
+        --primary-color-dark: #e6edf3;
+        --accent-color-dark: #7a6eec; /* Vibrant Lilac */
+        --glass-bg-dark: rgba(35, 41, 51, 0.3);
+        --glass-border-dark: rgba(255, 255, 255, 0.1);
+        --shadow-color-dark: rgba(0, 0, 0, 0.3);
+        --header-color-dark: #ffffff;
+        --bg-color-light: #f0f2f5;
+        --primary-color-light: #202020;
+        --accent-color-light: #624fdc; /* Vibrant Lilac */
+        --glass-bg-light: rgba(255, 255, 255, 0.3);
+        --glass-border-light: rgba(0, 0, 0, 0.1);
+        --shadow-color-light: rgba(0, 0, 0, 0.1);
+        --header-color-light: #000000;
+      }
+      [data-theme="dark"] {
+        --bg-color: var(--bg-color-dark);
+        --primary-color: var(--primary-color-dark);
+        --accent-color: var(--accent-color-dark);
+        --glass-bg: var(--glass-bg-dark);
+        --glass-border: var(--glass-border-dark);
+        --shadow-color: var(--shadow-color-dark);
+        --header-color: var(--header-color-dark);
+      }
+      [data-theme="light"] {
+        --bg-color: var(--bg-color-light);
+        --primary-color: var(--primary-color-light);
+        --accent-color: var(--accent-color-light);
+        --glass-bg: var(--glass-bg-light);
+        --glass-border: var(--glass-border-light);
+        --shadow-color: var(--shadow-color-light);
+        --header-color: var(--header-color-light);
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--primary-color);
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        padding: 2rem;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -1px;
+        color: var(--header-color);
+        transition: color 0.3s ease;
+      }
+      .header p {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--accent-color);
+        margin-top: 0.5rem;
+        transition: color 0.3s ease;
+      }
+      .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1200px;
+        max-height: 60vh;
+        overflow-y: auto;
+        padding: 1.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-color) transparent;
+      }
+      .notes-grid::-webkit-scrollbar {
+        width: 6px;
+      }
+      .notes-grid::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .notes-grid::-webkit-scrollbar-thumb {
+        background-color: var(--accent-color);
+        border-radius: 10px;
+      }
+      .note-card {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        box-shadow: 0 8px 16px 0 var(--shadow-color);
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .note-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 20px 0 var(--shadow-color);
+      }
+      .note-card .icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+      .note-card .title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        word-break: break-word;
+      }
+      .theme-switch-wrapper {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        z-index: 999;
+      }
+      .theme-switch {
+        display: inline-block;
+        height: 24px;
+        position: relative;
+        width: 50px;
+      }
+      .theme-switch input {
+        display: none;
+      }
+      .slider {
+        background-color: #ccc;
+        bottom: 0;
+        cursor: pointer;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
+      .slider:before {
+        background-color: #fff;
+        bottom: 4px;
+        content: "";
+        height: 16px;
+        left: 4px;
+        position: absolute;
+        transition: 0.4s;
+        width: 16px;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: var(--accent-color);
+      }
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+      a:link {
+        color: var(--accent-color);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider round"></div>
+      </label>
+    </div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="main-container">
+      <header class="header">
+        <h1>Bit Binder 📚</h1>
+        <p>
+          Welcome to the Bit Binder, The Open Repository to all my Knowledge. Click any of the below pages to get started<br />
+          <br />
+          PS- Each Page has its own personality 😎
+        </p>
+      </header>
+      <div id="notes-grid" class="notes-grid">
+        <!-- Note cards will be dynamically inserted here by JavaScript -->
+      </div>
+       <div class="header">
+      <p> Powered by <a href="https://obsidian.md">Obsidian.md</a>, <a href="https://threejs.org">Three.js</a> and <a href="https://go.dev">Go</a>. </p>
+    </div>
+    </div>
+  
+   
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+
+      // --- Theme Manager ---
+      const toggleSwitch = document.querySelector(
+        '.theme-switch input[type="checkbox"]'
+      );
+      const currentTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      function setTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        toggleSwitch.checked = theme === "dark";
+      }
+      if (currentTheme) {
+        setTheme(currentTheme);
+      } else {
+        setTheme(prefersDark ? "dark" : "light");
+      }
+      toggleSwitch.addEventListener("change", (e) =>
+        setTheme(e.target.checked ? "dark" : "light")
+      );
+
+      // --- Return Random Emoji
+      function returnRandomEmoji(){
+        const emojiCodes = ['💘','💝','💖','💗','💓','💞','💕','💟','❣️','💔','❤️','🧡','💛','💚','💙','💜','🤎','🖤','🤍','❤️‍','🔥','❤️‍','🩹','💯','♨️','💨','😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺️','😚','😙','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐️','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','😮‍','💨','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','😶‍','🌫️','🥴','😵‍','💫','😵','🤯','🤠','🥳','😎','🤓','🧐','😕','😟','🙁','☹️','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽️','👾','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','🙈','🙉','🙊','👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈️','👉️','👆️','🖕','👇️','☝️','👍️','👎️','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦾','🦿','🦵','🦶','👂️','🦻','👃','🧠','🦷','🦴','👀','👁️','👅','👄','💋','👶','🧒','👦','👧','🧑','👨','👩','🧔','🧔‍♀️','🧔‍♂️','🧑','👨‍','🦰','👩‍','🦰','🧑','👨‍','🦱','👩‍','🦱','🧑','👨‍','🦳','👩‍','🦳','🧑','👨‍','🦲','👩‍','🦲','👱','👱‍♂️','👱‍♀️','🧓','👴','👵','🙍','🙍‍♂️','🙍‍♀️','🙎','🙎‍♂️','🙎‍♀️','🙅','🙅‍♂️','🙅‍♀️','🙆','🙆‍♂️','🙆‍♀️','💁','💁‍♂️','💁‍♀️','🙋','🙋‍♂️','🙋‍♀️','🧏','🧏‍♂️','🧏‍♀️','🙇','🙇‍♂️','🙇‍♀️','🤦','🤦‍♂️','🤦‍♀️','🤷','🤷‍♂️','🤷‍♀️','🧑‍⚕️','👨‍⚕️','👩‍⚕️',];
+
+        return emojiCodes[parseInt(Math.random() * emojiCodes.length)];
+    }
+
+      // --- Dynamic Content Loader ---
+      async function fetchAndDisplayNotes() {
+        const notesGrid = document.getElementById("notes-grid");
+        try {
+          const response = await fetch("/api/directories");
+          if (!response.ok) throw new Error("Network response was not ok.");
+          const directories = await response.json();
+          directories.forEach((dir) => {
+            const card = document.createElement("a");
+            card.href = `./${encodeURIComponent(dir)}/index.html`;
+            card.className = "note-card";
+            card.innerHTML = `<div class="icon">${returnRandomEmoji()}</div><div class="title">${dir}</div>`;
+            notesGrid.appendChild(card);
+          });
+        } catch (error) {
+          console.error("Failed to fetch notes:", error);
+          notesGrid.innerHTML = `<p style="text-align: center;">Could not load notes. Is the server running?</p>`;
+        }
+      }
+      fetchAndDisplayNotes();
+
+      // --- Three.js Background Scene ---
+      let scene,
+        camera,
+        renderer,
+        shapes = [];
+      const mouse = new THREE.Vector2();
+      function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        camera.position.z = 10;
+        const canvas = document.getElementById("bg-canvas");
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+        const geometries = [
+          new THREE.SphereGeometry(1, 32, 32),
+          new THREE.BoxGeometry(1.5, 1.5, 1.5),
+          new THREE.ConeGeometry(1, 2, 32),
+        ];
+        const colors = [0x58a6ff, 0x3fb950, 0xffa658, 0xdb61a2, 0x8b5cf6];
+        for (let i = 0; i < 40; i++) {
+          const geometry =
+            geometries[Math.floor(Math.random() * geometries.length)];
+          const material = new THREE.MeshStandardMaterial({
+            color: colors[Math.floor(Math.random() * colors.length)],
+            roughness: 0.3,
+            metalness: 0.2,
+          });
+          const shape = new THREE.Mesh(geometry, material);
+          shape.position.set(
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40 - 10
+          );
+          shape.rotation.set(
+            Math.random() * Math.PI,
+            Math.random() * Math.PI,
+            Math.random() * Math.PI
+          );
+          const scale = Math.random() * 0.5 + 0.25;
+          shape.scale.set(scale, scale, scale);
+          shape.userData.floatSpeed = Math.random() * 0.2 + 0.1;
+          shape.userData.floatAmplitude = Math.random() * 0.2 + 0.1;
+          shape.userData.rotationSpeed = new THREE.Vector3(
+            (Math.random() - 0.5) * 0.005,
+            (Math.random() - 0.5) * 0.005,
+            (Math.random() - 0.5) * 0.005
+          );
+          shapes.push(shape);
+          scene.add(shape);
+        }
+        window.addEventListener("resize", onWindowResize);
+        document.addEventListener("mousemove", onMouseMove);
+      }
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      function onMouseMove(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+        shapes.forEach((shape) => {
+          shape.rotation.x += shape.userData.rotationSpeed.x;
+          shape.rotation.y += shape.userData.rotationSpeed.y;
+          shape.position.y +=
+            Math.sin(elapsedTime * shape.userData.floatSpeed) *
+            shape.userData.floatAmplitude *
+            0.01;
+        });
+        camera.position.x += (mouse.x * 2 - camera.position.x) * 0.02;
+        camera.position.y += (mouse.y * 2 - camera.position.y) * 0.02;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+      }
+      init();
+      animate();
+    </script>
+  </body>
+</html>

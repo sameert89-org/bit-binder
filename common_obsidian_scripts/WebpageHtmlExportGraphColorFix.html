@@ -1,0 +1,40 @@
+<script>
+(function() {
+    const observer = new MutationObserver(mutations => {
+        for (const m of mutations) {
+            if (m.type === 'attributes' && m.attributeName === 'class') {
+                const isLight = document.body.classList.contains('theme-light');
+                const isDark = document.body.classList.contains('theme-dark');
+
+                if (isLight || isDark) {
+                    const colors = isLight ? {
+                        background: 0xFFFFFF,
+                        link: 0xAAAAAA,
+                        node: 0X66CCFF,
+                        outline: 0xAAAAAA,
+                        text: 0x000000,
+                        accent: 0x4023AA
+                    } : {
+                        background: 0x000000,
+                        link: 0xAAAAAA,
+                        node: 0xCCCCCC,
+                        outline: 0xAAAAAA,
+                        text: 0x000000,
+                        accent: 0x4023AA
+                    };
+
+                    if (typeof graphRenderer !== 'undefined' && graphRenderer.worker) {
+                        setTimeout(() => {
+                            graphRenderer.worker.postMessage({
+                                type: 'update_colors',
+                                colors
+                            });
+                        }, 500); // <= This ensure that it fires after the built in faulty message with incorrect colors
+                    }
+                }
+            }
+        }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+})();
+</script>
