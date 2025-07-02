@@ -1,0 +1,3 @@
+Dynamic typing, also known as dynamic type checking or late binding, is a programming language feature in which the type of a variable is determined and checked at runtime (during program execution) rather than at compile time. In dynamically typed languages, variables are not explicitly declared with a specific data type, and their types can change during the program's execution.
+
+So unlike C and C++, there are no explicit type declarations in JS.
