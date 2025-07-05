@@ -1,0 +1,18 @@
+on: [push]
+jobs:
+  build:
+    name: Auto Deploy Trigger Via Tailnet Tunnel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect runner to tailnet
+        uses: tailscale/github-action@v3
+        with:
+          authKey:  ${{ secrets.TAILSCALE_AUTHKEY }}
+      
+      - name: Kick off Coolify deploy
+        env:
+          COOLIFY_API_TOKEN:   ${{ secrets.COOLIFY_API_TOKEN }}
+        run: |
+          curl -X POST \
+            "http://100.126.192.41:8000/api/v1/deploy?uuid=qkookcw8ssg4k8wg0sg4k0oo&force=false" \
+            -H "Authorization: Bearer ${COOLIFY_API_TOKEN}"
