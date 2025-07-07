@@ -1,0 +1,36 @@
+<style>
+.graph-view-container{
+  background-color: #2E2E2E !important;
+}
+</style>
+<script>
+(function() {
+    const lightColor = 'rgba(192, 204, 236, 0.9)';
+    const darkColor = 'rgba(36, 56, 88, 0.9)';
+
+    function updateSidebarBackground() {
+        const isLight = document.body.classList.contains('theme-light');
+        const isDark = document.body.classList.contains('theme-dark');
+        const color = isDark ? darkColor : lightColor;
+		console.log(color);
+
+        document.querySelectorAll('#left-sidebar, #right-sidebar').forEach(el => {
+            el.style.backgroundColor = color;
+        });
+    }
+
+    // Run on page load
+    updateSidebarBackground();
+
+    // Watch for class changes
+    const observer = new MutationObserver(mutations => {
+        for (const m of mutations) {
+            if (m.type === 'attributes' && m.attributeName === 'class') {
+                console.log("Theme switch detected");
+                updateSidebarBackground();
+            }
+        }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+})();
+</script>

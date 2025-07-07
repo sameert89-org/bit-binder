@@ -1,0 +1,1 @@
+Welcome to my C++ notes, these cover all language specific features, modern C++ best practices and standards. 
