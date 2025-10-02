@@ -10,7 +10,7 @@ let mut myMutableVar = 50; // This defines a mutable variable which CAN be re-as
 ```
 
 ## Shadowing
-Rust supports *shadowing* (surprise, surprise!), meaning a variable can be redeclared in the same scope and the earlier declaration is invalidated.
+Rust supports *shadowing* (surprise, surprise!), meaning a variable can be redeclared in the same scope and the earlier declaration is invalidated (only occurs when done in the same scope).
 
 ```rust
 let my_var = 50; // i32 as of now
@@ -18,4 +18,7 @@ let my_var = "text"; // &str now
 // mut or non mut does not matter
 ```
 
-Related: [[Naming Conventions]]
+> [!WARNING] The Crab Hates Global Variables
+> So much so that variable declarations can only be done inside a local scope.
+
+Related: [[Naming Conventions]], [[Data Types in Rust]]

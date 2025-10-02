@@ -1,0 +1,1 @@
+Rust supports type casting with the `as` keyword. As long as its a plausible conversion.

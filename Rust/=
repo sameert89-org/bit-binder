@@ -1,0 +1,14 @@
+A *special* type that represents a group of constants.
+
+```rust title="Enums in Rust"
+
+enum Color{
+    Red,
+    Blue,
+    Yellow,
+    Green
+}
+
+let treeColor: Color = Color::Green;
+```
+

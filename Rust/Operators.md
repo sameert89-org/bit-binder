@@ -1,0 +1,1 @@
+Rust supports all common operators, and they are not batshit crazy to floor towards negative infinity for negative divisions. And there is no crazy things like `== & ===`.  There is no ++ and -- cause who needs that but all *compoud assignment operators* are there `+=, |=` and all that.
