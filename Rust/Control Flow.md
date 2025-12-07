@@ -45,10 +45,12 @@ match evaluation { // no break needed like other languages
 	false => {
 		// do something else
 	}
-	_ => {
+	_ => {// '_' is a variable name, you can have anything else if you are actually using the variable
 		// default, I know its a sh^t example
 	}
 }
+// multiple match is also possible using the | operator
+// case1 | case 2 | case 3
 ```
 
 > A good safety feature of rust is that it checks whether all possible paths have been covered before the code can compile in a match statement.
