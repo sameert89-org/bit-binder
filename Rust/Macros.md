@@ -68,3 +68,10 @@ fn main() {
     // println!("{}", describe_day(8)); // Panics with message
 }
 ```
+
+#### `panic` macro
+Crash the program
+
+```rust
+panic!(":(");
+```

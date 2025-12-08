@@ -31,6 +31,7 @@ enum Message {
 >[!NOTE] About memory allocation
 > The amount of memory rust allocates for a struct is `>= largest_size_among_all_fields`, when creating the struct it atleast allocates this much. They live on heap as expected.
 
+
 ## Enums and the `match` expression
 The match expression becomes very powerful when used with enums, since rust checks that all possible values of that enum must be covered in the match statement, below is an example: 
 ```rust
@@ -71,7 +72,7 @@ fn main() {
 		Lowfat(i32),
 		Whole
 	}
-	impl milk{
+	impl Milk{
 		fn drink(self){
 			match self {
 				Milk::Lowfact(2) => {
@@ -110,3 +111,72 @@ one super confusing difference comes when dealing with *non-unit* variants, when
 But that does not make sense right? How would the compiler know if the dynamic value x matches the conditional? Because if it doesn't know how would it ensure that the parameters declared are available after the block?
 
 It requires you to break out of the current scope if you want to run a `let else` for a method this will be the **return**.
+
+## Options Enum
+Rust provides a built-in enum called `Option` to handle cases where a value may or may not be present. It is defined as follows:
+
+```rust
+let a = Option::Some(5); // This is a generic enum, the type here is Option<i32>
+let b: Option<i32> = Option::None; // there is another way to do this
+let b = Option::<i32>::None; // using the turbofish operator
+```
+
+- Option enum is very useful such is demonstrated by the built in array method get
+```rust
+let musical_instruments: [i32;3] = [56; 3];
+
+let second = musical_instruments.get(2); // This returns an Option<&String>
+```
+
+- By default `Option` implements the copy-trait.
+- Because `Option` is so common its members are already in scope `use Option::*` implicitly, so you can directly do something like `Some` or `None`. See [[Enums#^a5c2f7 | The Rust Prelude]]
+#### Unwrap and Expect Methods
+The "unwrap" method attempts to extract the associated data out of the **Some** variant. If the variant is **None** it will result in a `RuntimeError`.
+
+```rust
+let fifth = musical_instruments.get(5); // This is the None Variant
+let value = fifth.unwrap();
+```
+
+The `expect` method is almost identical to `unwrap` but it allows us to customize the error message in case it fails.
+
+```rust
+let sixth = musical_instruments.get(6);
+let value = sixth.expect("Unable to retrieve element from the array");
+```
+
+There is also an `unwrap_or` method, which can take a default value to return in case the unwrap is called on the `None` variant.
+
+```rust
+let value = fifth.unwrap_or(-1);
+```
+
+- The `match` syntax is very useful for `Option` since it forces you to cover all possible cases unlike `unwrap` and `expect`.
+
+
+> [!INFO] The Rust Prelude
+> The Rust prelude is a collection of named constructs that are available automatically in every program eg: types, functions, Option etc. Some other constructs require manual importing.
+
+^a5c2f7
+
+## Result Enum
+A result can be either a `Success` or an `Error`.
+
+```rust
+pub enum Result<T,E>{
+	Ok(T),
+	Err(E),
+}
+```
+
+- match operator works very well with it.
+
+### Methods
+Like `Option`, this enum also has very useful impl methods.
+
+- `unwrap`: In case of success the data is returned else panics.
+- `expect`: Works the same way as Option's expect.
+- `unwrap_or`: Works the same way as Unwrap or.
+- `is_ok`: Returns boolean
+- `is_err`
+
