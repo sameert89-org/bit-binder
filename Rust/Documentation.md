@@ -26,13 +26,17 @@ These document the **item that follows**, such as functions, structs, enums. Exa
 ```rust
 /// Adds two numbers together.
 ///
-/// # Examples
+/// Examples
 ///
-/// ```
 /// let sum = add(2, 3);
 /// assert_eq!(sum, 5);
-/// ```
 fn add(a: i32, b: i32) -> i32 {
     a + b
 }
+```
+
+### Generating Documentation
+To generate HTML documentation for your crate, use:
+```bash
+cargo doc --open --no-deps
 ```

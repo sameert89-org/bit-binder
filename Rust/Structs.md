@@ -75,6 +75,11 @@ Like TS and JS Object property shorthand, rust has a handy syntactical sugar for
 > // player2 will have class: "Warrior", name: "Alice", level: 6
 > ```
 
+> [!NOTE] Structs & Field Accessibility
+> By default, all fields in a struct are private to the module where the struct is defined. We need to use the `pub` keyword on the struct as well as the fields to make them accessible for the module users. Same goes for the `impl` block as well, each method needs to be marked as `pub` to be accessible outside the module.
+
+^8be5
+
 ## Struct Methods
 We can define functions on structs, a function can either belong to instance of struct or struct itself (called associated function)
 

@@ -54,6 +54,7 @@ impl TreasureChest<String> {
 impl<T> TreasureChest<T> {
 }
 ```
+^generic_impl_blocks
 
 ## Generic Enums
 

@@ -1,4 +1,5 @@
 Journal/
 .obsidian/workspace.json
 .obsidian/app.json
-.obsidian/plugins/copilot/data.json
+.obsidian/plugins/
+.obsidian/themes/

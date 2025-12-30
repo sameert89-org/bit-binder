@@ -27,7 +27,11 @@ These types store more than 1 value. There are 2 primitive compound types **Tupl
 ### Arrays
 Fixed size collection of *homogenous* data.
 ```rust
+<<<<<<< HEAD
 let myArray: [f32; 3] = [14.023,15f32,16.2342]; // Array of type f32 and length 3
+=======
+let myArray: [f32, 3] = [14.023,15f32,16.2342]; // Array of type f32 and length 3
+>>>>>>> b4134c0139b10cac0fbb64dd570820e60a9545e2
 // All elements can be initialized to the same value.
 let ys: [i32; 500] = [0; 500];
 ```
@@ -98,7 +102,7 @@ let my_array_slice = my_array[0..1]; // has the full array logic, i.e you can mo
 
 
 > [!WARNING] Range slices are not based on indices
-> The range `x..y` might seem like it will give slice starting from index x till y. This is mostly true, but the `x` and `y` are not indexes, but are byte positions, if the character occupies more than one bytes, then rust will panic at runtime, since slicing those characters is not possible. However for `Arrays` it is based on index 🙈
+> The range `x..y` might seem like it will give slice starting from index x till y. This is mostly true, but the `x` and `y` are not indexes, but are byte positions, if the character occupies more than one bytes, then rust will panic at runtime, since slicing those characters is not possible. However for `Arrays` it is based on index 🙈. Further more you cannot access an index directly from a `String`, you must create a slice even for a single character `my_string[0..1]`.
 
 
 > [!INFO] Deref Coercion
@@ -115,3 +119,56 @@ let my_array_slice = my_array[0..1]; // has the full array logic, i.e you can mo
 >    }
 > ```
 > The function greet takes &str, but accepts both &String and &str arguments thanks to Rust's automatic deref coercion. When you pass &owned_name (which is &String), Rust automatically converts it to &str because String implements `Deref<Target = str>`.
+
+## Operations
+
+### String Concatenation
+
+```rust
+// Using push_str
+let mut s1 = String::from("Hello, ");
+s1.push_str("world!");
+
+// Using push to add a single character
+s1.push(' ');
+
+// Using + operator
+let s2 = String::from(" How are you?");
+let s3 = s1 + &s2; // Note: s1 is moved here and can no longer be used
+```
+
+### Trimming Strings
+
+```rust
+// Trim (removes leading and trailing whitespace)
+let s4 = String::from("   Trim me   ");
+let trimmed = s4.trim(); // "Trim me"
+let left_trimmed = s4.trim_start(); // "Trim me   "
+let right_trimmed = s4.trim_end(); // "   Trim me"
+```
+
+### Case Conversion
+
+```rust
+let s5 = String::from("Hello, World!");
+let upper = s5.to_uppercase(); // "HELLO, WORLD!"
+let lower = s5.to_lowercase(); // "hello, world!"
+```
+
+### Replace
+
+```rust
+let s6 = String::from("Hello, World!");
+let replaced = s6.replace("World", "Rust"); // "Hello, Rust!"
+```
+
+### Split
+
+Split returns a `Split<&str>` iterator
+
+```rust
+let s7 = String::from("red blue")
+let parts: Vec<&str> = s7.split(' ').collect(); // ["red", "blue"]
+```
+
+Read More: [[Macros#^format_macro|Format Macro]]

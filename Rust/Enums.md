@@ -48,6 +48,7 @@ fn main() {
         Color::Green => println!("Green"),
         Color::Blue => println!("Blue"),
     }
+<<<<<<< HEAD
     // you can also access the data inside the enums if they have any
     enum Message {
 	    Quit,              // Unit variant, no data
@@ -85,6 +86,9 @@ fn main() {
 ```
 
 ### Enums and the `if let` statement
+
+^0458e9
+
 Sometimes you want to execute a piece of code for a specific enum value and you don't care about other possible values, sure you can use the `match` to achieve this, but the you have to match all possible values and even when using `-` you are writing unreachable code. `if let ` solves that.
 ```rust title="if let with enums" hl=6
 enum Milk{
@@ -92,6 +96,7 @@ enum Milk{
 	Whole
 }
 let x: Milk = Milk::Whole;
+
 if let Milk::Whole = x { // syntax is very crucial if let <constant_val> = variable
 	// do something
 }
@@ -130,6 +135,7 @@ let second = musical_instruments.get(2); // This returns an Option<&String>
 
 - By default `Option` implements the copy-trait.
 - Because `Option` is so common its members are already in scope `use Option::*` implicitly, so you can directly do something like `Some` or `None`. See [[Enums#^a5c2f7 | The Rust Prelude]]
+
 #### Unwrap and Expect Methods
 The "unwrap" method attempts to extract the associated data out of the **Some** variant. If the variant is **None** it will result in a `RuntimeError`.
 
@@ -152,6 +158,13 @@ let value = fifth.unwrap_or(-1);
 ```
 
 - The `match` syntax is very useful for `Option` since it forces you to cover all possible cases unlike `unwrap` and `expect`.
+
+> [!NOTE] The `copied` method
+> The `copied` method can be used to convert an `Option<&T>` to an `Option<T>` where `T` implements the `Copy` trait.
+> ```rust
+> let musical_instruments: [i32;3] = [56; 3];
+> let second = musical_instruments.get(2).copied(); // This returns an Option<i32>
+> ```
 
 
 > [!INFO] The Rust Prelude
@@ -177,6 +190,15 @@ Like `Option`, this enum also has very useful impl methods.
 - `unwrap`: In case of success the data is returned else panics.
 - `expect`: Works the same way as Option's expect.
 - `unwrap_or`: Works the same way as Unwrap or.
-- `is_ok`: Returns boolean
+- `is_ok`: Returns `boolean`
 - `is_err`
 
+### Enums and the `while let` loop
+Like the [[Enums#^0458e9|if let]] statement, but instead this runs a look while the condition in the `let` yields the specified `enum` variant
+
+```rust
+let mut sauces: Vec<&str> = vec!["Sauce1", "Sauce2", "Sauce3"];
+while let Some(sauce: &str) = sauces.pop() { // Pop returns a None variant if there are no elements left
+	println!("The next sauce is {sauce}");
+}
+```

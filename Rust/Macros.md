@@ -68,10 +68,36 @@ fn main() {
     // println!("{}", describe_day(8)); // Panics with message
 }
 ```
+<<<<<<< HEAD
 
 #### `panic` macro
-Crash the program
+Crash the program, well its not a crash since the cleanup is done by unwinding the stack.
 
 ```rust
 panic!(":(");
 ```
+=======
+>>>>>>> b4134c0139b10cac0fbb64dd570820e60a9545e2
+
+^panic_macro
+
+#### `format!` macro
+Creates a `String` using interpolation
+
+```rust
+let name = "Alice";
+let greeting = format!("Hello, {}!", name);
+println!("{}", greeting); // Prints "Hello, Alice!"
+```
+
+all `println!` tricks are applicable in format! as well.
+
+^format_macro
+
+#### `eprintln!` macro
+Prints to standard error
+
+```rust
+eprintln!("An error occurred: {}", "File not found");
+```
+^eprintln_macro

@@ -44,3 +44,17 @@ There are a lot of these specifiers
 |`{:>}`|Right-align|`println!("{:>5}", "hi")` → `hi`|
 |`{:^}`|Center-align|`println!("{:^5}", "hi")` → `hi`|
 |`{name}`|Named argument|`println!("{name}", name = "Rust")`|
+
+## Accepting user input
+
+To accept user input from the console, we can use the `std::io` module.
+
+```rust
+let mut input = String::new();
+println!("Please enter some input:");
+io::stdin() // returns a struct
+    .read_line(&mut input) // returns a Result
+    .expect("Failed to read line");
+println!("You entered: {}", input); // This captures the \n as well unlike other languages, so its important to trim it if not needed
+```
+
