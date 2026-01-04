@@ -200,11 +200,63 @@ impl Person for Employee {
 }
 ```
 
+### Supertraits
+A supertrait is a trait from which another trait inherits functionality. The trait that inherits is called the subtrait.
+
+```rust
+trait Animal {
+    fn weight(&self) -> f64;
+}
+
+trait Mammal: Animal {
+    fn nurse_young(&self) -> bool;
+}
+```
+
+### Generics in Traits
+Traits can be generic over types.
+
+```rust
+trait Investment<T> {
+    fn amount(&self) -> T;
+}
+```
+
 ## Built-in Traits
 Following are some useful built in traits.
 
 ### Display Trait
 Mandates a format method on the type which can output string representation, used while printing the data using  `println!`.
+
+```rust
+// implementing Display trait for custom type
+struct Car {
+    make: String,
+    model: String,
+    year: u32,
+}
+
+impl Display for Car {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "{} {} ({})", self.make, self.model, self.year) // f implements the write trait
+    }
+}
+```
+
+> [!INFO] `Formatter`
+> The Formatter struct implements the write trait, it also has many methods to help with formatting like padding, alignment etc. Below are some examples.
+> ```rust
+> // debug struct
+> impl Debug for Car {
+>     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+>         f.debug_struct("Car")
+>          .field("make", &self.make)
+>          .field("model", &self.model)
+>          .field("year", &self.year)
+>          .finish()
+>     }
+> }
+> ```
 
 ```rust
 println!("This is my integer {}", 32);
@@ -227,6 +279,32 @@ fn main() {
 }
 ```
 
+### Clone Trait
+Any type can implement this trait unlike copy. This introduces a special method `.clone()` on the object. This is where you implement complex logic to do clone the whole objects.
+
+Its possible to derive the clone trait for custom types if all fields implement clone on their own.
+
+```rust
+enum MenuItem {
+    Pizza,
+    Burger,
+    Salad,
+}
+struct Order {
+    created_at: String,
+    items: Vec<MenuItem>
+}
+impl Clone for Order {
+    fn clone(&self) -> Self {
+        Self {
+            created_at: Utc::now().to_string(), // new time for cloned order
+            items: self.items.clone()
+        }
+    }
+    // There is also a .clone_from() method that can be implemented for optimization, but its optional.
+}
+```
+
 ### Copy Trait
 
 ^1a31c0
@@ -244,15 +322,107 @@ struct Point {
 }
 ```
 
+> [!IMPORTANT] Copy and Clone are closely related
+> Copy is essentially derived from clone i.e its a subset. 
 
+`Copy` types must implement `Clone` because `Copy` is essentially saying "my `clone()` operation is so cheap it can happen implicitly.
 > [!DANGER] Copy Behavior for Heap Allocated Types
 >Heap allocated types such as `Vec<T>` do not implement the copy trait. Such data types when assigned to another variable a duplicate reference pointing to the same data on the heap is created.
 
-### Clone Trait
-Any type can implement this trait unlike copy. This introduces a special method `.clone()` on the object. This is where you implement complex logic to do clone the whole objects.
+Since copy is derived from clone, we need to implement both clonse and copy for custom types to be copyable.
 
-> [!IMPORTANT] Copy and Clone are closely related
-> Copy is essentially derived from clone i.e its a subset. 
-`Copy` types must implement `Clone` because `Copy` is essentially saying "my `clone()` operation is so cheap it can happen implicitly.
+### Drop Trait
+This trait allows you to customize the behavior when a value goes out of scope. It is auto called by the compiler. Think of it like a destructor in C++ or Finalize method in C#.
+
+```rust
+enum ResourceState {
+    Open,
+    Closed,
+}
+
+struct Resource {
+    name: String,
+    state: ResourceState,
+}
+
+impl Drop for Resource {
+    fn drop(&mut self) {
+        if let ResourceState::Open = self.state {
+            println!("Closing resource: {}", self.name);
+            self.state = ResourceState::Closed;
+        }
+    }
+}
+```
+
+### PartialEq and Eq Traits
+These traits allow you to compare two instances of a type for equality. `PartialEq` allows for partial equality comparisons, while `Eq` is a marker trait that indicates full equality.
+In other words, PartialEq allows comparisons that may not be reflexive, symmetric & transitive eg: f32 implements `PartialEq` but not `Eq`, two f32 numbers can be equal but not always -> `NaN != NaN`, while Eq requires that if `a == b` and `b == c`, then `a == c` and also `a == a` and `b = a`.
+
+```rust
+struct Employee {
+    id: u32,
+    name: String,
+}
+
+impl PartialEq for Employee {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id
+    } 
+    // There is also a ne() method that can be implemented if not it will be inverse of eq()
+}
+
+impl Eq for Employee {} // No methods are needed
+
+let emp1 = Employee { id: 1, name: String::from("Alice") };
+let emp2 = Employee { id: 1, name: String::from("Bob") };
+assert!(emp1 == emp2); // true, also can be done as emp1.eq(&emp2)
+```
+
+#### Equality between different types
+You can also implement `PartialEq` between different types.
+
+```rust
+struct User {
+    username: String,
+}
+impl PartialEq<User> for Employee {
+    fn eq(&self, other: &User) -> bool {
+        self.name == other.username
+    }
+}
+```
+> For symmetry, if you implement `PartialEq<T>` for `U`, you should also implement `PartialEq<U>` for `T` to ensure symmetry in comparisons. for reflexivity you need to implement `PartialEq` for the same type (or without type parameter). Similarly for transitivity between T, U and V you need to implement `PartialEq` for all combinations.
 
 
+### PartialOrd and Ord Traits
+These traits allow you to compare two instances of a type for ordering (<, >, >=, <=, =) etc. PartialOrd inherits from PartialEq so you need to implement PartialEq first.
+
+```rust
+struct Rock {
+    weight: f32,
+    type: String,
+}
+impl PartialOrd for Rock {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        if(self.weight <= 0 || other.weight <= 0) {
+            return None; // invalid comparison
+        }
+        if self.weight < other.weight {
+            Some(Ordering::Less)
+        } else if self.weight > other.weight {
+            Some(Ordering::Greater)
+        } else {
+            Some(Ordering::Equal)
+        }
+    }
+    // there are also methods like lt, le, gt, ge that can be implemented if not they will be derived from partial_cmp
+
+    // Usage
+    let rock1 = Rock { weight: 5.0, type: String::from("Granite") };
+    let rock2 = Rock { weight: 10.0, type: String::from("Limestone") };
+    assert!(rock1 < rock2); // true
+}
+```
+
+**Read More:** [[Associated Types]]

@@ -48,7 +48,6 @@ fn main() {
         Color::Green => println!("Green"),
         Color::Blue => println!("Blue"),
     }
-<<<<<<< HEAD
     // you can also access the data inside the enums if they have any
     enum Message {
 	    Quit,              // Unit variant, no data
@@ -155,6 +154,15 @@ There is also an `unwrap_or` method, which can take a default value to return in
 
 ```rust
 let value = fifth.unwrap_or(-1);
+```
+
+Along with this there is an `unwrap_or_else` method which takes a [[Closures|closure]] that generates the default value.
+
+```rust
+let value = fifth.unwrap_or_else(|| {
+    // complex logic to generate default value
+    -1
+});
 ```
 
 - The `match` syntax is very useful for `Option` since it forces you to cover all possible cases unlike `unwrap` and `expect`.

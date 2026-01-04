@@ -68,17 +68,12 @@ fn main() {
     // println!("{}", describe_day(8)); // Panics with message
 }
 ```
-<<<<<<< HEAD
-
 #### `panic` macro
 Crash the program, well its not a crash since the cleanup is done by unwinding the stack.
 
 ```rust
 panic!(":(");
 ```
-=======
->>>>>>> b4134c0139b10cac0fbb64dd570820e60a9545e2
-
 ^panic_macro
 
 #### `format!` macro

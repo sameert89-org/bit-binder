@@ -27,11 +27,7 @@ These types store more than 1 value. There are 2 primitive compound types **Tupl
 ### Arrays
 Fixed size collection of *homogenous* data.
 ```rust
-<<<<<<< HEAD
 let myArray: [f32; 3] = [14.023,15f32,16.2342]; // Array of type f32 and length 3
-=======
-let myArray: [f32, 3] = [14.023,15f32,16.2342]; // Array of type f32 and length 3
->>>>>>> b4134c0139b10cac0fbb64dd570820e60a9545e2
 // All elements can be initialized to the same value.
 let ys: [i32; 500] = [0; 500];
 ```
