@@ -5,7 +5,7 @@ struct Lunch {
     cost: f64
 }
  
-iml Add for Lunch {
+impl Add for Lunch {
     type Output = Lunch; // Output is an associated type, since Lunch + Lunch may not be a lunch as far as rust is concerned
     fn add(self, other: Lunch) -> Lunch {
         Lunch {

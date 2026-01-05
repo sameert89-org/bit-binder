@@ -51,7 +51,7 @@ fn main() {
         println!("  {}", i); // Prints 1 to 6
     }
 
-    // 3. Iterating over an array
+    // 3. Iterating over an array or a vector
     let fruits = ["Apple", "Orange", "Banana"];
     println!("\nArray iteration:");
     for fruit in fruits {
