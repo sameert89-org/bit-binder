@@ -86,4 +86,12 @@ fn main() {
 }
 ```
 
-Read More: [[Recursions]]
+## `for_each` loop
+Applies a consistent operation to every iterator element. It accepts a closure.
+
+```rust
+let words = "This is a sententce.".split_whitespace();
+words.for_each(|word| println!("{},", word));
+```
+
+Read More: [[Recursions]], [[Closures]], [[Iterators]]
