@@ -23,8 +23,11 @@ int my_float = 15.0f32
 > Like other languages, Rust provides syntax to make numeric values more readable, for example- you can have underscores `_` between numbers anywhere and rust will ignore those, `100_000`. There is also a scientific notation- `let c = 6.02e23;    // Avogadro's number-ish (f64)`
 
 ## Compound Types
+
 These types store more than 1 value. There are 2 primitive compound types **Tuples & Arrays**. 
+
 ### Arrays
+^arrays
 Fixed size collection of *homogenous* data.
 ```rust
 let myArray: [f32; 3] = [14.023,15f32,16.2342]; // Array of type f32 and length 3

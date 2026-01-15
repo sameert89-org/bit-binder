@@ -25,5 +25,29 @@ numbers[1] = 56; // Of course the array needs to be mutable for this to work
 // Slicing
 let subset = &numbers[0..2];
 ```
+
 > [!Warning] A vector owns all of its contents
 > You cannot assign the value of an element to another owner, a vector owns all of its contents, it is only possible if a full Copy is made or a reference is borrowed.
+
+## Sorting
+I will cover sorting of vectors and arrays in this section since the methods are the same for both.
+
+```rust
+let mut numbers = vec![5,3,8,1,2]; // must be mutable to sort
+// check if numbers are sorted
+let is_sorted = numbers.is_sorted(); // false
+// sort in ascending order
+numbers.sort();
+
+// Sort by key (Takes a closure which returns the key, the key must implement Ord trait)
+numbers.sort_by_key(|&num| num % 3); // sorts based on remainder when divided by 3
+
+// custom comparator using sort_by
+// descending order
+numbers.sort_by(|a, b| b.cmp(a));
+
+```
+
+> *"For custom comparators, the closure must return an Ordering enum value which can be Less, Greater or Equal."*
+
+Read More: [[Compound Types#^arrays |Arrays]], [[Closures]]
