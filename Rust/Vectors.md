@@ -50,4 +50,4 @@ numbers.sort_by(|a, b| b.cmp(a));
 
 > *"For custom comparators, the closure must return an Ordering enum value which can be Less, Greater or Equal."*
 
-Read More: [[Compound Types#^arrays |Arrays]], [[Closures]]
+Read More: [[Data Types in Rust#^arrays|Arrays]], [[Closures]]
