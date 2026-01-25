@@ -103,7 +103,7 @@ let my_array_slice = my_array[0..1]; // has the full array logic, i.e you can mo
 > [!WARNING] Range slices are not based on indices
 > The range `x..y` might seem like it will give slice starting from index x till y. This is mostly true, but the `x` and `y` are not indexes, but are byte positions, if the character occupies more than one bytes, then rust will panic at runtime, since slicing those characters is not possible. However for `Arrays` it is based on index 🙈. Further more you cannot access an index directly from a `String`, you must create a slice even for a single character `my_string[0..1]`.
 
-
+^deref
 > [!INFO] Deref Coercion
 > Take a look at the following code:
 > ```rust
