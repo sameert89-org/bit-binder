@@ -2,5 +2,4 @@
 
 Problem Link: https://neetcode.io/problems/string-encode-and-decode/question?list=neetcode150
 
-Pretty straightforward, create a string and just iterated the list and append to the string with a delimiter.
-An edge case would be empty list, in that case our delimiter would be missing.
+A simple solution would be to think of a delimiter, and join and split as encode and decode, however the input can be a part of t
