@@ -16,4 +16,4 @@ class Solution:
 
 ```
 
-The correct way to solve this is prefix the length of the string with the delimiter, then we iterate till we see our first delimiter, we know that we must have passed the numbers by now, we get our pref
+The correct way to solve this is prefix the length of the string with the delimiter, then we iterate till we see our first delimiter, we know that we must have passed the numbers by now, we get our prefix (string till now) and convert it to an integer then jump that many spaces after the delimiter, this way we avoid mixing our prefixes with actual string data.
