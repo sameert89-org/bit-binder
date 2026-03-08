@@ -34,3 +34,8 @@ public:
 ```
 
  This costs us though, O(N) time but O(N) space as well. The last optimization here is to do it in *constant space*.
+
+When you stare at the above code, you can see the optimization , why do we even need those 2 arrays, can't we just use the result itself?
+
+We can fill the result with one type of products let's say prefix product then we can calculate the final result by traversing in reverse.
+
