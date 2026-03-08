@@ -39,3 +39,22 @@ When you stare at the above code, you can see the optimization , why do we even 
 
 We can fill the result with one type of products let's say prefix product then we can calculate the final result by traversing in reverse.
 
+```cpp
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+       int N = nums.size();
+       vector<int> result(N);
+       int i = 0, prefix = 1, suffix = 1;
+       while(i < N){
+        result[i] = prefix;
+        prefix *= nums[i++];
+       }
+       for(int j = N -1 ; j > -1; j--){
+        result[j] *= suffix;
+        suffix *= nums[j];
+       }
+       return result;
+    }
+};
+```
