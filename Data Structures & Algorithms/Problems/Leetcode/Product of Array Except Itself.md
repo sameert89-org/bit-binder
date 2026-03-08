@@ -11,3 +11,26 @@ one approach comes to mind its better to draw it here:
 ![[Product of Array Except Itself 2026-03-08 12.09.24.excalidraw]]
 
 If we could use 2 hashmaps (or 1 hashmap) one that stores the prefix products and one that stores the suffix products to and from each index respectively the problem becomes as simple as iterating over the index and finding the prefix and suffix product and then multiplying both to get the answer.
+
+```cpp
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+       int N = nums.size();
+       vector<int> prefix_product(N), suffix_product(N), result(N);
+       int i = 0, j = N - 1, prefix = 1, suffix = 1;
+       while(i < N){
+        prefix_product[i] = prefix;
+        prefix *= nums[i++];
+        suffix_product[j] = suffix;
+        suffix *= nums[j--];
+       }
+       for(int i = 0; i < N; i++){
+        result[i] = prefix_product[i] * suffix_product[i];
+       }
+       return result;
+    }
+};
+```
+
+ This costs us though, O(N) time but O(N) space as well. The last optimization here is to do it in *constant space*.
