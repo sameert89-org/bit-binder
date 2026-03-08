@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   build:
     name: Auto Deploy Trigger Via Tailnet Tunnel
