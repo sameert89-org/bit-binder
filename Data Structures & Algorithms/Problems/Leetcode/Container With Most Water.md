@@ -16,4 +16,27 @@ That tower could be either:
 2. Equal to tower 0
 3. Greater than tower 0
 
-In all 3 cases the 
+In all 3 cases the result will be smaller than result with n - 1, because d has decreased by atleast 1.
+
+This contradicts our assumption.
+
+If we skip over the smaller tower then there **Can** be a tower between 1 and n -1 whose result is greater than that with 0.
+
+```cpp
+#include<limits>
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int i = 0, j = height.size() - 1, result = numeric_limits<int>::min();
+        while(i < j){
+            result = max(result, (j - i) * min(height[i], height[j])); 
+
+            if(height[i] <= height[j])
+                i++;
+            else
+                j--;
+        }
+        return result;
+    }
+};
+```
