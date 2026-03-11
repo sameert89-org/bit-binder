@@ -1,6 +1,6 @@
 At its core, an interface is a **contract**. 
 
-This contract must be fulfilled by an implementing class. Interfaces enable [[Polymorphism]].
+This contract must be fulfilled by an implementing class. Interfaces enable [[Types of Polymorphism]].
 
 ```cpp
 class PaymentGateway  {
