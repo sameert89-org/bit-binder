@@ -5,4 +5,5 @@ Problem Link: https://leetcode.com/problems/3sum/description/
 
 Obvious solution is to bruteforce it in $O(N^3)$
 
-In order to optimize it
+In order to optimize it we can run a map and an $O(N^2)$ algorithm to find the third index.
+
