@@ -1,4 +1,4 @@
-#neetcode150  #sliding_window 
+#neetcode150 
 
 Problem Link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
 
