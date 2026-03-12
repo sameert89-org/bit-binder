@@ -1,4 +1,5 @@
-## Association ("has-a") In this type of relationship between classes, one object uses, communicates with or references another.
+## Association ("has-a") 
+In this type of relationship, two objects use or know about each other. They may or may not exist independently of each other.
 
 Example: A student has a teacher, both can exist independently of each other.
 
@@ -57,3 +58,5 @@ There is 1-1, 1-many, many-1, many-many associations possible.
 | **N:1**          | Citizens     | City              | Foreign key/Pointer in the "Many" side |
 | **N:N**          | Actors       | Movies            | Separate mapping table/class           |
 
+## Aggregation
+This is **subset** of [[#Association ("has-a")|Association]] , which implies a stronger **whole-part**
