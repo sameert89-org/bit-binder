@@ -108,5 +108,4 @@ This can be done via the following ways:
 Example: A chef and a knife, chef's cut method can cut things with the knife but then he doesn't need to keep the knife with him forever.
 
 ```cpp
-
 ```
