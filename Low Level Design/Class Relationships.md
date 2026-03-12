@@ -1,4 +1,5 @@
 ## Association ("has-a") 
+
 In this type of relationship, two objects use or know about each other. They can exist independently of each other.
 
 Example: A student has a teacher, both can exist independently of each other.
@@ -59,8 +60,9 @@ There is 1-1, 1-many, many-1, many-many associations possible.
 | **N:N**          | Actors       | Movies            | Separate mapping table/class           |
 
 ## Aggregation
-This is **subset** of [[#Association ("has-a")|Association]] , which implies a stronger **whole-part** relationship.
 
-For example: A team contains football players, players can exist independently as well.
+This is **subset** of [[#Association ("has-a")|Association]] , which implies a stronger **whole-part** relationship. The parts can exist without the whole and the parts can be shuffled/shared.
 
-This is tight coupling and the two entities are connected through a container-contained hierarchy
+For example: A team contains football players, players can exist independently as well. Or professors in department.
+
+This is tight coupling and the two entities are connected through a container-contained hierarchy.
