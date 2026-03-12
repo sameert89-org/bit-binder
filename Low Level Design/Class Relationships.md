@@ -74,5 +74,24 @@ This is the strongest form of **has-a** relationship.  Where toe whole owns the 
 Example: Roads and speed breakers, House and Rooms, Car and its components.
 
 ```cpp
+class SpeedBreaker {
+public:
+    SpeedBreaker() {
+        std::cout << " [Part] Speed breaker created.\n";
+    }
+    ~SpeedBreaker() {
+        std::cout << " [Part] Speed breaker destroyed.\n";
+    }
+};
 
+class Road {
+private:
+    std::vector<SpeedBreaker> breakers;
+
+public:
+    Road(int count) {
+        std::cout << "[Whole] Building Road...\n";
+        breakers.resize(count);
+    }
+};
 ```
