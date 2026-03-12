@@ -95,3 +95,7 @@ public:
     }
 };
 ```
+
+## Dependency
+
+A dependency exists when one class relies on another to do something, but does so without retaining a perman
