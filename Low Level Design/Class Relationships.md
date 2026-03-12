@@ -104,3 +104,6 @@ This can be done via the following ways:
 1. Accept/Return another class in/from a method
 2. Instantiate a class in a method.
 3. Depend on an interface instead of concrete types.
+
+Example: A chef and a knife, chef's cut method can cut things with the knife but then he doesn't need to keep the knife with him forever.
+
