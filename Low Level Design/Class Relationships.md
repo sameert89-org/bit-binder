@@ -66,3 +66,8 @@ This is **subset** of [[#Association ("has-a")|Association]] , which implies a s
 For example: A team contains football players, players can exist independently as well. Or professors in department.
 
 This is tight coupling and the two entities are connected through a container-contained hierarchy.
+
+## Composition
+
+This is the strongest form of **has-a** relationship.  Where toe whole owns the parts and controls their lifecycles.
+
