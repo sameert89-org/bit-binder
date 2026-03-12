@@ -98,4 +98,9 @@ public:
 
 ## Dependency
 
-A dependency exists when one class relies on another to do something, but does so without retaining a perman
+A dependency exists when one class relies on another to do something, but does so without retaining a permanent reference to it.
+
+This can be done via the following ways:
+1. Accept/Return another class in/from a method
+2. Instantiate a class in a method.
+3. Depend on an interface instead of concrete types.
