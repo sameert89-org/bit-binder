@@ -48,3 +48,12 @@ public:
 };
 ```
 
+There is 1-1, 1-many, many-1, many-many associations possible.
+
+| **Relationship** | **Entity A** | **Entity B**      | **Implementation Tip**                 |
+| ---------------- | ------------ | ----------------- | -------------------------------------- |
+| **1:1**          | Person       | Social Security # | Unique pointer or shared ID            |
+| **1:N**          | Library      | Books             | List/Vector in the "One" side          |
+| **N:1**          | Citizens     | City              | Foreign key/Pointer in the "Many" side |
+| **N:N**          | Actors       | Movies            | Separate mapping table/class           |
+
