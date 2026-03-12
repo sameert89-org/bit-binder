@@ -69,5 +69,10 @@ This is tight coupling and the two entities are connected through a container-co
 
 ## Composition
 
-This is the strongest form of **has-a** relationship.  Where toe whole owns the parts and controls their lifecycles.
+This is the strongest form of **has-a** relationship.  Where toe whole owns the parts and controls their lifecycles. The part cannot exist without the whole.
 
+Example: Roads and speed breakers, House and Rooms, Car and its components.
+
+```cpp
+
+```
