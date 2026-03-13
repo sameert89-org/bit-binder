@@ -46,4 +46,5 @@ public:
 
 This has the worst case time complexity of $O(26*n)$.  To further optimize this, we need to arrive at the following observation:
 
-> A window is valid as long as `most_frequent_element_count  `
+> A window is valid as long as `window_size - most_frequent_element_count <= k`
+
