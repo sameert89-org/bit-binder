@@ -45,3 +45,5 @@ public:
 ```
 
 This has the worst case time complexity of $O(26*n)$.  
+
+A cleaner way using the 
