@@ -12,3 +12,34 @@ For each alphabet that appears in `str` I will run a sliding window over the str
 
 ![[Longest Repeating Character Replacement 2026-03-13 17.37.33.excalidraw]]
 
+```cpp
+#include<format>
+class Solution {
+public:
+    int longestForChar(char ch, const string &s, const int &k) {
+        int wStart = 0, wEnd = 0, n = s.size(), non_ch_count = 0, result = 1;
+        while(wEnd < n) {
+            if(s[wEnd] != ch) {
+                non_ch_count++;
+                while(non_ch_count > k) {
+                    if(s[wStart] != ch) {
+                        non_ch_count--;
+                    }
+                    wStart++;
+                }
+            }
+            wEnd++;
+            result = max(result, wEnd - wStart);
+        }
+        return result; 
+    }
+    int characterReplacement(string s, int k) {
+        set<char> alphabets(s.begin(), s.end());
+        int result = 1;
+        for(auto it = alphabets.begin(); it != alphabets.end(); it++) {
+            result = max(result, longestForChar(*it, s, k));
+        }
+        return result;
+    }
+};
+```
