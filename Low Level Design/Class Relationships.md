@@ -108,4 +108,42 @@ This can be done via the following ways:
 Example: A chef and a knife, chef's cut method can cut things with the knife but then he doesn't need to keep the knife with him forever.
 
 ```cpp
+// Accept/Return another class in/from a method
+class EventPublisher {};
+class EventPublisherFactory {
+public:
+	EventPublisher createEventPublisher(const std::string &topic_name) {
+		return EventPublisher();
+	};
+};
+
+class Canvas {
+public:
+    void drawSprite(std::string name, int x, int y) {
+        std::cout << "Drawing " << name << " at (" << x << "," << y << ")\n";
+    }
+};
+
+class Player {
+private:
+    std::string name = "Hero";
+    int x = 10, y = 20;
+
+public:
+    void render(Canvas& currentScreen) { // Does not make sense to store hard reference to canvas since it might be recreated in the next scene
+        currentScreen.drawSprite(name, x, y);
+    }
+};
+
+// Instantiate class in a method
+class JsonFormatter {
+public:
+	std::string format(const std::string &message){
+		return "{\"message\":\"" + message + "\"}";
+	}
+};
+void printAsJson(const std::string &message){
+	JsonFormatter formatter;
+	std::cout << formatter.format(message);
+}
 ```
