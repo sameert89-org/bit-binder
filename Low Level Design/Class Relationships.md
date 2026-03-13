@@ -149,3 +149,11 @@ void printAsJson(const std::string &message){
 ```
 
 ### Dependency Injection
+
+When dependencies are provided from outside, it is known as dependency injection.
+You can let the objects create the objects of dependencies but that introduces *tight coupling* and reduces reusability.
+
+This is usually done through a constructor.
+
+```cpp
+```
