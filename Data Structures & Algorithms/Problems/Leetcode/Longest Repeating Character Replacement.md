@@ -8,4 +8,7 @@ This results in an $O(N^2)$ algorithm with linear space.
 
 This can be solved similar to [[Longest Substring Without Repeating Characters]] 
 
-For each alphabet that appears in `str` I will run a sliding window over the string, the window keeps adding the current number as long as I keep seeing it, as soon as 
+For each alphabet that appears in `str` I will run a sliding window over the string, the window keeps adding the current number as long as I keep seeing it, as soon as I see another number I need to replace it, I only have *k* replaces, as soon as I run out of replaces I must shrink my window from the left to grant me more replaces.
+
+![[Longest Repeating Character Replacement 2026-03-13 17.37.33.excalidraw]]
+
