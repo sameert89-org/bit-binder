@@ -6,7 +6,7 @@ A system will always need new features, but existing features should not have to
 
 Interfaces and abstractions are your friend :) but you need to not over do it.
 
-### E
+### Example of a code violating OCP
 ```cpp
 class CheckoutService {
 public:
@@ -20,4 +20,24 @@ public:
         }
     }
 };
+```
+### Corrected Code
+```cpp
+class CheckoutService {
+public:
+    void processPayment(PaymentMethod* method, double amount) {
+        PaymentProcessor processor;
+        processor.process(method, amount);
+    }
+};
+
+// Usage
+CheckoutService checkout;
+CreditCardPayment credit;
+PayPalPayment paypal;
+UPIPayment upi;
+
+checkout.processPayment(&credit, 100.00);
+checkout.processPayment(&paypal, 100.00);
+checkout.processPayment(&upi, 100.00);
 ```
