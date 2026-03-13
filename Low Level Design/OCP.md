@@ -1,3 +1,6 @@
 Open Closed Principle
 
-> "**A class should be open for change but closed for **"
+> "**A class should be open for extension but closed for modification.**"
+
+A system will always need new features, but existing features should not have to be changed for adding new features.
+
