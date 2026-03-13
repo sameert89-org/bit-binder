@@ -156,4 +156,11 @@ You can let the objects create the objects of dependencies but that introduces *
 This is usually done through a constructor.
 
 ```cpp
+class StorageService {
+private:
+	BlobContainerClient* blobContainerClient;
+public:
+	StorageService(BlobContainerClient &containerClient) : 
+		blobContainerClient(containerClient) {}
+}
 ```
