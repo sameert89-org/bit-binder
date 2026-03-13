@@ -10,4 +10,4 @@ To optimize this, we need to ask ourselves, how do I know if a string is the bes
 
 What if I can find this out on the fly?
 
-I can store the `last_seen` of each number and 
+I can store the `last_seen` of each number and the best answer at that index for that element
