@@ -12,6 +12,33 @@ to support LSP we just used [[ISP}]]
 
 Assume you have a model runner, a model runner has access to global model registry. It can sync data from model registry to update the model context.
 
+```cpp
+#include <format>
+#include <stdexcept>
+#include <string>
+#include <vector>
 
+class ModelRunner {
+protected:
+	std::vector<std::string> modelContext;
+public:
+	~ModelRunner() = default;
+	virtual void syncModelContextFromRegistry() = 0;
+	virtual std::string runInference(std::string &userMessage) = 0;
+};
 
-A new requirement came from US govt. to deploy the AI models for military use, these processors must be air gapped
+class CloudRunner : private ModelRunner {
+public:
+	void syncModelContextFromRegistry() override {
+		std::string receivedData = "new_data";
+		int dataPoints = 500; // Received from the sync call
+		this->modelContext.resize(dataPoints);
+		this->modelContext.push_back(receivedData);
+	};
+	std::string runInference(std::string &userMessage) override {
+		return "I cannot assist with that!";
+	}
+};
+```
+
+A new requirement came from US govt. to deploy the AI models for military use, these processors must be air gapped and the hardware must 
