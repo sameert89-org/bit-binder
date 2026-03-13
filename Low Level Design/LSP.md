@@ -10,4 +10,8 @@ to support LSP we just used [[ISP}]]
 
 ## Example: Model Runner
 
-Assume a model runner 
+Assume you have a model runner, a model runner has access to global model registry. It can sync data from model registry to update the model context.
+
+
+
+A new requirement came from US govt. to deploy the AI models for military use, these processors must be air gapped
