@@ -46,7 +46,8 @@ public:
 
 This has the worst case time complexity of $O(26*n)$.  To further optimize this, we need to arrive at the following observation:
 
-> A window is valid as long as `window_size - most_frequent_element_ever_seen <= k`
+> A window is valid as long as `window_size - most_frequent_element_seen_so_far <= k`
 
 
-We push the elements in our window and update the max frequency ever seen. As soon as we see that the above condition is violated, we have to shrink the window from the left in order to 
+We push the elements in our window and update the max frequency ever seen. As soon as we see that the above condition is violated, we have to shrink the window from the left in order to make it valid.
+
