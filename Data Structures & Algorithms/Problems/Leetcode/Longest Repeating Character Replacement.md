@@ -44,6 +44,40 @@ public:
 };
 ```
 
-This has the worst case time complexity of $O(26*n)$.  
+This has the worst case time complexity of $O(26*n)$.  A cleaner way to solve this is using the following intuition:
 
-A cleaner way using the 
+> A window is valid as long as `window_size - most_frequent_element_freq <= k`
+
+
+```cpp
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        const int N = s.size();
+        int wStart = 0, wEnd = 0, result = 0;
+
+        vector<int> frequencies(26, 0);
+
+        while(wEnd < N) {
+            frequencies[s[wEnd] - 'A']++;
+            int highestFreqInWindow = *max_element(frequencies.begin(), frequencies.end());
+            int windowLength = wEnd - wStart + 1;
+            bool isWindowValid = windowLength - highestFreqInWindow <= k;
+
+            while(!isWindowValid and wStart < wEnd) {
+                frequencies[s[wStart] - 'A']--;
+                wStart++;
+                highestFreqInWindow = *max_element(frequencies.begin(), frequencies.end());
+                windowLength = wEnd - wStart + 1;
+                isWindowValid = windowLength - highestFreqInWindow <= k;
+            }
+
+            result = max(result, windowLength);
+            wEnd++;
+        }
+        return result;
+    }
+};
+```
+
+This can be optimized just replace the max_element with global highest seen so far, I have no idea how that works and it seems wrong.
