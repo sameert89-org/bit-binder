@@ -41,4 +41,29 @@ public:
 };
 ```
 
-A new requirement came from US govt. to deploy the AI models for military use, these processors must be air gapped and the hardware must 
+A new requirement came from US govt. to deploy the AI models for military use, these processors must be air gapped and the hardware must be deployed in their facility.
+
+```cpp
+class NetworkException : std::runtime_error {
+public:
+	explicit NetworkException(const std::string &message)
+		: std::runtime_error(format("A network error occured with the following message: {}", message)) {}
+};
+
+class SecureEdgeRunner : private ModelRunner {
+public:
+	void syncModelContextFromRegistry() override {
+		// cannot make a network call
+		throw NetworkException("Destination Unreachable");
+	}
+
+	std::string runInference(std::string &userMessage) override {
+		// do something on local hardware
+		return "I cannot assist with that!";
+	}
+};
+```
+
+Now you try to run this and you have to account for the exception at runtime. This child does not obey the contract, likely because contract is too binding.
+
+Instead of this we could make 2 different base classes, `ISyncable` and `IModelRunner`
