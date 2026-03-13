@@ -147,3 +147,5 @@ void printAsJson(const std::string &message){
 	std::cout << formatter.format(message);
 }
 ```
+
+### Dependency Injection
