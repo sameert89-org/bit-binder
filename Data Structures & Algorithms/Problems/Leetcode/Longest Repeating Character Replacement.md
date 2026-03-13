@@ -6,8 +6,6 @@ The first approach that comes to mind is to use bruteforce to generate all subst
 
 This results in an $O(N^2)$ algorithm with linear space.
 
-To optimize this, we need to ask ourselves, how do I know if a string is the best for using my K choices? Furthermore I know that the length of a substring would be difference between 2 indices more or less.
+This can be solved similar to [[Longest Substring Without Repeating Characters]] 
 
-What if I can find this out on the fly?
-
-I can store the `last_seen` of each number and the best answer at that index for that element
+For each alphabet that appears in `str` I will run a sliding window over the string, the window keeps adding the current number as long as I keep seeing it, as soon as 
