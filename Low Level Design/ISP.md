@@ -7,7 +7,6 @@ Means DO NOT MAKE FAT INTERFACES
 If an interface expects too much of the clients then they will be implementing un-necessary functionality for no reason.
 
 ```csharp
-// ❌ VIOLATION: The "Fat" Interface
 public interface ISmartDevice {
     void TogglePower();
     void SetBrightness(int level);
@@ -26,3 +25,25 @@ public class BasicSmartBulb : ISmartDevice {
     public void StreamVideo() => throw new NotImplementedException();
 }
 ```
+
+The solution
+
+```cpp
+public interface IPowerable {
+    void TogglePower();
+}
+
+public interface ILightable {
+    void SetBrightness(int level);
+}
+
+public interface IThermalControl {
+    void AdjustTemperature(double celsius);
+}
+
+public interface IMotionSensor {
+    void DetectMotion();
+}
+```
+
+The `smart_bulb` only needs to implement `IPowerable` & `ILightable` .
