@@ -58,3 +58,35 @@ There is an optimized Combinatorics approach to this problem
 
 ![[The k-th lexicographical string of All Happy Strings of Length n 2026-03-14 14.35.43.excalidraw]]
 
+```cpp
+class Solution {
+public:
+    string getHappyString(int n, int k) {
+        k--; // convert to 0 indexed
+        string kthHappyString = "";
+        // find first char
+        if(0 <= k && k < pow(2, n - 1))
+            kthHappyString += 'a';
+        else if(pow(2, n - 1) <= k && k < 2 * pow(2, n - 1))
+            kthHappyString += 'b';
+        else if (2 * pow(2, n - 1) <= k && k < 3 * pow(2, n - 1))
+            kthHappyString += 'c';
+        else
+            return kthHappyString;
+        
+        unordered_map<char, string> choices {
+            {'a',"bc"},
+            {'b',"ac"},
+            {'c',"ab"}
+        };
+        while(--n) {
+            k %= static_cast<int>(pow(2, n));
+            // cout << k << "," << n << endl;
+            int choice_idx = k < (pow(2, n) / 2) ? 0 : 1; // which half 
+            kthHappyString += choices[kthHappyString.back()][choice_idx];
+        }
+
+        return kthHappyString;
+    }
+};
+```
