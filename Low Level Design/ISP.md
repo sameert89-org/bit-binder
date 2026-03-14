@@ -5,3 +5,24 @@
 Means DO NOT MAKE FAT INTERFACES 
 
 If an interface expects too much of the clients then they will be implementing un-necessary functionality for no reason.
+
+```csharp
+// ❌ VIOLATION: The "Fat" Interface
+public interface ISmartDevice {
+    void TogglePower();
+    void SetBrightness(int level);
+    void AdjustTemperature(double celsius); // Irrelevant for bulbs
+    void DetectMotion();                   // Irrelevant for thermostats
+    void StreamVideo();                    // Irrelevant for most devices
+}
+
+public class BasicSmartBulb : ISmartDevice {
+    public void TogglePower() => Console.WriteLine("Light toggled.");
+    public void SetBrightness(int level) => Console.WriteLine($"Brightness at {level}%.");
+
+    // Forced to implement methods it can't use
+    public void AdjustTemperature(double c) => throw new NotImplementedException();
+    public void DetectMotion() => throw new NotImplementedException();
+    public void StreamVideo() => throw new NotImplementedException();
+}
+```
