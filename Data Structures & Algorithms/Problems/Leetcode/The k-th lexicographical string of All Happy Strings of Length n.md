@@ -53,3 +53,7 @@ public:
 ```
 
 Since we only go till k times, this optimized recursion is $O(k\cdot n)$
+
+There is an optimized Combinatorics approach to this problem
+
+![[The k-th lexicographical string of All Happy Strings of Length n 2026-03-14 14.35.43.excalidraw]]
