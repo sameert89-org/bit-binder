@@ -67,3 +67,53 @@ public:
 Now you try to run this and you have to account for the exception at runtime. This child does not obey the contract, likely because contract is too binding.
 
 Instead of this we could make 2 different base classes, `ISyncable` and `IModelRunner`
+
+```cpp
+#include <format>
+#include <stdexcept>
+#include <string>
+#include <vector>
+#include <memory>
+
+// The base "Concept" - represents any object that can run inference
+class ModelRunner {
+public:
+    virtual ~ModelRunner() = default;
+    virtual std::string runInference(const std::string &userMessage) = 0;
+};
+
+// A specialized capability for runners that can talk to a registry
+class Syncable {
+public:
+    virtual ~Syncable() = default;
+    virtual void syncFromRegistry() = 0;
+};
+
+// Shared logic for runners that need to store state
+class BaseRunner : public ModelRunner {
+protected:
+    std::vector<std::string> modelContext;
+};
+
+// Cloud implementation: It "is-a" Runner and "is" Syncable
+class CloudRunner : public BaseRunner, public Syncable {
+public:
+    void syncFromRegistry() override {
+        std::string receivedData = "new_data";
+        // .assign() replaces the contents, avoiding the resize + push_back bug
+        this->modelContext.assign(500, receivedData);
+    }
+
+    std::string runInference(const std::string &userMessage) override {
+        return std::format("Cloud processing: {}", userMessage);
+    }
+};
+
+// SecureEdge implementation: It "is-a" Runner only
+class SecureEdgeRunner : public BaseRunner {
+public:
+    std::string runInference(const std::string &userMessage) override {
+        return std::format("Local edge processing: {}", userMessage);
+    }
+};
+```
