@@ -6,7 +6,7 @@ Example: An ostrich is a bird, but it cannot fly, if the bird interface has a `f
 
 A better way of modelling this problem would be using the Flyer class, A pigeon implements both Flyer and Bird but the ostrich only implements Bird.
 
-to support LSP we just used [[ISP}]]
+to support LSP we just used [[ISP]]
 
 ## Example: Model Runner
 
