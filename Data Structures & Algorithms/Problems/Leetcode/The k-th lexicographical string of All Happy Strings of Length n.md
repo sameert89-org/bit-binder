@@ -52,3 +52,4 @@ public:
 };
 ```
 
+Since we only go till k times, this optimized recursion is $O(k\cdot n)$
