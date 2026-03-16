@@ -11,3 +11,6 @@
 
 
 ![[Class Relationships]]
+
+
+[[Design Principles]]
