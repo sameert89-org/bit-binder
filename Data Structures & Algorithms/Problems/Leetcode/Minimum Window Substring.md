@@ -36,3 +36,5 @@ class Solution:
         return s[res[0]:res[1] + 1]
 ```
 
+The optimization from here is to realize that we do not need to check isValid for all characters every time. Instead we can keep the 2 maps and track how many characters have met their requirement.
+
