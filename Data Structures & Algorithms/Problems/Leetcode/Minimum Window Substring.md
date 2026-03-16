@@ -38,3 +38,37 @@ class Solution:
 
 The optimization from here is to realize that we do not need to check isValid for all characters every time. Instead we can keep the 2 maps and track how many characters have met their requirement.
 
+```python
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        f1 = Counter(t)
+        s += "0"
+        N = len(s)
+        w_start = 0
+        w_end = 0
+        f2 = Counter()
+        res = (len(s), 2*len(s) + 1)
+            
+        satisfied = 0 # how many of the characters in t have required count in s
+        while w_end < N:
+            f2[s[w_end]] += 1
+
+            if s[w_end] in f1 and f2[s[w_end]] == f1[s[w_end]]:
+                satisfied += 1
+
+            # shrink till window becomes invalid
+            while w_start <= w_end and satisfied == len(f1):
+                # save the current result since its valid
+                if res[1] - res[0] + 1 > w_end - w_start + 1:
+                    res = (w_start, w_end)
+                
+                f2[s[w_start]] -= 1
+                if s[w_start] in f1 and f1[s[w_start]] > f2[s[w_start]]:
+                    satisfied -= 1
+                    
+                w_start += 1
+
+            w_end += 1
+        
+        return s[res[0]:res[1] + 1]
+```
