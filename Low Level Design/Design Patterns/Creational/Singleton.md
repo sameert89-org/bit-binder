@@ -51,5 +51,5 @@ public:
 ```
 
 ```csharp
-
+class EagerLogger
 ```
