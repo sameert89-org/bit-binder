@@ -22,3 +22,19 @@ public:
 	}
 }
 ```
+
+**Eager initialization**: Instead of Lazy initialization (instance created when `getInstance` is called first time)
+
+```cpp
+private:
+	Logger() {} // make the default constructor private
+	Logger(const Logger&) = delete; // delete the copy constructor
+	Logger& operator=(const Logger&) = delete; // delete the assignment operator
+	static Logger instance;
+	
+public:
+	static Logger& getInstance() {
+		return instance;
+	}
+}
+```
