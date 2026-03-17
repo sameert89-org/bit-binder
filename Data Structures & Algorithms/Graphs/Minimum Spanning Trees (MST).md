@@ -14,7 +14,7 @@ Cuz its a tree, it <mark style="background: #D2B3FFA6;">can't have cycles</mark>
 
 1. If each edge weight is unique then there can be only one MST.
 2. For every cycle in the graph, the edge with the largest weight in the cycle, cannot belong to any MST.
-3. For a Cut C of a [[Graphs]] any edge E that belongs to the cut set of C that has the least weight out of all the edges of the cut set, belongs to all the edges of the cut set.
+3. For a Cut C of a [[Graphs]] any edge E that belongs to the cut set of C that has the least weight out of all the edges of the cut set, belongs to the MST.
 
 ![[example1-1.webp|500]]![[example2-1.webp|500]]
 There are various algorithms for finding the minimum spanning trees.

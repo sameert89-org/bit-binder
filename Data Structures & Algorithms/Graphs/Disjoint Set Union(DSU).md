@@ -56,12 +56,12 @@ class DSU {
         if(parent[u] == u) return u;
         return parent[u] = find(parent[u]);
     }
-    bool union(int u, int v){
+    bool unite(int u, int v){
         int u_root = find(u), v_root = find(v);
         if(u_root != v_root){
             if(rank[u_root] >= rank[v_root]) parent[v_root] = u_root;
             else parent[u_root] = v_root;
-            rank[u_root] += rank[u_root] == rank[v_roo];
+            rank[u_root] += rank[u_root] == rank[v_root];
             return true;
         }
         return false;
