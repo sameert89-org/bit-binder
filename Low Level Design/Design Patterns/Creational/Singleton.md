@@ -51,5 +51,9 @@ public:
 ```
 
 ```csharp
-class EagerLogger
+public sealed class EagerLogger {
+	private static readonly EagerLogger _instance = new();
+	private EagerLogger() {}
+	public static Instance => _instance;
+}
 ```
