@@ -1,4 +1,4 @@
-#needcode150 #sliding_window 
+#needcode150 #sliding_window
 
 Problem Link: https://leetcode.com/problems/longest-repeating-character-replacement/
 
@@ -6,9 +6,9 @@ The first approach that comes to mind is to use bruteforce to generate all subst
 
 This results in an $O(N^2)$ algorithm with linear space.
 
-This can be solved similar to [[Longest Substring Without Repeating Characters]] 
+This can be solved similar to [[Longest Substring Without Repeating Characters]]
 
-For each alphabet that appears in `str` I will run a sliding window over the string, the window keeps adding the current number as long as I keep seeing it, as soon as I see another number I need to replace it, I only have *k* replaces, as soon as I run out of replaces I must shrink my window from the left to grant me more replaces.
+For each alphabet that appears in `str` I will run a sliding window over the string, the window keeps adding the current number as long as I keep seeing it, as soon as I see another number I need to replace it, I only have _k_ replaces, as soon as I run out of replaces I must shrink my window from the left to grant me more replaces.
 
 ![[Longest Repeating Character Replacement 2026-03-13 17.37.33.excalidraw]]
 
@@ -31,7 +31,7 @@ public:
             wEnd++;
             result = max(result, wEnd - wStart);
         }
-        return result; 
+        return result;
     }
     int characterReplacement(string s, int k) {
         set<char> alphabets(s.begin(), s.end());
@@ -44,10 +44,9 @@ public:
 };
 ```
 
-This has the worst case time complexity of $O(26*n)$.  A cleaner way to solve this is using the following intuition:
+This has the worst case time complexity of $O(26*n)$. A cleaner way to solve this is using the following intuition:
 
 > A window is valid as long as `window_size - most_frequent_element_freq <= k`
-
 
 ```cpp
 class Solution {
