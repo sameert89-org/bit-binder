@@ -10,8 +10,15 @@ How to implement a singleton?
 ```cpp
 // Meyer's singleton
 class Logger {
+private:
+	Logger() {} // make the default constructor private
+	Logger(const Logger&) = delete; // delete the copy constructor
+	Logger& operator=(const Logger&) = delete; // delete the assignment operator
+	
 public:
-	Logger(Logger &original) = delete; // delete the copy cons
-	Operator
+	static Logger& getInstance() {
+		static Logger instance;
+		return instance;
+	}
 }
 ```
