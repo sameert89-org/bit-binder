@@ -8,7 +8,7 @@ Why do I need singleton?
 How to implement a singleton?
 
 ```cpp
-// Meyer's singleton
+// Meyer's singleton (thread safe)
 class Logger {
 private:
 	Logger() {} // make the default constructor private
@@ -24,10 +24,15 @@ public:
 ```
 
 ```csharp
-class Logger {
-public 
+public sealed class Logger {
+	private static readonly Lazy<Logger> _instance => Lazy<Instance>(() => new Logger());
+	
+	public static Logger Instance => _instance.Value;
+	
+	private Logger() { } // make the constructor private
 }
 ```
+
 **Eager initialization**: Instead of Lazy initialization (instance created when `getInstance` is called first time)
 
 ```cpp
@@ -43,4 +48,8 @@ public:
 		return instance;
 	}
 };
+```
+
+```csharp
+
 ```
