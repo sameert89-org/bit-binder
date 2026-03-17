@@ -23,18 +23,24 @@ public:
 }
 ```
 
+```csharp
+class Logger {
+public 
+}
+```
 **Eager initialization**: Instead of Lazy initialization (instance created when `getInstance` is called first time)
 
 ```cpp
+class EagerLogger {
 private:
-	Logger() {} // make the default constructor private
-	Logger(const Logger&) = delete; // delete the copy constructor
-	Logger& operator=(const Logger&) = delete; // delete the assignment operator
-	static Logger instance;
+	EagerLogger() {} // make the default constructor private
+	EagerLogger(const EagerLogger&) = delete; // delete the copy constructor
+	EagerLogger& operator=(const EagerLogger&) = delete; // delete the assignment operator
+	static EagerLogger instance;
 	
 public:
-	static Logger& getInstance() {
+	static EagerLogger& getInstance() {
 		return instance;
 	}
-}
+};
 ```
