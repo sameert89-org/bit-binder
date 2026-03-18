@@ -34,3 +34,33 @@ using the data structure is almost always overkill on Leetcode.
 This is a classic problem for [[Monotonic Data Structures | Monotonic Queue]] 
 
 ![[Sliding Window Maximum 2026-03-18 18.37.58.excalidraw]]
+
+```python
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        dq = deque()
+        l = 0
+        r = k
+        N = len(nums)
+
+        def mono_insert(val):
+            # monotonic decreasing
+            while dq and dq[-1] < val:
+                dq.pop()
+            dq.append(val)
+
+        for i in range(k):
+            mono_insert(nums[i])
+
+        res = [dq[0]]
+
+        while r < N:
+            mono_insert(nums[r])
+            if dq[0] == nums[l]:
+                dq.popleft()
+            res.append(dq[0])
+            r += 1
+            l += 1
+
+        return res
+```
