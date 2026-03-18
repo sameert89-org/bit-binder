@@ -30,3 +30,7 @@ class Solution:
 ```
 
 using the data structure is almost always overkill on Leetcode.
+
+This is a classic problem for [[Monotonic Data Structures | Monotonic Queue]] 
+
+![[Sliding Window Maximum 2026-03-18 18.37.58.excalidraw]]
