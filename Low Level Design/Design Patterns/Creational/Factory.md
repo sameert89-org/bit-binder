@@ -16,49 +16,36 @@ Factories often rely on implementations to do this, because its not necessary th
 **How do I implement a factory?**
 
 ```csharp
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 public interface INotifier {
     Task Notify();
 }
 
+// Example Implementation
 public class EmailNotifier(Dictionary<string, string> attributes) : INotifier {
-    public async Task Notify() {
-        // Implementation here
-        await Task.CompletedTask;
-    }
-}
-
-public class SmsNotifier(Dictionary<string, string> attributes) : INotifier {
-    public async Task Notify() {
-        // Implementation here
-        await Task.CompletedTask;
-    }
+    public async Task Notify() => await Task.CompletedTask;
 }
 
 public class NotifierFactory {
-    private readonly Dictionary<string, Func<Dictionary<string, string>, INotifier>> _notifierRegistry;
+    private readonly Dictionary<string, Func<Dictionary<string, string>, INotifier>> _notifierRegistry = new();
 
     public NotifierFactory() {
-        _notifierRegistry = new Dictionary<string, Func<Dictionary<string, string>, INotifier>> {
-            {"email", (attributes) => new EmailNotifier(attributes)},
-            {"sms", (attributes) => new SmsNotifier(attributes)}
-        };
+        RegisterNotifier("email", attrs => new EmailNotifier(attrs));
+        RegisterNotifier("sms", attrs => new SmsNotifier(attrs));
+    }
+
+    public void RegisterNotifier(string identifier, Func<Dictionary<string, string>, INotifier> creator) {
+        _notifierRegistry[identifier] = creator;
     }
 
     public INotifier CreateNotifier(string identifier, Dictionary<string, string> attributes) {
         if (_notifierRegistry.TryGetValue(identifier, out var creator)) {
             return creator(attributes);
         }
-        throw new ArgumentException($"Notifier type '{identifier}' not registered.");
-    }
-
-    public void RegisterNotifier(string identifier, Type type) {
-        _notifierRegistry.Add(identifier, (attributes) => {
-            return (INotifier)Activator.CreateInstance(type, attributes)!;
-        });
+        throw new Exception($"Notifier '{identifier}' is not registered.");
     }
 }
+```
+
+```cpp
+
 ```
