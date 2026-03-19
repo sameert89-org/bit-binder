@@ -16,5 +16,23 @@ Factories often rely on implementations to do this, because its not necessary th
 **How do I implement a factory?**
 
 ```csharp
+public interface INotifier {
+	Task Notify();
+}
 
+public class EmailNotifier : INotifier {
+	Task Notify() {
+		throw new NotImplementedException();
+	}
+}
+
+public class SmsNotifier : INotifier {
+	Task Notify() {
+		throw new NotImplementedException();
+	}
+}
+
+public class NotifierFactory() {
+	Task C
+}
 ```
