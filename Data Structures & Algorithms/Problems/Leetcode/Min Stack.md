@@ -8,7 +8,9 @@ The main problem that arises is what if I pop the minimum element, then I need t
 
 But that is not the case, you need to realize that you only need to store every minimum number seen at a point of time. If I get a minimum number that is smaller than my current minimum then and only then its worth storing.
 
-Why? Lets suppose you store a larger number as well, will this larger number ever be a minim
+Why? Lets suppose you store a larger number as well, will this larger number ever be a minimum? 
+
+The answer is no, b
 
 ```cpp
 class MinStack {
