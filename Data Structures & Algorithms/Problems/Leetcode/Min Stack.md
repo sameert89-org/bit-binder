@@ -10,7 +10,13 @@ But that is not the case, you need to realize that you only need to store every 
 
 Why? Lets suppose you store a larger number as well, will this larger number ever be a minimum? 
 
-The answer is no, b
+The answer is no, because a smaller number was already added under it in the stack and that number will stay minima until that is removed but that can never happen until the larger number on top of it is removed as well.
+
+If I store the smaller number than that is going to be the current minima until popped after which the minima below it can take its place.
+
+You just need to be careful around certain edge cases and empty checks.
+
+Below is the implementation: (I kept extra mn variable, sure you can do it without it as well, but that is what is understandable to me).
 
 ```cpp
 class MinStack {
