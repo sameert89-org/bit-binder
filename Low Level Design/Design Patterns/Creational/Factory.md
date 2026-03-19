@@ -33,6 +33,12 @@ public class SmsNotifier : INotifier {
 }
 
 public class NotifierFactory() {
-	public TA
+	private readonly Dictionary<string, Action<Dictionary<string, string> attributes>> notifierRegistry = {
+		{"email", (Dictionary<string, string> attributes) => EmailNotifier()},
+		{"sms", () => SmsNotifier()}
+	}
+	public Task CreateNotifier(string notifierType) {
+		if(this.notifierRegistry.TryGetValue(notifierType, out creator)) 
+	}
 }
 ```
