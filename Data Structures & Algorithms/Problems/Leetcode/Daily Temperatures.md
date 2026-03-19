@@ -17,7 +17,6 @@ public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
         int N = temperatures.size();
         vector<int> res(N);
-
         stack<int> monoSt;
 
         for(int i = N - 1; i > -1; i--) {
