@@ -9,7 +9,6 @@ The only difference is that it has char's, I tried using an efficient way to cou
 class Solution {
 public:
     int numberOfSubmatrices(vector<vector<char>>& grid) {
-        // same approach as yesterday's question
         // prefix sum + scan left
         int R = grid.size(), C = grid[0].size();
         vector<vector<pair<int, int>>> counts(R, vector<pair<int, int>>(C, {0, 0}));
