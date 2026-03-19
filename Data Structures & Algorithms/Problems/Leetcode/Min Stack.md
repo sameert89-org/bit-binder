@@ -69,3 +69,5 @@ public:
  * int param_4 = obj->getMin();
  */
 ```
+
+There is another way to do this without using this extra stack. Instead of storing the val I store `val - curr_min` in the stack.
