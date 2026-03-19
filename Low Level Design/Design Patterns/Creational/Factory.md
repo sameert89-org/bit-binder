@@ -47,5 +47,78 @@ public class NotifierFactory {
 ```
 
 ```cpp
+#include <format>
+#include <functional>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <unordered_map>
+class Notifier {
+public:
+  virtual ~Notifier() = default;
+  virtual void Notify() = 0;
+};
 
+class EmailNotifier : public Notifier {
+private:
+  std::unordered_map<std::string, std::string> _attrs;
+
+public:
+  EmailNotifier(std::unordered_map<std::string, std::string> attrs)
+      : _attrs(attrs) {
+    std::cout << "Email Notifier Initialized";
+  }
+  void Notify() override { std::cout << "Sending Email Notification"; }
+};
+
+class SmsNotifier : public Notifier {
+private:
+  std::unordered_map<std::string, std::string> _attrs;
+
+public:
+  SmsNotifier(std::unordered_map<std::string, std::string> attrs)
+      : _attrs(attrs) {
+    std::cout << "Sms Notifier Initialized";
+  }
+  void Notify() override { std::cout << "Sending Sms Notification"; }
+};
+
+using Creator = std::function<std::unique_ptr<Notifier>(
+    std::unordered_map<std::string, std::string>)>;
+class NotificationFactory {
+private:
+  std::unordered_map<std::string, Creator> _registry;
+
+public:
+  std::unique_ptr<Notifier>
+  CreateNotifier(std::string identifier,
+                 std::unordered_map<std::string, std::string> attributes) {
+    if (_registry.contains(identifier))
+      return _registry[identifier](attributes);
+    std::cerr << std::format("identifier {} not registered", identifier);
+    return nullptr;
+  }
+
+  void RegisterNotifier(std::string identifier, Creator creator) {
+    _registry[identifier] = creator;
+  }
+};
+
+int main(int argc, char **argv) {
+  NotificationFactory notificationFactory;
+  notificationFactory.RegisterNotifier("email", [](auto attrs) {
+    return std::make_unique<EmailNotifier>(attrs);
+  });
+  notificationFactory.RegisterNotifier(
+      "sms", [](auto attrs) { return std::make_unique<SmsNotifier>(attrs); });
+
+  auto notifier = notificationFactory.CreateNotifier(
+      "sms", std::unordered_map<std::string, std::string>({
+                 {"to", "test@gmail.com"},
+             }));
+
+  notifier->Notify();
+
+  return 0;
+}
 ```
