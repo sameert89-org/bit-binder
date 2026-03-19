@@ -33,6 +33,6 @@ public class SmsNotifier : INotifier {
 }
 
 public class NotifierFactory() {
-	Task C
+	public TA
 }
 ```
