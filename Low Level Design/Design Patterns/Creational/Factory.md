@@ -20,25 +20,32 @@ public interface INotifier {
 	Task Notify();
 }
 
-public class EmailNotifier : INotifier {
-	Task Notify() {
+public class EmailNotifier(Dictionary<string, string> attributes) : INotifier {
+
+	public async Task Notify() {
 		throw new NotImplementedException();
 	}
 }
 
-public class SmsNotifier : INotifier {
-	Task Notify() {
+public class SmsNotifier(Dictionary<string, string> attributes) : INotifier {
+	public async Task Notify() {
 		throw new NotImplementedException();
 	}
 }
 
 public class NotifierFactory() {
-	private readonly Dictionary<string, Action<Dictionary<string, string> attributes>> notifierRegistry = {
-		{"email", (Dictionary<string, string> attributes) => EmailNotifier()},
-		{"sms", () => SmsNotifier()}
+	private readonly Dictionary<string, Action<Dictionary<string, string>>> notifierRegistry = {
+		{"email", (Dictionary<string, string> attributes) => EmailNotifier(attributes)},
+		{"sms", (Dictionary<string, string> attributes) => SmsNotifier(attributes)},
 	}
-	public Task CreateNotifier(string notifierType) {
-		if(this.notifierRegistry.TryGetValue(notifierType, out creator)) 
+	public async Task CreateNotifier(string identifier, Dictionary<string, string> attributes) {
+		if(this.notifierRegistry.TryGetValue(identifier, out creator)) {
+		return creator(attributes);
+		}
+	}
+	
+	public RegisterNotifier(string identifier, Type type) {
+		this.notifier.Add(identifier, (Dictionary<string, string> attributes) => Type());
 	}
 }
 ```
