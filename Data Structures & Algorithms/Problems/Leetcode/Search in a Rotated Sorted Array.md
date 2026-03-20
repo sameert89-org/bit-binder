@@ -2,4 +2,5 @@
 
 This is very similar to [[Minimum in Sorted and Rotated Arrays]]
 
-T
+Using the same logic I can determine in which half I am.
+
