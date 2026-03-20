@@ -63,7 +63,7 @@ public:
 #flashcards/dsa_revision 
 
 Product of Array Except Itself how do you solve this problem?::Maintaion a prefix suffix product array where prefix stores product from 0 to i and suffix stores product from N-1 to i
-<!--SR:!2026-03-11,3,250-->
+<!--SR:!2026-03-28,8,250-->
 
 What is the space optimization for this problem?::It can be done in constant space by using the result array as the prefix product array and going from back and using a single variable as suffix instead of having to maintain both.
-<!--SR:!2026-03-09,1,230-->
+<!--SR:!2026-03-21,1,210-->

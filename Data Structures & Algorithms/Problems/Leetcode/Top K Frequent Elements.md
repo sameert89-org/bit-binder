@@ -69,4 +69,4 @@ public:
 
 ## Flashcards
 Does the optimal solution of K most Frequent Elements use Min Heap?::Yes it uses min heap, we bind the size of the min_heap to k and keep popping if it exceeds that , this saves us space and time since heapify grows as the lenght grows. **top-k-approach**
-<!--SR:!2026-03-10,3,250-->
+<!--SR:!2026-03-31,11,270-->

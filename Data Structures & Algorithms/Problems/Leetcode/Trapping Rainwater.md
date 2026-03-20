@@ -63,4 +63,8 @@ public:
 ```
 
 ## Flashcards
-What is the core idea for Trapping Rainwater 1? ::  The core Idea is finding the *water collected on top of each tower* which is done b
+What is the core idea for Trapping Rainwater 1? ::  The core Idea is finding the *water collected on top of each tower* which is done by finding the largest tower towards right and towards the left of the tower.
+<!--SR:!2026-03-23,3,250-->
+
+Is Trapping Rainwater a mono stacks Problem? :: No, monotonic stacks are applied in next greater or next smaller kind of problems. This can be easily done using two pointers and maintaining a maximum.
+<!--SR:!2026-03-23,3,250-->
