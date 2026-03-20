@@ -1,4 +1,4 @@
-#needcode150 #two-pointers 
+#needcode150 #two-pointers #flashcards/dsa_revision 
 
 This is not a stack problem lil bro. Why the fuck do you keep thinking that this & [[Container With Most Water]] is of stacks??
 
@@ -61,3 +61,6 @@ public:
     }
 };
 ```
+
+## Flashcards
+What is the core idea for Trapping Rainwater 1? ::  The core Idea is finding the *water collected on top of each tower* which is done b
