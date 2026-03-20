@@ -6,8 +6,9 @@ Similar to [[Factory]] to avoid code duplication and having an easy way to creat
 **How do I implement an Abstract Factory?**
 
 Follow the 3 steps:
-1. Find the interfaces for the families of classes i.e. group your classes together based on the contract that they follow.
-2. Create the abstract factory
+1. Find the interfaces for the families of classes i.e. group your classes together based on the contract that they follow. Say you have family 1 and family 2
+2. Create the abstract factory, this has methods for returning `IFamily1` and `IFamily2`
+3. 
 
 ```csharp
 // 1. Abstract Products
@@ -32,7 +33,7 @@ public class OpenAiSuite : IAiSuiteFactory
 // 4. Concrete Factory B: OpenSource/Anthropic Suite
 public class AlternativeSuite : IAiSuiteFactory
 {
-    public ILlm CreateLlm() => new ClaudeLlm();
+    public ILlm CreateLlm() => new ClaudeLlm(); // this can be a simple factory depending on the number of members in this family
     public IDiffusionModel CreateImageGenerator() => new SdxlImageGenerator();
 }
 ```
