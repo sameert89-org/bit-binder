@@ -6,9 +6,9 @@ Similar to [[Factory]] to avoid code duplication and having an easy way to creat
 **How do I implement an Abstract Factory?**
 
 Follow the 3 steps:
-1. Find the interfaces for the families of classes i.e. group your classes together based on the contract that they follow. Say you have family 1 and family 2
-2. Create the abstract factory, this has methods for returning 
-3. Now each family will have an implementation for the abstract factory. 
+1. Group your classes into kinds of products, for example Buttons and Textboxes
+2. Create the abstract factory, this has methods for returning the kinds of products identified in 1.
+3. Now if something wants to provide both buttons and textboxes (say a theme) then it is a concrete implementation for the abstract factory.
 
 ```csharp
 // 1. Abstract Products
