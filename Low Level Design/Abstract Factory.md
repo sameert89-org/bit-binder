@@ -7,8 +7,8 @@ Similar to [[Factory]] to avoid code duplication and having an easy way to creat
 
 Follow the 3 steps:
 1. Find the interfaces for the families of classes i.e. group your classes together based on the contract that they follow. Say you have family 1 and family 2
-2. Create the abstract factory, this has methods for returning `IFamily1` and `IFamily2`
-3. 
+2. Create the abstract factory, this has methods for returning 
+3. Now each family will have an implementation for the abstract factory. 
 
 ```csharp
 // 1. Abstract Products
