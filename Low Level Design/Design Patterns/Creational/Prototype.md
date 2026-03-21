@@ -1,0 +1,1 @@
+> A creational design pattern that lets you copy existing object without making your code dependent on their classes
