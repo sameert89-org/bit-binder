@@ -129,6 +129,4 @@ public:
 **Time Complexity:** $O(\log(M) \cdot \log(N))$
 **Space Complexity**: $O(1)$
 
-## Approach 4: Binary Search with Slicing logic
-
-![[Median of Two Sorted Arrays 2026-03-21 17.46.55.excalidraw]]
+## Approach 
