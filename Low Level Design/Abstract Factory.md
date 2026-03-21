@@ -38,3 +38,79 @@ public class AlternativeSuite : IAiSuiteFactory
 }
 ```
 
+```cpp
+include <iostream>
+#include <memory>
+#include <string>
+
+// --- 1. Abstract Products ---
+// These define what a "Storage" and "Queue" look like, regardless of provider.
+
+class IStorage {
+public:
+    virtual ~IStorage() = default;
+    virtual void UploadFile(std::string name) = 0;
+};
+
+class IQueue {
+public:
+    virtual ~IQueue() = default;
+    virtual void SendMessage(std::string msg) = 0;
+};
+
+// --- 2. Concrete Products (AWS) ---
+
+class S3Storage : public IStorage {
+public:
+    void UploadFile(std::string name) override {
+        std::cout << "AWS: Uploading " << name << " to S3 Bucket.\n";
+    }
+};
+
+class SqsQueue : public IQueue {
+public:
+    void SendMessage(std::string msg) override {
+        std::cout << "AWS: Sending '" << msg << "' to SQS Queue.\n";
+    }
+};
+
+// --- 3. Concrete Products (Azure) ---
+
+class BlobStorage : public IStorage {
+public:
+    void UploadFile(std::string name) override {
+        std::cout << "Azure: Uploading " << name << " to Blob Storage.\n";
+    }
+};
+
+class ServiceBusQueue : public IQueue {
+public:
+    void SendMessage(std::string msg) override {
+        std::cout << "Azure: Sending '" << msg << "' to Service Bus.\n";
+    }
+};
+
+// --- 4. The Abstract Factory ---
+// This is the "Contract" that every provider must fulfill.
+
+class ICloudProviderFactory {
+public:
+    virtual ~ICloudProviderFactory() = default;
+    virtual std::unique_ptr<IStorage> CreateStorage() = 0;
+    virtual std::unique_ptr<IQueue> CreateQueue() = 0;
+};
+
+// --- 5. Concrete Factories ---
+
+class AwsFactory : public ICloudProviderFactory {
+public:
+    std::unique_ptr<IStorage> CreateStorage() override { return std::make_unique<S3Storage>(); }
+    std::unique_ptr<IQueue> CreateQueue() override { return std::make_unique<SqsQueue>(); }
+};
+
+class AzureFactory : public ICloudProviderFactory {
+public:
+    std::unique_ptr<IStorage> CreateStorage() override { return std::make_unique<BlobStorage>(); }
+    std::unique_ptr<IQueue> CreateQueue() override { return std::make_unique<ServiceBusQueue>(); }
+};
+```
