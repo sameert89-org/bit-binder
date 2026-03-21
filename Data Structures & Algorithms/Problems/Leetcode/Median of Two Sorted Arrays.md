@@ -20,8 +20,6 @@ class Solution:
         return statistics.median(sorted(nums1+nums2))
 ```
 
-**Time Complexity:** $O()$
-**Space Complexity**: $O()$
 
 **Time Complexity:** $O((M + N)\log(M + N))$
 **Space Complexity**: $O(M + N)$
@@ -137,19 +135,23 @@ There is a pretty good writeup in the above image. Basically we need to determin
 
 The first part is done i.e. the number of elements in both halves must be same.
 
-For the second part we need to prove every element in left half is smaller than every element in right half. This can be done efficiently using the 4 terms $L_1, L_2, R_1$ and  $R2$ 
+For the second part we need to prove every element in left half is smaller than or equal to every element in right half. This can be done efficiently using the 4 terms $L_1, L_2, R_1$ and  $R2$ 
 
 We already know that arrays are sorted hence:
-1. $L_1 < R_1$
-2. $L_2 < R_2$
+1. $L_1 \leq R_1$
+2. $L_2 \leq R_2$
 
 So the main thing left to check is:
 
-1. $L_1 < R_2$
-2. $L_2 < R_1$ 
+1. $L_1 \leq R_2$
+2. $L_2 \leq R_1$ 
 
  If `1` is violated means R2 is too big, we need to shrink the cut.
  If `2` is violated that means L2 is too small, we need to expand the cut. 
 
 Why am I doing it via second array only, because its smaller, and doesn't cause out of bounds on Array 1.
 
+
+
+**Time Complexity:** $O(log(min(M, N)))$
+**Space Complexity**: $O(1)$
