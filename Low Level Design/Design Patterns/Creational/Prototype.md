@@ -24,3 +24,39 @@ public class Slime(int size, int hp) {
 }
 ```
 
+Copy a folder
+```cpp
+#include <memory>
+#include <string> 
+#include <vector>
+
+using string = std::string;
+
+class FsItem {
+public:
+	virtual ~FsItem() = default;
+	virtual std::unique_ptr<FsItem> Clone(bool rename = false) = 0;
+};
+
+class Folder : public FsItem {
+private:
+	string _path;
+	std::vector<std::unique_ptr<FsItem>> _children;
+public:
+	Folder(string path) : _path(path) {}
+	std::unique_ptr<FsItem> Clone(bool rename = false) {
+		auto duplicate = std::make_unique<Folder>(_path);
+		if(rename)
+			duplicate->_path = _path + " (1)"; // just to demonstrate, not handling extensions
+		for(auto &child: _children) {
+			duplicate->_children.push_back(child->Clone());
+		}
+
+		return duplicate;
+	}
+};
+
+class File : public FsItem {
+
+};
+```
