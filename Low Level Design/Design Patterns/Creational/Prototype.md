@@ -5,3 +5,22 @@ To clone objects, cloning from outside is tough, if you clone from outside you c
 Prototype pattern delegates the *cloning* process to the objects themselves.
 
 **How do I implement a prototype?**
+
+Minecraft slime, splits every time its hit into two smaller halves.
+
+```csharp
+public class Slime(int size, int hp) {
+	public Slime? Hit() {
+		if(size == 1){
+			hp = 0;
+			return null; // can't split further
+		}
+
+		size /= 2; 
+		hp /= 2;
+
+		return new Slime(size, hp);
+	}
+}
+```
+
