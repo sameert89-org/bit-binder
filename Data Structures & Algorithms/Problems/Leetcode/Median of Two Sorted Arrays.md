@@ -151,7 +151,45 @@ So the main thing left to check is:
 
 Why am I doing it via second array only, because its smaller, and doesn't cause out of bounds on Array 1.
 
+```cpp
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        const int M = nums1.size(), N = nums2.size();
 
+        if(M > N) return findMedianSortedArrays(nums2, nums1);
+        
+        int s = 0, e = M; // since all elements can be part of L1 or none can be part of L1
+        // cut runs in the gaps between the elements |0|1|2|3|..|M - 1| these '|' are cut positions cut at X means
+        // every element from 0 to X excluding X, cut at 0 means exlude 0 so "", cut at M means 0 to M - 1
+
+        const int ELEMENTS_TILL_MEDIAN = (M + N + 1) / 2; // for even numbers 1,2,3,4 elements till mendian are
+        // 1 and 2 = 5/2 and for odd 1,2,3,4,5 6/2 = 3, TILL means including median, this general formula works for both even and odd
+
+        while(s <= e) {
+            int cut1 = s + (e - s) / 2; // mid
+            int cut2 = ELEMENTS_TILL_MEDIAN - cut1;
+
+            int L1 = cut1 == 0 ? INT_MIN : nums1[cut1 - 1];
+            int R1 = cut1 == M ? INT_MAX : nums1[cut1];
+            int L2 = cut2 == 0 ? INT_MIN : nums2[cut2 - 1];
+            int R2 = cut2 == N ? INT_MAX : nums2[cut2];
+
+            if(L1 <= R2 and L2 <= R1) {
+                if((M + N) & 1)
+                    return max(L1, L2);
+                return (max(L1, L2) + min(R1, R2)) / 2.0;
+            } else if(L1 > R2) {
+                e = cut1 - 1;
+            } else {
+                s = cut1 + 1;
+            }
+        }
+
+        return 0.0; // should not reach here
+    }
+};
+```
 
 **Time Complexity:** $O(log(min(M, N)))$
 **Space Complexity**: $O(1)$
