@@ -73,3 +73,62 @@ This is what I came up with, and it seems more intutitve and easier to generaliz
 
 ![[Median of Two Sorted Arrays 2026-03-21 17.45.07.excalidraw]]
 
+I did hit a roadblock due to duplicate elements, hence I handled it usign a range calculation:
+
+```cpp
+#include<format>
+class Solution {
+public:
+    // finds the index i in the array which would be sorted + merged (nums1 and nums2)
+    // complexity logmlogn + logmlogn
+    int findIndex(const int i, const vector<int> &nums1, const vector<int> &nums2) {
+        // search in first array
+        int s = 0, e = nums1.size() - 1; 
+
+        while(s <= e) {
+            int mid = s + (e - s)/2;
+            pair<int, int> actualPosRange = {mid + (lower_bound(nums2.begin(), nums2.end(), nums1[mid]) - nums2.begin()), mid + (upper_bound(nums2.begin(), nums2.end(), nums1[mid]) - nums2.begin())};
+            // this gives us a range where the number can lie in, range because of darn duplicates, you cannot find strictly less than or strictly greater than numbers, because if you did that there is position bias, [0, 0] and [0, 0] in this case, if I was searching in array 1 and just used ub or lb, the second array will always return me 0 or 2
+            if(i >= actualPosRange.first and i <= actualPosRange.second)
+                return nums1[mid];
+            else if(i < actualPosRange.second)
+                e = mid - 1;
+            else
+                s = mid + 1;
+        }
+        // search in second array
+        s = 0; e = nums2.size() - 1;
+        while(s <= e) {
+            int mid = s + (e - s)/2;
+            pair<int, int> actualPosRange = {mid + (lower_bound(nums1.begin(), nums1.end(), nums2[mid]) - nums1.begin()), mid + (upper_bound(nums1.begin(), nums1.end(), nums2[mid]) - nums1.begin())};
+            //cout << format("mid: {}, [{}, {}]\n", mid, actualPosRange.first, actualPosRange.second);
+            if(i >= actualPosRange.first and i <= actualPosRange.second)
+                return nums2[mid];
+            else if(i < actualPosRange.second)
+                e = mid - 1;
+            else
+                s = mid + 1;
+        }
+        return -1;
+    }
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        const int M = nums1.size(), N = nums2.size();
+        double median = 0;
+        if((M + N) & 1) {
+            median = findIndex((M + N - 1)/2, nums1, nums2);
+        } else {
+            cout << findIndex((M + N)/2, nums1, nums2) << ',' << findIndex((M + N)/2 - 1, nums1, nums2);
+            median = (findIndex((M + N)/2, nums1, nums2) + findIndex((M + N)/2 - 1, nums1, nums2))/2.0;
+        }
+        return median;
+    }
+};
+```
+
+
+**Time Complexity:** $O(\log(M) \cdot \log(N))$
+**Space Complexity**: $O(1)$
+
+## Approach 4: Binary Search with Slicing logic
+
+![[Median of Two Sorted Arrays 2026-03-21 17.46.55.excalidraw]]
