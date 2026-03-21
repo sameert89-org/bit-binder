@@ -5,4 +5,3 @@ To clone objects, cloning from outside is tough, if you clone from outside you c
 Prototype pattern delegates the *cloning* process to the objects themselves.
 
 **How do I implement a prototype?**
-
