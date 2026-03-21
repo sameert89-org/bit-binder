@@ -9,7 +9,7 @@ class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         ListNode *trav1 = list1, *trav2 = list2;
-        ListNode *head = new ListNode(-1);
+        ListNode *head = new ListNode(-1); // could use the stack
         ListNode *tail = head;
 
         while(trav1 != nullptr and trav2 != nullptr){
