@@ -133,4 +133,8 @@ public:
 
 ![[Median of Two Sorted Arrays 2026-03-21 17.46.55.excalidraw|1000]]
 
-There is a pretty good writeup in the above image. Basic
+There is a pretty good writeup in the above image. Basically we need to determine if the cut was valid.
+
+The first part is done i.e. the number of elements in both halves must be same.
+
+For the second part we need to prove every element in left half is smaller than every element in right half. This can be done efficiently using the 4 terms $L_1, L_2, L_3$ and  $L4
