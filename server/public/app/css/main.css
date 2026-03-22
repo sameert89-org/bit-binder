@@ -58,8 +58,8 @@ button:focus-visible {
 
 /* Nyan Cat Animation */
 @keyframes nyan-run {
-  0% { left: -60px; }
-  100% { left: 100%; }
+  0% { left: -100px; }
+  100% { left: calc(100% + 100px); }
 }
 
 .animate-nyan-run {
