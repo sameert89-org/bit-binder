@@ -15,9 +15,9 @@ import (
 
 // helper to disable caching
 func noCacheHeaders(w http.ResponseWriter) {
-    w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-    w.Header().Set("Pragma", "no-cache")
-    w.Header().Set("Expires", "0")
+	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate, proxy-revalidate, max-age=0")
+	w.Header().Set("Pragma", "no-cache")
+	w.Header().Set("Expires", "0")
 }
 
 type siteInfo struct {
@@ -120,9 +120,11 @@ func staticHandler(publicDir string) http.Handler {
             }
         }
 
-        if strings.HasSuffix(strings.ToLower(cleanedPath), ".html") || info.IsDir() {
-            noCacheHeaders(w)
-        }
+		if strings.HasSuffix(strings.ToLower(cleanedPath), ".html") || 
+		   strings.HasSuffix(strings.ToLower(cleanedPath), ".json") || 
+		   info.IsDir() {
+			noCacheHeaders(w)
+		}
 
         fileServer.ServeHTTP(w, r)
     })
