@@ -21,6 +21,14 @@ class SiteService {
   }
 }
 
+function toDisplayPath(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 class AppController {
   constructor() {
     this.siteService = new SiteService();
@@ -83,9 +91,9 @@ class AppController {
       try {
         this.currentFramePath =
           this.frame.contentWindow?.location?.pathname || this.frame.src || "/";
-        this.pathbar.textContent = this.currentFramePath;
+        this.pathbar.textContent = toDisplayPath(this.currentFramePath);
       } catch {
-        this.pathbar.textContent = this.frame.src || "/";
+        this.pathbar.textContent = toDisplayPath(this.frame.src || "/");
       }
     });
 
@@ -122,7 +130,16 @@ class AppController {
         button.classList.add("active");
       }
 
-      button.innerHTML = `<span>${site.name}</span><small>${site.entry}</small>`;
+      const nameElement = document.createElement("span");
+      nameElement.className = "site-item-name";
+      nameElement.textContent = site.name;
+
+      const pathElement = document.createElement("span");
+      pathElement.className = "site-item-path";
+      pathElement.textContent = toDisplayPath(site.entry);
+
+      button.appendChild(nameElement);
+      button.appendChild(pathElement);
       button.addEventListener("click", () => {
         this.openSite(site, { replaceState: false });
       });
@@ -143,7 +160,7 @@ class AppController {
     this.activeSiteLabel.textContent = `${site.name} loaded`;
     this.viewerPlaceholder.classList.add("hidden");
     this.frame.src = site.entry;
-    this.pathbar.textContent = site.entry;
+    this.pathbar.textContent = toDisplayPath(site.entry);
     this.renderSiteList();
 
     const url = new URL(window.location.href);
@@ -201,14 +218,17 @@ class AppController {
       return;
     }
 
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
     this.setTheme(prefersDark ? "dark" : "light");
   }
 
   setTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
-    this.themeToggle.textContent = theme === "dark" ? "Light Theme" : "Dark Theme";
+    this.themeToggle.textContent =
+      theme === "dark" ? "Light Theme" : "Dark Theme";
   }
 
   withFrameWindow(action) {
