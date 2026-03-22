@@ -63,6 +63,13 @@ Modulo operator works only with integers, for *addition*, *subtraction* & *multi
 $$
 \begin{align*}
 f(a,b) \mod{m} &= f(a\mod{m}, b\mod{m})\mod{m} \\
-&\implies x\mod{m} = y\mod{m}
+&\implies f(x)\mod{m} = f(y)\mod{m}
 \end{align*}
 $$
+
+In the division case the result is not distributive, because divison creates fractions and decimals.
+
+Take $\frac{10}{5}\mod{3}$ fro example, if I calculate the individual terms $10\mod{3}$, $5\mod{3}$ and divide them I get, $1+2=3$ but clearly the result if we directly do it is $2$
+
+This works because $\frac{10}{5}$ is an improper fraction and results in a whole number as quiotent, take $\frac{10}{4}$ for instance, the result is `0.25` what even is the remainder when you divide `0.25/3` this result is not defined.
+
