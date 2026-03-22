@@ -60,4 +60,4 @@ Life would be sunshines and rainbows if we did not have modular division. But so
 **What is the problem with division?**
 Modulo operator works only with integers, for *addition*, *subtraction* & *multiplication* the modulo operator is distributive.
 
-$ f(a,b) %m = f(a%)
+$ f(a,b) %m = f(a%M + b%M)%M $
