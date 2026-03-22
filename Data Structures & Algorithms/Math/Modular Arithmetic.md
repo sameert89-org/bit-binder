@@ -10,10 +10,29 @@ These questions almost always ask something like:
 
 What does that even mean? What is Modulo and what is that huge number?
 
-**Modulo:** This is nothing but the good old modulus operator `%`, which calculates the remainder if a number if divided by it. For any division the remainder is always going to be in the range $[0, divisor)$. These problems exploit that, if you modulo with a large number such as $10^9 + 7$ the very large results will shrink to a smaller range making them easy to fit into the data types with finite space.  But why this specific number? 
+
+> [!INFO] Modulo 
+>  This is nothing but the good old modulus operator `%`, which calculates the remainder if a number if divided by it. For any division the remainder is always going to be in the range $[0, divisor)$. 
+
+### The mystery behind $10^9 + 7$
+
+If you modulo with a large number such as $10^9 + 7$ the very large results will shrink to a smaller range making them easy to fit into the data types with finite space.  But why this specific number? 
 
 This is becuase it's a prime number, as we will see in this article these are very crucial for you to be able to calculate modular multiplicative inverse. 
 
 But there are other prime numbers correct? why not use those?
 
-The main reason *smaller the number, larger the collisions*. Remember we say the range of remainders $[0, divisor)$. If I used a smaller number I would have many 
+The main reason *smaller the number, larger the collisions*. Remember we say the range of remainders $[0, divisor)$. If I used a smaller number I would have many test-cases return the same answer, which would make test cases brittle. By choosing $10^9+7$ as the number of choice I ensure I have the least probability of collision in the 32 bit range.
+
+## Modular Arithmetic
+
+### Addition, Subtraction & Multiplication
+
+All of these follow the similar rules.
+
+
+
+> [!caution] Intermediate Overflows
+> While doing arithmetic involving modulo, its very crucial to do it every step of the calculation where there is a possibility of overflow, doing it at the end on the answer will only cause problems if you had an overflow in between.
+
+
