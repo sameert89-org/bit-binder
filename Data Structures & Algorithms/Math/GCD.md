@@ -22,12 +22,11 @@ long long gcd(int a, int b){
 ```
 ### Iterative
 ```cpp
-long long gcd(long long a, long long b){
-	while(b != 0){
-		if(b > a)
-			swap(a, b);
-		a %= b;
-	}
-	return a;
+long long gcd (long long a, long long b) {
+    while (b) {
+        a %= b;
+        swap(a, b);
+    }
+    return a;
 }
 ```
