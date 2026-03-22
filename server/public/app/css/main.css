@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #475569; /* slate-600 */
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #64748b; /* slate-500 */
+}
+
+/* Fix for dark mode scrollbars in some browsers */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155; /* slate-700 */
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #475569; /* slate-600 */
+}
+
+/* Site Frame handling */
+#site-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: white;
+}
+
+/* Smooth transitions for theme switching */
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Ensure site-list buttons don't overlap when name is long */
+.site-item-name {
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+/* Better focus states */
+button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Nyan Cat Animation */
+@keyframes nyan-run {
+  0% { left: 0; }
+  100% { left: 100%; }
+}
+
+.animate-nyan-run {
+  animation: nyan-run 10s linear infinite;
+  image-rendering: pixelated;
+  will-change: left;
+}

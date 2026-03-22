@@ -1,0 +1,1 @@
+A special data type which defines a fixed set of named constants.
