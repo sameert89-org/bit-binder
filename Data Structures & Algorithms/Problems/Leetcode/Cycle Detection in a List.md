@@ -6,7 +6,7 @@ Problem Link: [141. Linked List Cycle](https://leetcode.com/problems/linked-list
 
 The second is the infamous Floyd's tortoise and hare algorithm. Where there are 2 pointers, one moves faster in the list (2 steps at at time) and the other moves slower 1 step at a time. If there is a cycle, the hare is going to loop around and catch up with the tortoise, if they never meet means there is no cycle.
 
-![[Cycle Detection in a List 2026-03-22 23.07.53.excalidraw|800]]
+![[Cycle Detection in a List 2026-03-22 23.07.53.excalidraw]]
 
 ```python
 class Solution:
