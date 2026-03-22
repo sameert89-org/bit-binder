@@ -61,6 +61,8 @@ Life would be sunshines and rainbows if we did not have modular division. But so
 Modulo operator works only with integers, for *addition*, *subtraction* & *multiplication* the modulo operator is distributive.
 
 $$
-f(a,b) \mod{m} = f(a\mod{m}, b\mod{m})\mod{m}
-\implies x\mod{m} = y\mod{m}
+\begin{align*}
+f(a,b) \mod{m} &= f(a\mod{m}, b\mod{m})\mod{m} \\
+&\implies x\mod{m} = y\mod{m}
+\end{align*}
 $$
