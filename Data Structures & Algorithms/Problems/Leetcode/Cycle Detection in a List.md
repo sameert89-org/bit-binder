@@ -6,3 +6,30 @@ Problem Link: [141. Linked List Cycle](https://leetcode.com/problems/linked-list
 
 The second is the infamous Floyd's tortoise and hare algorithm. Where there are 2 pointers, one moves faster in the list (2 steps at at time) and the other moves slower 1 step at a time. If there is a cycle, the hare is going to loop around and catch up with the tortoise, if they never meet means there is no cycle.
 
+```python
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        nodeMap = set()
+        trav = head
+        while trav:
+            if trav in nodeMap: return True
+            nodeMap.add(trav)
+            trav = trav.next
+        return False
+```
+
+```python
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if head is None:
+            return None
+        tortoise = head
+        hare = head.next
+
+        while hare is not None and hare.next is not None:
+            if tortoise == hare:
+                return True
+            hare = hare.next.next
+            tortoise = tortoise.next
+        return False
+```
