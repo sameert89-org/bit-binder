@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bit Binder | Knowledge Base</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,10 +38,20 @@
         <!-- Brand -->
         <div class="p-4 lg:p-6 border-b border-slate-200 dark:border-slate-800">
           <div class="flex items-center gap-2 mb-1 lg:mb-2">
-            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">B</div>
-            <h1 class="text-lg lg:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Bit Binder</h1>
+            <div
+              class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold"
+            >
+              B
+            </div>
+            <h1
+              class="text-lg lg:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100"
+            >
+              Bit Binder
+            </h1>
           </div>
-          <p class="text-[11px] lg:text-xs text-slate-500 dark:text-slate-400 leading-relaxed hidden sm:block">
+          <p
+            class="text-[11px] lg:text-xs text-slate-500 dark:text-slate-400 leading-relaxed hidden sm:block"
+          >
             Open repository to my knowledge. Each page is a unique vault.
           </p>
         </div>
@@ -78,7 +89,9 @@
         ></nav>
 
         <!-- Footer (Hidden on mobile) -->
-        <div class="p-4 border-t border-slate-200 dark:border-slate-800 text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold hidden lg:block">
+        <div
+          class="p-4 border-t border-slate-200 dark:border-slate-800 text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold hidden lg:block"
+        >
           Powered by Obsidian + Go
         </div>
       </aside>
@@ -86,46 +99,121 @@
       <!-- Main Content -->
       <main class="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-950">
         <!-- Top Bar -->
-        <header class="h-14 flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-4 lg:px-6 z-10">
+        <header
+          class="h-14 flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-4 lg:px-6 z-10"
+        >
           <div class="flex items-center gap-3 overflow-hidden mr-2">
-            <span id="active-site-label" class="font-semibold truncate text-xs lg:text-sm">No site selected</span>
+            <span
+              id="active-site-label"
+              class="font-semibold truncate text-xs lg:text-sm"
+              >No site selected</span
+            >
           </div>
-          
+
           <div class="flex items-center gap-2 flex-shrink-0">
-            <div class="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800">
-              <button id="frame-back" title="Back" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 border-r border-slate-200 dark:border-slate-800">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            <div
+              class="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800"
+            >
+              <button
+                id="frame-back"
+                title="Back"
+                class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 border-r border-slate-200 dark:border-slate-800"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
               </button>
-              <button id="frame-forward" title="Forward" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              <button
+                id="frame-forward"
+                title="Forward"
+                class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </button>
             </div>
-            
+
             <button
               id="open-new-tab"
               class="inline-flex items-center gap-2 px-3 lg:px-4 py-2 text-[10px] lg:text-xs font-semibold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors shadow-lg shadow-blue-500/20"
             >
-              <svg class="w-3.5 h-3.5 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              <span class="sm:inline">Open</span><span class="hidden sm:inline"> in New Tab</span>
+              <svg
+                class="w-3.5 h-3.5 hidden sm:block"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              <span class="sm:inline">Open</span
+              ><span class="hidden sm:inline"> in New Tab</span>
             </button>
           </div>
         </header>
 
         <!-- Breadcrumbs / Path -->
-        <div id="pathbar" class="px-6 py-2 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap custom-scrollbar">
+        <div
+          id="pathbar"
+          class="px-6 py-2 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap custom-scrollbar"
+        >
           /
         </div>
 
         <!-- Viewer -->
         <div class="flex-1 relative bg-white">
-          <div id="viewer-placeholder" class="absolute inset-0 z-0 flex flex-col items-center justify-center p-8 text-center bg-slate-50 dark:bg-slate-950">
-            <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
-              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <div
+            id="viewer-placeholder"
+            class="absolute inset-0 z-0 flex flex-col items-center justify-center p-8 text-center bg-slate-50 dark:bg-slate-950"
+          >
+            <div
+              class="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center mb-6"
+            >
+              <svg
+                class="w-10 h-10"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                />
+              </svg>
             </div>
             <h2 class="text-2xl font-bold mb-3">Select a vault to explore</h2>
-            <p class="max-w-md text-slate-500 dark:text-slate-400 leading-relaxed">
-              Use the sidebar to pick one of your exported Obsidian sites. 
-              Your technical notes, organized and rendered with style.
+            <p
+              class="max-w-md text-slate-500 dark:text-slate-400 leading-relaxed"
+            >
+              Use the sidebar to pick one of your exported Obsidian sites. Your
+              technical notes, organized and rendered with style.
             </p>
           </div>
           <iframe
