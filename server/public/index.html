@@ -1,384 +1,582 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>📗Bit Binder</title>
+    <title>Bit Binder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg-color-dark: #0d1117;
-        --primary-color-dark: #e6edf3;
-        --accent-color-dark: #7a6eec; /* Vibrant Lilac */
-        --glass-bg-dark: rgba(35, 41, 51, 0.3);
-        --glass-border-dark: rgba(255, 255, 255, 0.1);
-        --shadow-color-dark: rgba(0, 0, 0, 0.3);
-        --header-color-dark: #ffffff;
-        --bg-color-light: #f0f2f5;
-        --primary-color-light: #202020;
-        --accent-color-light: #624fdc; /* Vibrant Lilac */
-        --glass-bg-light: rgba(255, 255, 255, 0.3);
-        --glass-border-light: rgba(0, 0, 0, 0.1);
-        --shadow-color-light: rgba(0, 0, 0, 0.1);
-        --header-color-light: #000000;
+        --font-ui: "Space Grotesk", sans-serif;
+        --font-mono: "IBM Plex Mono", monospace;
+        --surface-0: #fdf7ea;
+        --surface-1: #fff3d4;
+        --surface-2: #ffe7a8;
+        --text: #17222a;
+        --muted: #49606e;
+        --accent: #0c7c8c;
+        --accent-soft: #d4f2f5;
+        --warn: #c84d2f;
+        --line: #d4c8a7;
+        --panel-shadow: 0 20px 50px rgba(22, 32, 40, 0.16);
       }
+
       [data-theme="dark"] {
-        --bg-color: var(--bg-color-dark);
-        --primary-color: var(--primary-color-dark);
-        --accent-color: var(--accent-color-dark);
-        --glass-bg: var(--glass-bg-dark);
-        --glass-border: var(--glass-border-dark);
-        --shadow-color: var(--shadow-color-dark);
-        --header-color: var(--header-color-dark);
+        --surface-0: #121518;
+        --surface-1: #1b2024;
+        --surface-2: #263039;
+        --text: #f6f1e7;
+        --muted: #9fb1bf;
+        --accent: #3cc7d2;
+        --accent-soft: #13343a;
+        --warn: #ff8b62;
+        --line: #33424f;
+        --panel-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
       }
-      [data-theme="light"] {
-        --bg-color: var(--bg-color-light);
-        --primary-color: var(--primary-color-light);
-        --accent-color: var(--accent-color-light);
-        --glass-bg: var(--glass-bg-light);
-        --glass-border: var(--glass-border-light);
-        --shadow-color: var(--shadow-color-light);
-        --header-color: var(--header-color-light);
+
+      * {
+        box-sizing: border-box;
       }
+
       body {
-        font-family: "Inter", sans-serif;
-        background-color: var(--bg-color);
-        color: var(--primary-color);
         margin: 0;
-        padding: 0;
-        overflow: hidden;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        min-height: 100vh;
+        font-family: var(--font-ui);
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at 12% 20%,
+            rgba(60, 199, 210, 0.16),
+            transparent 34%
+          ),
+          radial-gradient(
+            circle at 85% 15%,
+            rgba(255, 153, 102, 0.13),
+            transparent 30%
+          ),
+          linear-gradient(130deg, var(--surface-0), var(--surface-1));
       }
-      #bg-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
+
+      .app {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        min-height: 100vh;
       }
-      .main-container {
+
+      .sidebar {
+        border-right: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(12, 124, 140, 0.11),
+          transparent 20%
+        );
+        padding: 1.2rem;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        width: 100vw;
-        padding: 2rem;
-        box-sizing: border-box;
-        position: relative;
-        z-index: 1;
-      }
-      .header {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-      .header h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        margin: 0;
-        letter-spacing: -1px;
-        color: var(--header-color);
-        transition: color 0.3s ease;
-      }
-      .header p {
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: var(--accent-color);
-        margin-top: 0.5rem;
-        transition: color 0.3s ease;
-      }
-      .notes-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        width: 100%;
-        max-width: 1200px;
-        max-height: 60vh;
-        overflow-y: auto;
-        padding: 1.5rem;
-        scrollbar-width: thin;
-        scrollbar-color: var(--accent-color) transparent;
-      }
-      .notes-grid::-webkit-scrollbar {
-        width: 6px;
-      }
-      .notes-grid::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      .notes-grid::-webkit-scrollbar-thumb {
-        background-color: var(--accent-color);
-        border-radius: 10px;
-      }
-      .note-card {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 16px;
-        padding: 1.5rem;
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        box-shadow: 0 8px 16px 0 var(--shadow-color);
-        text-decoration: none;
-        color: var(--primary-color);
-        transition: transform 0.3s ease, box-shadow 0.3s ease,
-          background-color 0.3s ease;
-        display: flex;
-        align-items: center;
         gap: 1rem;
       }
-      .note-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 12px 20px 0 var(--shadow-color);
+
+      .brand {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface-1);
+        box-shadow: var(--panel-shadow);
+        padding: 1rem;
       }
-      .note-card .icon {
-        font-size: 1.5rem;
-        flex-shrink: 0;
+
+      .brand h1 {
+        margin: 0;
+        font-size: 1.45rem;
+        letter-spacing: 0.01em;
       }
-      .note-card .title {
-        font-size: 1.2rem;
-        font-weight: 500;
-        word-break: break-word;
+
+      .brand p {
+        margin: 0.45rem 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
       }
-      .theme-switch-wrapper {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+      }
+
+      button {
+        border: 1px solid var(--line);
+        background: var(--surface-1);
+        color: var(--text);
+        border-radius: 10px;
+        height: 38px;
+        cursor: pointer;
+        font-family: var(--font-ui);
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition:
+          transform 120ms ease,
+          border-color 120ms ease,
+          background 120ms ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        border-color: var(--accent);
+      }
+
+      .button-accent {
+        background: var(--accent-soft);
+        border-color: rgba(12, 124, 140, 0.45);
+      }
+
+      .button-danger {
+        color: var(--warn);
+      }
+
+      .search {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface-0);
+        color: var(--text);
+        padding: 0.7rem 0.8rem;
+        font: 500 0.9rem var(--font-ui);
+      }
+
+      .site-list {
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface-0);
+        padding: 0.45rem;
+        min-height: 220px;
+      }
+
+      .site-item {
+        width: 100%;
+        text-align: left;
+        margin: 0;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        color: var(--text);
+        padding: 0.65rem 0.7rem;
         display: flex;
         align-items: center;
-        z-index: 999;
+        justify-content: space-between;
       }
-      .theme-switch {
-        display: inline-block;
-        height: 24px;
+
+      .site-item small {
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+      }
+
+      .site-item.active {
+        border-color: rgba(12, 124, 140, 0.45);
+        background: var(--accent-soft);
+      }
+
+      .content {
+        padding: 1rem;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 0.8rem;
+      }
+
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.7rem;
+        border: 1px solid var(--line);
+        background: var(--surface-1);
+        border-radius: 14px;
+        padding: 0.7rem 0.9rem;
+      }
+
+      .topline strong {
+        font-size: 1rem;
+      }
+
+      .pathbar {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-0);
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 0.83rem;
+        padding: 0.6rem 0.75rem;
+        overflow: auto;
+        white-space: nowrap;
+      }
+
+      .viewer-wrap {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        background: var(--surface-0);
+        box-shadow: var(--panel-shadow);
         position: relative;
-        width: 50px;
       }
-      .theme-switch input {
+
+      .viewer-placeholder {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        color: var(--muted);
+        background:
+          linear-gradient(135deg, rgba(60, 199, 210, 0.06), transparent 30%),
+          linear-gradient(300deg, rgba(255, 153, 102, 0.08), transparent 34%);
+        padding: 1.25rem;
+      }
+
+      .viewer-placeholder.hidden {
         display: none;
       }
-      .slider {
-        background-color: #ccc;
-        bottom: 0;
-        cursor: pointer;
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transition: 0.4s;
-        border-radius: 24px;
+
+      #site-frame {
+        width: 100%;
+        height: 100%;
+        min-height: 70vh;
+        border: 0;
+        display: block;
+        background: #fff;
       }
-      .slider:before {
-        background-color: #fff;
-        bottom: 4px;
-        content: "";
-        height: 16px;
-        left: 4px;
-        position: absolute;
-        transition: 0.4s;
-        width: 16px;
-        border-radius: 50%;
+
+      .footer-note {
+        color: var(--muted);
+        font-size: 0.78rem;
       }
-      input:checked + .slider {
-        background-color: var(--accent-color);
-      }
-      input:checked + .slider:before {
-        transform: translateX(26px);
-      }
-      a:link {
-        color: var(--accent-color);
-        font-weight: 500;
+
+      @media (max-width: 940px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        #site-frame {
+          min-height: 58vh;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="theme-switch-wrapper">
-      <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" />
-        <div class="slider round"></div>
-      </label>
-    </div>
+    <div class="app">
+      <aside class="sidebar">
+        <section class="brand">
+          <h1>Bit Binder</h1>
+          <p>
+            Pick a generated note site and browse it in-place with working
+            controls.
+          </p>
+        </section>
 
-    <canvas id="bg-canvas"></canvas>
+        <div class="toolbar">
+          <button id="theme-toggle" class="button-accent" type="button">
+            Theme
+          </button>
+          <button id="home-button" type="button">Home</button>
+        </div>
 
-    <div class="main-container">
-      <header class="header">
-        <h1>Bit Binder 📚</h1>
-        <p>
-          Welcome to the Bit Binder, The Open Repository to all my Knowledge. Click any of the below pages to get started<br />
-          <br />
-          PS- Each Page has its own personality 😎
+        <input
+          id="site-search"
+          class="search"
+          type="search"
+          placeholder="Filter sites..."
+          aria-label="Filter sites"
+        />
+
+        <nav id="site-list" class="site-list" aria-label="Site list"></nav>
+
+        <p class="footer-note">
+          Powered by Obsidian export + Go static server.
         </p>
-      </header>
-      <div id="notes-grid" class="notes-grid">
-        <!-- Note cards will be dynamically inserted here by JavaScript -->
-      </div>
-       <div class="header">
-      <p> Powered by <a href="https://obsidian.md">Obsidian.md</a>, <a href="https://threejs.org">Three.js</a> and <a href="https://go.dev">Go</a>. </p>
+      </aside>
+
+      <main class="content">
+        <section class="topline">
+          <strong id="active-site-label">No site selected</strong>
+          <div
+            class="toolbar"
+            style="
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              min-width: 270px;
+            "
+          >
+            <button id="frame-back" type="button">Back</button>
+            <button id="frame-forward" type="button">Forward</button>
+            <button id="open-new-tab" class="button-danger" type="button">
+              Open Tab
+            </button>
+          </div>
+        </section>
+
+        <section id="pathbar" class="pathbar">/</section>
+
+        <section class="viewer-wrap">
+          <div id="viewer-placeholder" class="viewer-placeholder">
+            <h2 style="margin: 0; font-size: 1.35rem">Select a site to load</h2>
+            <p style="margin: 0.6rem 0 0; max-width: 560px">
+              Use the left panel to pick one of your exported Obsidian sites.
+              Internal links stay inside this viewer, and the Back/Forward
+              buttons control iframe history.
+            </p>
+          </div>
+          <iframe
+            id="site-frame"
+            title="Site Viewer"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </section>
+      </main>
     </div>
-    </div>
-  
-   
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-        }
-      }
-    </script>
+
     <script type="module">
-      import * as THREE from "three";
-
-      // --- Theme Manager ---
-      const toggleSwitch = document.querySelector(
-        '.theme-switch input[type="checkbox"]'
-      );
-      const currentTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      function setTheme(theme) {
-        document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-        toggleSwitch.checked = theme === "dark";
-      }
-      if (currentTheme) {
-        setTheme(currentTheme);
-      } else {
-        setTheme(prefersDark ? "dark" : "light");
-      }
-      toggleSwitch.addEventListener("change", (e) =>
-        setTheme(e.target.checked ? "dark" : "light")
-      );
-
-      // --- Return Random Emoji
-      function returnRandomEmoji(){
-        const emojiCodes = ['💘','💝','💖','💗','💓','💞','💕','💟','❣️','💔','❤️','🧡','💛','💚','💙','💜','🤎','🖤','🤍','❤️‍','🔥','❤️‍','🩹','💯','♨️','💨','😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺️','😚','😙','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐️','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','😮‍','💨','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','😶‍','🌫️','🥴','😵‍','💫','😵','🤯','🤠','🥳','😎','🤓','🧐','😕','😟','🙁','☹️','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽️','👾','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','🙈','🙉','🙊','👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈️','👉️','👆️','🖕','👇️','☝️','👍️','👎️','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦾','🦿','🦵','🦶','👂️','🦻','👃','🧠','🦷','🦴','👀','👁️','👅','👄','💋','👶','🧒','👦','👧','🧑','👨','👩','🧔','🧔‍♀️','🧔‍♂️','🧑','👨‍','🦰','👩‍','🦰','🧑','👨‍','🦱','👩‍','🦱','🧑','👨‍','🦳','👩‍','🦳','🧑','👨‍','🦲','👩‍','🦲','👱','👱‍♂️','👱‍♀️','🧓','👴','👵','🙍','🙍‍♂️','🙍‍♀️','🙎','🙎‍♂️','🙎‍♀️','🙅','🙅‍♂️','🙅‍♀️','🙆','🙆‍♂️','🙆‍♀️','💁','💁‍♂️','💁‍♀️','🙋','🙋‍♂️','🙋‍♀️','🧏','🧏‍♂️','🧏‍♀️','🙇','🙇‍♂️','🙇‍♀️','🤦','🤦‍♂️','🤦‍♀️','🤷','🤷‍♂️','🤷‍♀️','🧑‍⚕️','👨‍⚕️','👩‍⚕️',];
-
-        return emojiCodes[parseInt(Math.random() * emojiCodes.length)];
-    }
-
-      // --- Dynamic Content Loader ---
-      async function fetchAndDisplayNotes() {
-        const notesGrid = document.getElementById("notes-grid");
-        try {
-          const response = await fetch("/api/directories");
-          if (!response.ok) throw new Error("Network response was not ok.");
-          const directories = await response.json();
-          directories.forEach((dir) => {
-            const card = document.createElement("a");
-            card.href = `./${encodeURIComponent(dir)}/index.html`;
-            card.className = "note-card";
-            card.innerHTML = `<div class="icon">${returnRandomEmoji()}</div><div class="title">${dir}</div>`;
-            notesGrid.appendChild(card);
+      class SiteService {
+        async getSites() {
+          const response = await fetch("/api/directories", {
+            cache: "no-store",
           });
-        } catch (error) {
-          console.error("Failed to fetch notes:", error);
-          notesGrid.innerHTML = `<p style="text-align: center;">Could not load notes. Is the server running?</p>`;
+          if (!response.ok) {
+            throw new Error(`Failed to load sites (${response.status})`);
+          }
+
+          const data = await response.json();
+          if (!Array.isArray(data)) {
+            throw new Error("Invalid API response");
+          }
+
+          return data
+            .map((item) => ({
+              name: String(item.name || "").trim(),
+              entry: String(item.entry || "").trim(),
+            }))
+            .filter((item) => item.name && item.entry);
         }
       }
-      fetchAndDisplayNotes();
 
-      // --- Three.js Background Scene ---
-      let scene,
-        camera,
-        renderer,
-        shapes = [];
-      const mouse = new THREE.Vector2();
-      function init() {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(
-          75,
-          window.innerWidth / window.innerHeight,
-          0.1,
-          1000
-        );
-        camera.position.z = 10;
-        const canvas = document.getElementById("bg-canvas");
-        renderer = new THREE.WebGLRenderer({
-          canvas,
-          alpha: true,
-          antialias: true,
-        });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(5, 5, 5);
-        scene.add(directionalLight);
-        const geometries = [
-          new THREE.SphereGeometry(1, 32, 32),
-          new THREE.BoxGeometry(1.5, 1.5, 1.5),
-          new THREE.ConeGeometry(1, 2, 32),
-        ];
-        const colors = [0x58a6ff, 0x3fb950, 0xffa658, 0xdb61a2, 0x8b5cf6];
-        for (let i = 0; i < 40; i++) {
-          const geometry =
-            geometries[Math.floor(Math.random() * geometries.length)];
-          const material = new THREE.MeshStandardMaterial({
-            color: colors[Math.floor(Math.random() * colors.length)],
-            roughness: 0.3,
-            metalness: 0.2,
-          });
-          const shape = new THREE.Mesh(geometry, material);
-          shape.position.set(
-            (Math.random() - 0.5) * 40,
-            (Math.random() - 0.5) * 40,
-            (Math.random() - 0.5) * 40 - 10
-          );
-          shape.rotation.set(
-            Math.random() * Math.PI,
-            Math.random() * Math.PI,
-            Math.random() * Math.PI
-          );
-          const scale = Math.random() * 0.5 + 0.25;
-          shape.scale.set(scale, scale, scale);
-          shape.userData.floatSpeed = Math.random() * 0.2 + 0.1;
-          shape.userData.floatAmplitude = Math.random() * 0.2 + 0.1;
-          shape.userData.rotationSpeed = new THREE.Vector3(
-            (Math.random() - 0.5) * 0.005,
-            (Math.random() - 0.5) * 0.005,
-            (Math.random() - 0.5) * 0.005
-          );
-          shapes.push(shape);
-          scene.add(shape);
+      class AppController {
+        constructor() {
+          this.siteService = new SiteService();
+          this.sites = [];
+          this.filteredSites = [];
+          this.activeSite = null;
+          this.currentFramePath = "/";
+
+          this.siteListElement = document.getElementById("site-list");
+          this.searchInput = document.getElementById("site-search");
+          this.themeToggle = document.getElementById("theme-toggle");
+          this.homeButton = document.getElementById("home-button");
+          this.frameBackButton = document.getElementById("frame-back");
+          this.frameForwardButton = document.getElementById("frame-forward");
+          this.openNewTabButton = document.getElementById("open-new-tab");
+          this.pathbar = document.getElementById("pathbar");
+          this.activeSiteLabel = document.getElementById("active-site-label");
+          this.viewerPlaceholder =
+            document.getElementById("viewer-placeholder");
+          this.frame = document.getElementById("site-frame");
         }
-        window.addEventListener("resize", onWindowResize);
-        document.addEventListener("mousemove", onMouseMove);
+
+        async init() {
+          this.hydrateTheme();
+          this.bindEvents();
+          await this.loadSites();
+          this.hydrateRoute();
+        }
+
+        bindEvents() {
+          this.searchInput.addEventListener("input", () => {
+            this.filterSites(this.searchInput.value);
+          });
+
+          this.themeToggle.addEventListener("click", () => {
+            const isDark =
+              document.documentElement.getAttribute("data-theme") === "dark";
+            this.setTheme(isDark ? "light" : "dark");
+          });
+
+          this.homeButton.addEventListener("click", () => {
+            this.clearSelection({ replaceState: false });
+          });
+
+          this.frameBackButton.addEventListener("click", () => {
+            this.withFrameWindow((win) => win.history.back());
+          });
+
+          this.frameForwardButton.addEventListener("click", () => {
+            this.withFrameWindow((win) => win.history.forward());
+          });
+
+          this.openNewTabButton.addEventListener("click", () => {
+            if (!this.frame.src) {
+              return;
+            }
+            window.open(this.frame.src, "_blank", "noopener");
+          });
+
+          this.frame.addEventListener("load", () => {
+            try {
+              this.currentFramePath =
+                this.frame.contentWindow?.location?.pathname ||
+                this.frame.src ||
+                "/";
+              this.pathbar.textContent = this.currentFramePath;
+            } catch {
+              this.pathbar.textContent = this.frame.src || "/";
+            }
+          });
+
+          window.addEventListener("popstate", () => {
+            this.hydrateRoute();
+          });
+        }
+
+        async loadSites() {
+          try {
+            this.sites = await this.siteService.getSites();
+            this.filteredSites = [...this.sites];
+            this.renderSiteList();
+          } catch (error) {
+            console.error(error);
+            this.siteListElement.innerHTML = `<p style="padding: 0.8rem; color: var(--warn);">Could not load sites. Check server logs.</p>`;
+          }
+        }
+
+        renderSiteList() {
+          if (this.filteredSites.length === 0) {
+            this.siteListElement.innerHTML = `<p style="padding: 0.8rem; color: var(--muted);">No sites match this filter.</p>`;
+            return;
+          }
+
+          this.siteListElement.innerHTML = "";
+          for (const site of this.filteredSites) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "site-item";
+            if (this.activeSite && this.activeSite.name === site.name) {
+              button.classList.add("active");
+            }
+
+            button.innerHTML = `<span>${site.name}</span><small>${site.entry}</small>`;
+            button.addEventListener("click", () => {
+              this.openSite(site, { replaceState: false });
+            });
+            this.siteListElement.appendChild(button);
+          }
+        }
+
+        filterSites(rawFilter) {
+          const filter = rawFilter.trim().toLowerCase();
+          this.filteredSites = this.sites.filter((site) =>
+            site.name.toLowerCase().includes(filter),
+          );
+          this.renderSiteList();
+        }
+
+        openSite(site, { replaceState }) {
+          this.activeSite = site;
+          this.activeSiteLabel.textContent = `${site.name} loaded`;
+          this.viewerPlaceholder.classList.add("hidden");
+          this.frame.src = site.entry;
+          this.pathbar.textContent = site.entry;
+          this.renderSiteList();
+
+          const url = new URL(window.location.href);
+          url.searchParams.set("site", site.name);
+          const state = { site: site.name };
+
+          if (replaceState) {
+            history.replaceState(state, "", url);
+          } else {
+            history.pushState(state, "", url);
+          }
+        }
+
+        clearSelection({ replaceState }) {
+          this.activeSite = null;
+          this.activeSiteLabel.textContent = "No site selected";
+          this.frame.removeAttribute("src");
+          this.currentFramePath = "/";
+          this.pathbar.textContent = "/";
+          this.viewerPlaceholder.classList.remove("hidden");
+          this.renderSiteList();
+
+          const url = new URL(window.location.href);
+          url.searchParams.delete("site");
+          const state = { site: null };
+
+          if (replaceState) {
+            history.replaceState(state, "", url);
+          } else {
+            history.pushState(state, "", url);
+          }
+        }
+
+        hydrateRoute() {
+          const url = new URL(window.location.href);
+          const siteName = url.searchParams.get("site");
+          if (!siteName) {
+            this.clearSelection({ replaceState: true });
+            return;
+          }
+
+          const matchingSite = this.sites.find(
+            (site) => site.name === siteName,
+          );
+          if (!matchingSite) {
+            this.clearSelection({ replaceState: true });
+            return;
+          }
+
+          this.openSite(matchingSite, { replaceState: true });
+        }
+
+        hydrateTheme() {
+          const storedTheme = localStorage.getItem("theme");
+          if (storedTheme === "light" || storedTheme === "dark") {
+            this.setTheme(storedTheme);
+            return;
+          }
+
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          this.setTheme(prefersDark ? "dark" : "light");
+        }
+
+        setTheme(theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+          localStorage.setItem("theme", theme);
+          this.themeToggle.textContent =
+            theme === "dark" ? "Light Theme" : "Dark Theme";
+        }
+
+        withFrameWindow(action) {
+          if (!this.frame.contentWindow) {
+            return;
+          }
+
+          try {
+            action(this.frame.contentWindow);
+          } catch (error) {
+            console.error("Frame navigation failed:", error);
+          }
+        }
       }
-      function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-      function onMouseMove(event) {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      }
-      const clock = new THREE.Clock();
-      function animate() {
-        requestAnimationFrame(animate);
-        const elapsedTime = clock.getElapsedTime();
-        shapes.forEach((shape) => {
-          shape.rotation.x += shape.userData.rotationSpeed.x;
-          shape.rotation.y += shape.userData.rotationSpeed.y;
-          shape.position.y +=
-            Math.sin(elapsedTime * shape.userData.floatSpeed) *
-            shape.userData.floatAmplitude *
-            0.01;
-        });
-        camera.position.x += (mouse.x * 2 - camera.position.x) * 0.02;
-        camera.position.y += (mouse.y * 2 - camera.position.y) * 0.02;
-        camera.lookAt(scene.position);
-        renderer.render(scene, camera);
-      }
-      init();
-      animate();
+
+      const app = new AppController();
+      app.init();
     </script>
   </body>
 </html>
