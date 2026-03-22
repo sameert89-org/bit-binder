@@ -1,83 +1,145 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bit Binder</title>
+    <title>Bit Binder | Knowledge Base</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/app/index.css" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="/app/css/main.css" />
   </head>
-  <body>
-    <div class="app">
-      <aside class="sidebar">
-        <section class="brand">
-          <h1>Bit Binder</h1>
-          <p>Welcome to the Bit Binder, the open repository to my knowledge.</p>
-          <p class="brand-subtitle">
-            Each page has its own personality. Pick a site and explore.
+  <body
+    class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200"
+  >
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside
+        class="w-80 flex-shrink-0 flex flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+      >
+        <!-- Brand -->
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">B</div>
+            <h1 class="text-xl font-bold tracking-tight">Bit Binder</h1>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Open repository to my knowledge. Each page is a unique vault.
           </p>
-        </section>
-
-        <div class="toolbar">
-          <button id="theme-toggle" class="button-accent" type="button">
-            Theme
-          </button>
-          <button id="home-button" type="button">Home</button>
         </div>
 
-        <input
-          id="site-search"
-          class="search"
-          type="search"
-          placeholder="Filter sites..."
-          aria-label="Filter sites"
-        />
+        <!-- Controls -->
+        <div class="p-4 grid grid-cols-2 gap-2">
+          <button
+            id="theme-toggle"
+            class="px-3 py-2 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          >
+            Dark Mode
+          </button>
+          <button
+            id="home-button"
+            class="px-3 py-2 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          >
+            Home
+          </button>
+        </div>
 
-        <nav id="site-list" class="site-list" aria-label="Site list"></nav>
+        <!-- Search -->
+        <div class="px-4 pb-4">
+          <div class="relative">
+            <input
+              id="site-search"
+              type="search"
+              placeholder="Search vaults..."
+              class="w-full pl-3 pr-10 py-2 bg-slate-100 dark:bg-slate-800 border-transparent focus:border-blue-500 focus:bg-white dark:focus:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 rounded-lg text-sm transition-all"
+            />
+          </div>
+        </div>
 
-        <p class="footer-note">
-          Powered by Obsidian export + Go static server.
-        </p>
+        <!-- Site List -->
+        <nav
+          id="site-list"
+          class="flex-1 overflow-y-auto custom-scrollbar px-2 pb-4 space-y-1"
+        ></nav>
+
+        <!-- Footer -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800 text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold">
+          Powered by Obsidian + Go
+        </div>
       </aside>
 
-      <main class="content">
-        <section class="topline">
-          <strong id="active-site-label">No site selected</strong>
-          <div class="toolbar viewer-toolbar">
-            <button id="frame-back" type="button">Back</button>
-            <button id="frame-forward" type="button">Forward</button>
-            <button id="open-new-tab" class="button-danger" type="button">
+      <!-- Main Content -->
+      <main class="flex-1 flex flex-col min-w-0">
+        <!-- Top Bar -->
+        <header class="h-14 flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-6 z-10">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <span id="active-site-label" class="font-semibold truncate text-sm">No site selected</span>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <div class="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800">
+              <button id="frame-back" title="Back" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 border-r border-slate-200 dark:border-slate-800">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button id="frame-forward" title="Forward" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+            
+            <button
+              id="open-new-tab"
+              class="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors shadow-lg shadow-blue-500/20"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               Open in New Tab
             </button>
           </div>
-        </section>
+        </header>
 
-        <section id="pathbar" class="pathbar">/</section>
+        <!-- Breadcrumbs / Path -->
+        <div id="pathbar" class="px-6 py-2 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap custom-scrollbar">
+          /
+        </div>
 
-        <section class="viewer-wrap">
-          <div id="viewer-placeholder" class="viewer-placeholder">
-            <h2>Select a site to load</h2>
-            <p>
-              Use the left panel to pick one of your exported Obsidian sites.
-              Internal links stay inside this viewer, and the Back/Forward
-              buttons control iframe history.
+        <!-- Viewer -->
+        <div class="flex-1 relative bg-white">
+          <div id="viewer-placeholder" class="absolute inset-0 z-0 flex flex-col items-center justify-center p-8 text-center bg-slate-50 dark:bg-slate-950">
+            <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <h2 class="text-2xl font-bold mb-3">Select a vault to explore</h2>
+            <p class="max-w-md text-slate-500 dark:text-slate-400 leading-relaxed">
+              Use the sidebar to pick one of your exported Obsidian sites. 
+              Your technical notes, organized and rendered with style.
             </p>
           </div>
           <iframe
             id="site-frame"
             title="Site Viewer"
+            class="w-full h-full relative z-10 invisible"
             referrerpolicy="strict-origin-when-cross-origin"
           ></iframe>
-        </section>
+        </div>
       </main>
     </div>
 
-    <script type="module" src="/app/index.js"></script>
+    <script type="module" src="/app/js/App.js"></script>
   </body>
 </html>
