@@ -109,7 +109,11 @@ class AppController {
     this.activeSite = site;
     this.activeSiteLabel.textContent = site.name;
     this.viewerPlaceholder.classList.add("hidden");
-    this.frame.src = site.entry;
+    
+    // Add cache buster to force fresh load of the entry point
+    const cacheBuster = `?t=${Date.now()}`;
+    this.frame.src = site.entry + cacheBuster;
+    
     this.frame.classList.remove("invisible");
     this.updatePathDisplay();
     this.renderSiteList();
