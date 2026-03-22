@@ -62,4 +62,27 @@ class Solution:
 
 Interleaving can be done without using dummy node:
 
-![[Reorder List 2026-03-22 17.30.35.excalidraw]]
+![[Reorder List 2026-03-22 17.30.35.excalidraw|800]]
+```python
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        mid = slow.next
+        slow.next = None
+        prev = None
+        
+        while mid:
+            mid.next, prev, mid = prev, mid, mid.next
+
+        h1, h2 = head, prev
+
+        while h1 and h2: 
+            tmp1, tmp2 = h1.next, h2.next
+            h1.next, h2.next = h2, tmp1
+            h1, h2 = tmp1, tmp2
+```
