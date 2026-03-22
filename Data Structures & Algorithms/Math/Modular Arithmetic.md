@@ -143,10 +143,10 @@ int extendedGCD(int a, int b, int &x, int &y) {
 
 $$
 \begin{aligned}
-b\cdot x + M\cdot y &= \gcd(a, b) \\
-b\cdot x + M\cdot y &= 1 \quad \text{since a and b are coprime} \\
-Taking \mod M \text{ on both sides:} \\
-b\cdot x &\equiv 1 \pmod{M} \quad \text{since M\cdot y is a multiple of M} \\
+b \cdot x + M \cdot y &= \gcd(b, M) \\
+b \cdot x + M \cdot y &= 1 && \text{(since $b$ and $M$ are coprime)} \\
+b \cdot x + 0 &\equiv 1 \pmod{M} && \text{(taking both sides modulo $M$)} \\
+b \cdot x &\equiv 1 \pmod{M}
 \end{aligned}
 $$
 
