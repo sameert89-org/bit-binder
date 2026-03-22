@@ -1,10 +1,10 @@
-#needcode150  #sliding_window 
+#needcode150 #sliding_window
 
 Problem Link: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 The straight forward approach is to generate all substrings, check which are not having repeating characters, then return the longest substring. This results in an $O(N^2)$ algorithm.
 
-An optimized approach will be to use sliding window, I start my window only having the first element, I grow my window towards right.
+An optimized approach will be to use a sliding window, I start my window only having the first element, I grow my window towards right.
 
 I am also maintaining a frequency map while doing this. As soon as my window sees a repeated frequency, I pop from the left till I have fixed my frequency problem. I keep calculating the maximum substring at these breakpoints.
 
@@ -26,7 +26,7 @@ public:
 				seen.erase(s[wStart]);
                 wStart++;
             }
-			seen.insert(s[wEnd]); 
+			seen.insert(s[wEnd]);
 			wEnd++;
         }
 		return max(result, wEnd - wStart);
