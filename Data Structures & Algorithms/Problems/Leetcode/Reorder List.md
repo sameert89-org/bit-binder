@@ -60,4 +60,6 @@ class Solution:
         res.next = h1 if h1 else h2
 ```
 
-Interleaving can be done without using dummy n
+Interleaving can be done without using dummy node:
+
+![[Reorder List 2026-03-22 17.30.35.excalidraw]]
