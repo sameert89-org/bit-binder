@@ -30,9 +30,31 @@ The main reason *smaller the number, larger the collisions*. Remember we say the
 
 All of these follow the similar rules.
 
+**Addition:**
+$$(a + b) \pmod n = \left( (a \pmod n) + (b \pmod n) \right) \pmod n$$
 
+**Subtraction:**
+$$(a - b) \pmod n = \left( (a \pmod n) - (b \pmod n) \right) \pmod n$$
+
+**Multiplication:**
+$$(a \cdot b) \pmod n = \left( (a \pmod n) \cdot (b \pmod n) \right) \pmod n$$
+
+You can avoid writing these huge equations most of the time, doing mod at the end is fine most of the time in intermediate cases also don't apply %M unnecessarily over and over or on constants such as a number.
+
+```cpp
+// somewhere in between a for loop
+res = (res % M + x % M) % M; // unnecessary since res is already modded and x is small enough
+res = (res + x) % M; 
+
+// dont do
+y = (y % M + 7 % M) % M;
+```
 
 > [!caution] Intermediate Overflows
 > While doing arithmetic involving modulo, its very crucial to do it every step of the calculation where there is a possibility of overflow, doing it at the end on the answer will only cause problems if you had an overflow in between.
 
 
+### Division
+Life would be sunshines and rainbows if we did not have modular division. But sometimes there are problems which need it [[Fancy Sequence]].
+
+**What is the problem with division?**
