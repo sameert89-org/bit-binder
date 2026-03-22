@@ -55,3 +55,15 @@ button:focus-visible {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
 }
+
+/* Nyan Cat Animation */
+@keyframes nyan-run {
+  0% { left: -60px; }
+  100% { left: 100%; }
+}
+
+.animate-nyan-run {
+  animation: nyan-run 10s linear infinite;
+  image-rendering: pixelated;
+  will-change: left;
+}
