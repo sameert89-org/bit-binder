@@ -114,3 +114,15 @@ bx + 0 &\equiv 1 \pmod{M} \\
 bx &\equiv 1 \pmod{M}
 \end{aligned}
 $$
+
+> [!info] what is that $\equiv$ symbol?
+> This is the symbol for congruence in modular arithmetic. When we apply the modulus operator on both sides we cannot say both sides are equal, since more than one number can have same remainder when divided by `M`, we say they are congruent modulo `M`.
+
+It has started to make sense why our choice of $10^9 + 7$ is a prime number, because if $b$ and $M$ are not coprime, meaning they share a common factor greater than 1, then $\gcd(b, M) \neq 1$, and the equation $bx + My = 1$ has no integer solutions. This means that the modular inverse does not exist in such cases.
+
+There are a couple of ways to find the modular inverse, given that $b$ and $M$ are coprime:
+
+### Extended Euclidean Algorithm
+
+This works for any `M` and `b` as long as they are coprime, it runs in $O(\log M)$ time. M may or may not be prime.
+
