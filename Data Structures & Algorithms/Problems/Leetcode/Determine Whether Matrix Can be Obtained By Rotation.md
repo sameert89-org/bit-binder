@@ -1,4 +1,4 @@
-#daily_challenge 
+#daily_challenge #matrix
 2026-03-22
 
 Problem Link: [Determine Whether Matrix Can Be Obtained By Rotation](https://leetcode.com/problems/determine-whether-matrix-can-be-obtained-by-rotation/)
@@ -25,7 +25,7 @@ public:
         const int N = mat.size();
         vector<vector<int>> temp(N, vector<int>(N));
         // first column becomes first row in reverse
-        // second column becomes second row in reverse, and so on...jjj
+        // second column becomes second row in reverse, and so on...
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++){
                 temp[N - j - 1][i] = mat[i][j];
@@ -94,3 +94,17 @@ public:
 };
 ```
 
+```python
+class Solution:
+    def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
+        N = len(mat)
+        matches = [True, True, True, True] # track the match for 0, 90, 180 & 270 rotations
+        for i in range(N): 
+            for j in range(N):
+                matches[0] &= target[i][j] == mat[i][j]
+                matches[1] &= target[i][j] == mat[N-j-1][i]
+                matches[2] &= target[i][j] == mat[N-i-1][N-j-1]
+                matches[3] &= target[i][j] == mat[j][N-i-1]
+
+        return any(matches)
+```
