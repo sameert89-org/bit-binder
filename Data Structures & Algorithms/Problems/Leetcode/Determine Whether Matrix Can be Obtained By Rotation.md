@@ -13,4 +13,7 @@ Even though not needed for this question, an interesting thing about 90 degree r
 
 
 > [!INFO] Matrix Transpose
+> Tranpose of a square matrix  is a matrix obtained by swapping its rows and columns, effectively flipping it over its main diagonal
+
+The 90 degree rotation is just matrix transpose -> reveresed rows.
 
