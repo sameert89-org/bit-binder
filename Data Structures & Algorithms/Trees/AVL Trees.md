@@ -25,5 +25,5 @@ We perform **rotations** to fix these imbalances. Rotation is always done on 3 n
 ### General Form of Rotations
 Always choose three nodes for rotations. The rotations have been shown for a large tree. The imbalance is an LL imbalance which is caused by an insertion somewhere in the C right sub (Right is still LL, I am not wrong think about it).
 
-![[Drawing 2023-10-01 23.12.08.excalidraw|1000]]
+![[Drawing 2023-10-01 23.12.08.excalidraw]]
 

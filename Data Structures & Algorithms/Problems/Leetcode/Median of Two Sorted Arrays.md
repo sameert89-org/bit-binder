@@ -129,7 +129,7 @@ public:
 
 ## Approach : 4 slicing binary search
 
-![[Median of Two Sorted Arrays 2026-03-21 17.46.55.excalidraw|1000]]
+![[Median of Two Sorted Arrays 2026-03-21 17.46.55.excalidraw]]
 
 There is a pretty good writeup in the above image. Basically we need to determine if the cut was valid.
 

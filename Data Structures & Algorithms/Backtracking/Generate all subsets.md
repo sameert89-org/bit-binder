@@ -5,7 +5,7 @@ The approach is to use a decision tree (similar to top down #dp problems)
 
 Below is the decision tree for simple 3 element domain.
 
-![[Generate all subsets 2026-03-04 14.36.14.excalidraw|800]]
+![[Generate all subsets 2026-03-04 14.36.14.excalidraw]]
 
 Implementation follows
 
