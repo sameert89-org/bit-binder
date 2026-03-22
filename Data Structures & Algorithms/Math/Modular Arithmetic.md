@@ -124,5 +124,61 @@ There are a couple of ways to find the modular inverse, given that $b$ and $M$ a
 
 ### Extended Euclidean Algorithm
 
-This works for any `M` and `b` as long as they are coprime, it runs in $O(\log M)$ time. M may or may not be prime.
+This works for any `M` and `b` as long as they are coprime, it runs in $O(\log M)$ time. M may or may not be prime. This is an extension of the Euclidean algorithm which is used to find the greatest common divisor (GCD) of two numbers. The extended version also finds integer coefficients `x` and `y` that we swaw in the Bezout's Identity.
 
+```cpp
+int extendedGCD(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    int x1, y1;
+    int gcd = extendedGCD(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return gcd;
+}
+```
+
+$$
+\begin{aligned}
+b\cdot x + M\cdot y &= \gcd(a, b) \\
+b\cdot x + M\cdot y &= 1 \quad \text{since a and b are coprime} \\
+Taking \mod M \text{ on both sides:} \\
+b\cdot x &\equiv 1 \pmod{M} \quad \text{since M\cdot y is a multiple of M} \\
+\end{aligned}
+$$
+
+now if we pass `b` and `M` to the function, it will return `x` such that `b*x % M = 1`, which is the modular inverse of `b` modulo `M`. We can ignore the value of `y` and the GCD.
+
+### Fermat's Little Theorem
+
+This works only when `M` is prime., It has similar time complexity to the Extended Euclidean Algorithm but is much easier to implement. It states that if `M` is prime and `b` is not divisible by `M`, then:
+
+$$
+b^{M-1} \equiv 1 \pmod{M}
+$$
+
+Multiplying both sides by $b^{-1}$ gives:
+
+$$
+b \cdot b^{M-2} \equiv 1 \pmod{M}
+$$
+
+Hence, the modular inverse of `b` modulo `M` is `b^(M-2) % M`. This can be efficiently computed using modular exponentation, languages like python have built in functions for this.
+
+```cpp
+int modExp(int base, int exp, int mod) {
+    int result = 1;
+    base = base % mod;
+    while (exp > 0) {
+        if (exp % 2 == 1) { // If exp is odd
+            result = (result * base) % mod;
+        }
+        exp = exp >> 1; // Divide exp by 2
+        base = (base * base) % mod;
+    }
+    return result;
+}
+```
