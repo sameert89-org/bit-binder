@@ -48,3 +48,91 @@ Therefore we have to use `next` somehow. This makes it even more complicated bec
 
 ![[Copy List With Random Pointer 2026-03-23 23.49.25.excalidraw]]
 
+This structure allows us to still traverse the list and assign randoms, we know that in this interleave every other node is duplicate. But we cannot restore the original list until all `random` pointers are assigned, because we need the original list to assign the randoms.
+
+This makes us do 3 passes:
+
+1. First pass to construct the interleaved list.
+2. Second pass to assign the random pointers.
+3. Third pass to restore the original list and extract the copy list.
+
+```cpp
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if(!head) return nullptr;
+        // the intuition comes from a hashmap, why don't we try to use the random pointers as hashmaps?
+        // OriginalNode->Next = CopyNode->Next and CopyNode->Next = OriginalNode->Next
+        // first pass generate the lists with Next ZigZag
+        Node *original = head;
+
+        while(original) {
+            auto copyNode = new Node(original->val);
+
+            auto tmp = original->next;
+
+            copyNode->next = tmp;
+
+            // map original->next to new node
+            original->next = copyNode;
+
+            // advance original
+            original = tmp; // use tmp because it now points to the copyNode
+
+            // This is doing a zig zag insertion |/|/|
+        }
+        Node *trav = head;
+        while(trav) {
+            cout << trav->val << ", ";
+            trav = trav->next;
+        }
+        // second pass point the randoms of copyList to their right place by using the Original->next as a map to CopyNodes
+        original = head;
+        Node* copyHead = head->next;
+        Node *copy = copyHead;
+
+        while(original) {
+            if(original->random){
+                copy->random = original->random->next;
+            }
+            original = copy->next;
+            if(original)
+                copy = original->next; // this would now be copy->next->next
+        }
+
+        // third pass restore the next interleaving
+        original = head;
+        copy = copyHead;
+
+        while(original) {
+            original->next = copy->next;
+            if(original->next)
+                copy->next = original->next->next;
+
+            original = original->next;
+            if(original)
+                copy = copy->next;
+        }
+
+        return copyHead;
+    }
+};
+```
+
+There are annoying edge cases to handle. This question is annoying in general.
