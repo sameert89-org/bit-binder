@@ -1,4 +1,4 @@
-#needcode150 #linked_list 
+#needcode150 #linked_list
 
 Problem Link: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/)
 
@@ -24,6 +24,14 @@ The intuition comes from the `Hashmap` can I use some pointers in the list1 to p
 Which candidates do I have:
 
 1. `random`
-2.  `next`
+2. `next`
 
-Let's try `random`, 
+Let's try `random`, the first question is if random acts as the map, then who is going to store the random pointer of the original node?
+
+This starts complicating stuff, the first thing comes to mind is to use list2's random pointer. But this faceplants.
+
+Say I apply this and it looks something like this:
+
+![[Copy List With Random Pointer 2026-03-23 23.41.28.excalidraw]]
+
+Now I try assigning 
