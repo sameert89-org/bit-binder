@@ -15,4 +15,15 @@ Okay the list is ready, but all the random pointers are not pointing anywhere.
 
 Now I need a way to correlate the node positions in list 1 with list 2. How do I do this?
 
-`Hashmap`, we can have a map that correlates the both, now I can simply iterate and find the corresponding node in the second l
+`Hashmap`, we can have a map that correlates the both, now I can simply iterate and find the corresponding node in the second list and then do the linking. I can construct the hashmap in the first pass itself.
+
+This is still doable, but the main challenge is trying to do this in $O(1)$ space.
+
+The intuition comes from the `Hashmap` can I use some pointers in the list1 to point to list2 ? (Why list1? because I need to find the corresponding node in list2 for the list1 node)
+
+Which candidates do I have:
+
+1. `random`
+2.  `next`
+
+Let's try `random`, 
