@@ -4,10 +4,38 @@
 If you ever run into Constructors/Factories with a large number of parameters, then you need a builder!
 
 ```cpp
+enum Class Crust {
+	CLASSIC_TOSSED,
+	NEW_PAN_TOSSED,
+	THIN,
+	STUFFED
+};
+
 class Pizza {
 public:
 	Pizza(int size, Crust crust, bool cheese, bool chicken, bool olives); // and so on
 }
 
-builder 
+// builder helps with this exact problem
+
+class Pizza {
+private:
+	int size = 7;
+	Crust _crust;
+	bool cheese = false;
+	bool chicken = false;
+	bool olives = false;
+public:
+	Pizza(int size, Crust crust) : size() _crust(crust);
+	
+	Pizza& AddCheese() {
+		cheese = true;
+	};
+	Pizza& AddChicken() {
+	
+	};
+	Pizza& AddOlives() {
+	
+	};
+}
 ```
