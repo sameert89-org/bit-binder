@@ -20,13 +20,13 @@ public:
 
 class Pizza {
 private:
-	int size = 7;
+	int _size = 7;
 	Crust _crust;
 	bool cheese = false;
 	bool chicken = false;
 	bool olives = false;
 public:
-	Pizza(int size, Crust crust) : size() _crust(crust);
+	Pizza(int size, Crust crust) : _size(sizell) _crust(crust);
 	
 	Pizza& AddCheese() {
 		cheese = true;
