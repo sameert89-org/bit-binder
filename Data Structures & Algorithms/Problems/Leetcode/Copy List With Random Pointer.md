@@ -34,4 +34,17 @@ Say I apply this and it looks something like this:
 
 ![[Copy List With Random Pointer 2026-03-23 23.41.28.excalidraw]]
 
-Now I try assigning 
+Now I try assigning the random pointer using logic like this:
+
+```cpp
+copy->random = copy->random->random;
+```
+
+But this `copy->random` is already storing some crucial information i.e. the random pointer of the original node, and we just lost that.
+
+Any combination having `random` of any list to save the info fails in similar fashion. Because you can not be sure that the random pointer you are overwriting is not going to be used in the future.
+
+Therefore we have to use `next` somehow. This makes it even more complicated because `next` is used to constuct the list. We come up with the below abomination.
+
+![[Copy List With Random Pointer 2026-03-23 23.49.25.excalidraw]]
+
