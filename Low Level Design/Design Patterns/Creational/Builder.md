@@ -54,5 +54,39 @@ class AiAgentBuilder{
 	}
 }
 
+class AiAgentBuilder(string name){
+	private string _model = "gpt-5-turbo";
+	private double _temperature = 0.5;
+	private int _maxTokens = 2048;
+	private string _region = "us-central-1";
+	private readonly List<string> _tools = [];
+
+
+	public AiAgentBuilder SetCreativity(double temperature) {
+ 		_temperature = temperature;
+		return this;
+	}
+
+	public AiAgentBuilder WithModel(string model) {
+		_model = model;
+		return this;
+	}
+	
+	public AiAgentBuilder SetMaxTokens(int tokens) {
+		_maxTokens = tokens;
+		return this;
+	}
+
+	public AiAgentBuilder InRegion(string region) {
+		_region = region;
+		return this;
+	}
+	
+	public AiAgentBuilder AddTool(string tool) {
+		_tools.Add(tool);
+		return this;
+	}
+
+}
 
 ```
