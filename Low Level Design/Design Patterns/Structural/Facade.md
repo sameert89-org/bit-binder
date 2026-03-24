@@ -85,3 +85,5 @@ That's why they take a tonne of countermeasures to prevent scraping:
 
 Let's be honest its a war you cannot win and let's join the Darkside! and try to see how a Facade can help us scrape the entire web.
 
+![[Pasted image 20260325001651.png]]
+

@@ -7,7 +7,7 @@
 
 ![[Interfaces]]
 
-![[4 Pillars of OOPs]]
+![[Pillars of OOPs]]
 
 
 ![[Class Relationships]]
