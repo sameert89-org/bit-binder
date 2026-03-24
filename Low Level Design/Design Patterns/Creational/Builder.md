@@ -41,7 +41,7 @@ public:
 ```
 
 ```csharp
-class AiAgent{
+class AiAgentBuilder{
 	private string _name;
 	private string _model = "gpt-5-turbo";
 	private double _temperature = 0.5;
