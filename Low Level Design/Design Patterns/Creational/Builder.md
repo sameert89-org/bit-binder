@@ -26,16 +26,16 @@ private:
 	bool chicken = false;
 	bool olives = false;
 public:
-	Pizza(int size, Crust crust) : _size(sizell) _crust(crust);
+	Pizza(int size, Crust crust) : _size(size), _crust(crust) {};
 	
 	Pizza& AddCheese() {
-		cheese = true;
+		_cheese = true;
 	};
 	Pizza& AddChicken() {
-	
+		_chicken = true;
 	};
 	Pizza& AddOlives() {
-	
+		_olives = true;
 	};
 }
 ```
