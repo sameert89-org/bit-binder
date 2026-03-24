@@ -17,4 +17,8 @@ Now you the operator want to trigger this via the giant red button!
 
 ![[Pasted image 20260324235526.png|200]]
 
-Would you want to be this guy and press 3 different buttons, not sure which to push first?  You *the client* should not hav
+Would you want to be this guy and press 3 different buttons, not sure which to push first?  You *the client* should not have to rely on these low level details in order to do your job.
+
+Facade to save the day!
+
+
