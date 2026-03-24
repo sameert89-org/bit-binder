@@ -87,3 +87,36 @@ Let's be honest its a war you cannot win and let's join the Darkside! and try to
 
 ![[Pasted image 20260325001651.png]]
 
+```csharp
+class ProxyPool
+{
+	public GetResidentialIp()
+	{
+		return "49.153.14.28";
+	}
+}
+
+class CaptchaBuster {
+	public string SolveCaptcha() {
+		// solve using OCR
+		return "https://solved.site.com";
+	}
+}
+
+class BrowserRenderer {
+	async Task RenderJs(string url) {
+		// render complex js
+		return Task.CompletedTask;
+	}
+}
+
+class ScrapingFacade(BrowserRenderer browserRenderer, CaptchaBuster captchaBuster, ProxyPool proxyPool) {
+	public async Task<string> GetSiteContent(string url) {
+		var ip = proxyPool.GetResidentialIp();
+		await browserRenderer.RenderJs(url);
+		var result = captchaBuster.SolveCaptcha();
+
+		return result;
+	}
+}
+```
