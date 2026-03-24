@@ -21,4 +21,54 @@ Would you want to be this guy and press 3 different buttons, not sure which to p
 
 Facade to save the day!
 
+```cpp
+#include <iostream>
+#include <format>
 
+class CoolantPump {
+private:
+	double _flowRate {0.0};
+public:
+	double getFlowRate() {
+		return _flowRate;
+	};
+	void setFlowRate(double desiredRate) {
+		_flowRate = desiredRate;
+	};
+};
+
+class FluxMonitor {
+private:
+	double _fluxRate;
+public:
+	double getNeutronFlux() {
+		return _fluxRate;
+	}
+};
+
+class RodActuator {
+public:
+	void setRodPosition(double desiredPosition) {
+
+	}
+	double getCurrentPosition() {
+		return 450.2;
+	}
+};
+
+class ReactorFacade {
+private:
+	CoolantPump _mainPump;
+	RodActuator _actuator;
+	FluxMonitor _fluxMonitor;
+public:
+	void emergencyScram(){
+		_mainPump.setFlowRate(1500.0); // set it high to cooldown the reactor
+		_actuator.setRodPosition(1000.0); // dip the rods in
+
+		auto finalFlux = _fluxMonitor.getNeutronFlux();
+
+		std::cout << std::format("Post SCRAM flux rate: {}", finalFlux);
+	}
+};
+```
