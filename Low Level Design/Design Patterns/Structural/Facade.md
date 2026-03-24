@@ -72,3 +72,16 @@ public:
 	}
 };
 ```
+
+### Example: ScrapingBee
+Its 2026 everyone is trying to steal data from the websites to train the next **S**tate-**O**f-**T**he-**A**rt AI model. The websites know this and they don't want to become the next stack overflow with nobody every clicking the websites and use AI to get what they want.
+
+That's why they take a tonne of countermeasures to prevent scraping:
+1. `robots.txt` Silicon Valley tech bros laughing on this point
+2. Captchas: This prevents humans more than AI bots I figure
+3. Rate Limiting
+4. IP Blacklisting
+5. Geo Restrictions
+
+Let's be honest its a war you cannot win and let's join the Darkside! and try to see how a Facade can help us scrape the entire web.
+
