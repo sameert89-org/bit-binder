@@ -40,3 +40,19 @@ public:
 }
 ```
 
+```csharp
+class AiAgent{
+	private string _name;
+	private string _model = "gpt-5-turbo";
+	private double _temperature = 0.5;
+	private int _maxTokens = 2048;
+	private string _region = "us-central-1";
+	private readonly List<string> _tools = [];
+
+	public AiAgent(string name, string model, double temperature, int maxTokens, string region, List<string> tools) {
+		// cognitive complexity too high
+	}
+}
+
+
+```
