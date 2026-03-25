@@ -8,4 +8,7 @@ These are universal power plug adapters, they allow you to use different kind of
 
 Adapter is just like that, if you got two systems that cannot understand each other, an adapter is for you!
 
-### Example: 
+### Example: Payment Processor
+Imagine you have an app and you charge a monthly subscription for your app (I don't love you for that, but hey maybe its a good app 😁)
+
+One day you deci
