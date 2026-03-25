@@ -13,4 +13,4 @@
 ![[Class Relationships]]
 
 
-[[Design Principles]]
+[[Design Principles/_index]]
