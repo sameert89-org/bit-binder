@@ -40,7 +40,6 @@ class IndianCcPaymentAdapter(IIndianCreditCardPaymentProcessor indianCcPaymentPr
 			// cannot deduct money using this credit card 
 		}
 		await Initiate2Fa();
-		
 		await WithDraw(amount);
 	}
 }
@@ -53,4 +52,15 @@ Its 2024, you have Silicon Valley Tech bros have hit a wall, they keep pondering
 
 For those of you who don't know AI models are pretty much still a Black box with Input and Output and nothing else. In this case its very difficult to get it to do things if all it can do is read and spit text. Meta (believe or not) was the first to see this and give out a solution called Tools, which has since been universally adapted. 
 
-But a tool is something bas
+But a tool is something basic open a file, read the text, search the web. As the AI grows big the tech bros wanted integrations with more complex upstream systems.
+
+At this point you might wonder isn't API a thing? Well buster API come in shapes, sizes and forms. If I sit and integrate API's all day then I will be 63 million years old before I am done. Anthropic realized this and introduced **MCP** (abbr. Model Context Protocol). It is a set of rules that the AI knows how to use and if you want your app to be touched by the billion dollar sentient robot then you must implement this protocol.
+
+Of course people jumped over the tracks to implement this and it has become a norm now. Some of the Most popular ones in 2026 are:
+
+1. Github MCP server
+2. Firecrawl
+3. Browserbase
+4. Notion
+
+and many more, if you look closely you see that these are all adapters under the hood! Using an api 
