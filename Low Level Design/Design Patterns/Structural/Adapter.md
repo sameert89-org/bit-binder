@@ -8,7 +8,7 @@ These are universal power plug adapters, they allow you to use different kind of
 
 Adapter is just like that, if you got two systems that cannot understand each other, an adapter is for you!
 
-### Example: Payment Processor
+### Example: Your card 💳 has been declined
 Imagine you have an app and you charge a monthly subscription for your app (I don't love you for that, but hey maybe its a good app 😁)
 
 One day you decide to add Indian Credit Cards as a payment option, you were living in Zen mode till now with the following interface:
@@ -21,13 +21,13 @@ interface IPaymentProcessor {
 
 This is almost never the case, but let's assume that all the existing payment provider classes can easily implement this.
 
-You put our your Nerd specs and fire up Claude Code to do this on a fine afternoon, but turns out RBI has dug your [grave](https://www.linkedin.com/posts/eximpe_fintech-crossborderpayments-rbi-activity-7361773667225141249-cXgd) Requiring notoriously difficult 3D Secure & 2FA Requirements. You like money (Who doesn't) so you must implement this. Right now the blueprint is a mess!
+You put our your Nerd specs and fire up Claude Code to do this on a fine afternoon, but turns out RBI has dug your [grave](https://www.linkedin.com/posts/eximpe_fintech-crossborderpayments-rbi-activity-7361773667225141249-cXgd) Requiring notoriously difficult 3D Secure & 3FA Requirements. You like money (Who doesn't) so you must implement this. Right now the blueprint looks nothing like what you want
 
 ```csharp
 interface IIndianCreditCardPaymentProcessor {
-	Task<bool> IsWaitTimeComplete();
+	Task<bool> IsCountrySupported();
 	Task Initiate2Fa();
-	Task Withdraw();
+	Task Withdraw(double amount);
 }
 ```
 
@@ -36,8 +36,15 @@ This is where you remember System Design 101 and think that hey I've got a patte
 ```csharp
 class IndianCcPaymentAdapter(IIndianCreditCardPaymentProcessor indianCcPaymentProcessor) : IPaymentProcessor {
 	public async Task ProcessPayment(double amount) {
-		if(!IsWaitTimeComplete())
-			
+		if(!IsCountrySupported()){
+			// cannot deduct money using this credit card 
+		}
+		await Initiate2Fa();
+		
+		await WithDraw(amount);
 	}
 }
 ```
+
+### Example: Model Context Protocol Adapters
+Of course its 2026 and no set of examples is complete 
