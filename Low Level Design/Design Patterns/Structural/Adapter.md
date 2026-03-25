@@ -21,4 +21,23 @@ interface IPaymentProcessor {
 
 This is almost never the case, but let's assume that all the existing payment provider classes can easily implement this.
 
-You put our your Nerd specs and fire up Claude Code to do this on a fine afternoon, but turns out RBI has dug your [grave][https://www.linkedin.com/posts/eximpe_fintech-crossborderpayments-rbi-activity-7361773667225141249-cXgd) Requiring notoriously difficult 3D Secure & 2FA Requirements. You like money (Who doesn't) so you must implement this
+You put our your Nerd specs and fire up Claude Code to do this on a fine afternoon, but turns out RBI has dug your [grave](https://www.linkedin.com/posts/eximpe_fintech-crossborderpayments-rbi-activity-7361773667225141249-cXgd) Requiring notoriously difficult 3D Secure & 2FA Requirements. You like money (Who doesn't) so you must implement this. Right now the blueprint is a mess!
+
+```csharp
+interface IIndianCreditCardPaymentProcessor {
+	Task<bool> IsWaitTimeComplete();
+	Task Initiate2Fa();
+	Task Withdraw();
+}
+```
+
+This is where you remember System Design 101 and think that hey I've got a pattern for this!
+
+```csharp
+class IndianCcPaymentAdapter(IIndianCreditCardPaymentProcessor indianCcPaymentProcessor) : IPaymentProcessor {
+	public async Task ProcessPayment(double amount) {
+		if(!IsWaitTimeComplete())
+			
+	}
+}
+```
