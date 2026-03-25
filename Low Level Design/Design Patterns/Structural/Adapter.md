@@ -47,4 +47,10 @@ class IndianCcPaymentAdapter(IIndianCreditCardPaymentProcessor indianCcPaymentPr
 ```
 
 ### Example: Model Context Protocol Adapters
-Of course its 2026 and no set of examples is complete 
+Of course its 2026 and no set of examples is complete without **AI** in it. In this episode of "I am tired of AI" we bring you MCP Adapters.
+
+Its 2024, you have Silicon Valley Tech bros have hit a wall, they keep pondering the following question: *How do I give my AI more hands?*.
+
+For those of you who don't know AI models are pretty much still a Black box with Input and Output and nothing else. In this case its very difficult to get it to do things if all it can do is read and spit text. Meta (believe or not) was the first to see this and give out a solution called Tools, which has since been universally adapted. 
+
+But a tool is something bas
