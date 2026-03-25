@@ -66,5 +66,45 @@ Naturally, everyone jumped the tracks to implement it, and it has become the nor
 If you look closely, you’ll see that these are all **adapters** under the hood—taking a specific implementation and making it "AI-agent ready."
 
 ```cpp
+#include <iostream>
+#include <string>
+#include <memory>
+#include <vector>
 
+class McpServer {
+public:
+  virtual ~McpServer() = default;
+  virtual std::string execute_tool(const std::string& name, const std::string& args) = 0;
+};
+
+class FigmaApi {
+public:
+  std::string fetch_node_json(const std::string& file_key, const std::string& node_id) {
+    return "{\"id\": \"" + node_id + "\", \"type\": \"RECTANGLE\", \"color\": \"#FF0000\"}";
+  }
+};
+
+class FigmaMcpAdapter : public McpServer {
+public:
+  explicit FigmaMcpAdapter(std::unique_ptr<FigmaApi> api) : figma_api_(std::move(api)) {}
+
+  std::string execute_tool(const std::string& name, const std::string& args) override {
+    if (name == "get_component") {
+      return figma_api_->fetch_node_json("file_123", args);
+    }
+    return "Error: Tool not found";
+  }
+
+private:
+  std::unique_ptr<FigmaApi> figma_api_;
+};
+
+int main() {
+  auto api = std::make_unique<FigmaApi>();
+  std::unique_ptr<McpServer> server = std::make_unique<FigmaMcpAdapter>(std::move(api));
+
+  std::cout << server->execute_tool("get_component", "layer_01") << std::endl;
+
+  return 0;
+}
 ```
