@@ -99,5 +99,36 @@ loggedService.ProcessOrder(123);  // Logs automatically
 Adding each layer creates a wrapper and fundamentally changes the `read` and `write` procedures.
 
 ```cpp
+#include <iostream>
+using namespace std;
+class Base {
+private:
+	string _target;
+public:
+	Base(target)
+		: _target(target){}
+		
+	string readFile(string path) {
+	
+	}
+};
 
+class Crypt {
+private:
+	Base _inner;
+	string _key;
+public:
+	Crypt(Base inner)
+		:_inner(inner) {}
+	string readFile(string key) {
+		// decrypt
+		return _inner.readFile();
+	}
+};
+
+
+class Cache {
+	Crypt _inner;
+	
+}
 ```
