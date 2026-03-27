@@ -28,6 +28,9 @@ class BuildingWithSecurityGuardAndIdScanner : public class BuildingWithSecurityG
 
 See the problem? We need to add functionality but we are having a multitude of classes. 
 
-
 > [!Question] How is Decorator different from Builder?
-> On the first glace it seems like Decorator is just like [[Builder]], since its adding functionality to an object. That is true but the main difference here is that builder is meant to be dynamic i.e. it adds functionality to existing object. Take the pizza for example, once the pizza is baked there is no way for adding functionality to it, hence builder sits righjt
+> On the first glace it seems like Decorator is just like [[Builder]], since its adding functionality to an object. That is true but the main difference here is that builder is meant to be dynamic i.e. it adds functionality to existing object, whereas builder is supposed to only work during the object creation. Take the pizza for example, once the pizza is baked there is no way for adding functionality to it, hence builder sits right in that case, but if you want to do it at any time, a decorator is best suited. Moreover Decorator is somewhat like an onion 🧅, once a layer is wrapped there is no easy way to unwrap, the object identity is considered lost.
+
+
+
+
