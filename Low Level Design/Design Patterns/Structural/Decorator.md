@@ -95,4 +95,9 @@ loggedService.ProcessOrder(123);  // Logs automatically
 ### Example: `rclone` layers
 `rclone` is a robust Linux tool which is used to sync files locally to virtually any cloud provider! If we look closely at the architecture of `rclone` layers it is a decorator.
 
-![[Decorator 2026-03-28 00.31.23.excalidraw]]
+![[Decorator 2026-03-28 00.31.23.excalidraw|200]]
+Adding each layer creates a wrapper and fundamentally changes the `read` and `write` procedures.
+
+```cpp
+
+```
