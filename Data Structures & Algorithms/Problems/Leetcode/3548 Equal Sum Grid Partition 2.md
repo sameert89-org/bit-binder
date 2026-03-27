@@ -107,4 +107,86 @@ public:
 
 
 > [!danger] `std::unordered_map<long long>`
-> I was stuck for a long time with this issue wherein I passed 941/942 test cases, the last one was failing and I did not have confidence on either the code or the test cases so I spent a lot of time print debugging instead of blaming it on overflow like usual. But it was an overflow, turns out if you do int x = "A long long value"; this clearly works in c++ i don't know why 
+> I was stuck for a long time with this issue wherein I passed 941/942 test cases, the last one was failing and I did not have confidence on either the code or the test cases so I spent a lot of time print debugging instead of blaming it on overflow like usual. But it was an overflow, turns out if you do 
+> ```cpp
+> long long y = 3482934394892384394LL;
+ >   int x = y; 
+ >   cout << x; // this works for some gosh darn reason
+> ```
+> It just works same thing happens with map, it overflows rolls back and returns false presence of numbers.
+
+
+A cleaner way to do this is to use a check function and transpose the original matrix and only use row-wise cuts.
+
+```cpp
+class Solution {
+    // Helper to check for a valid vertical partition
+    bool check(vector<vector<int>>& grid) {
+        int M = grid.size(), N = grid[0].size();
+        long long totalSum = 0;
+        unordered_map<long long, vector<pair<int, int>>> valToPos;
+
+        for (int i = 0; i < M; ++i) {
+            for (int j = 0; j < N; ++j) {
+                totalSum += grid[i][j];
+                valToPos[grid[i][j]].push_back({i, j});
+            }
+        }
+
+        long long leftSum = 0;
+        // Try every vertical cut between column j and j+1
+        for (int j = 0; j < N - 1; ++j) {
+            for (int i = 0; i < M; ++i) leftSum += grid[i][j];
+            
+            long long rightSum = totalSum - leftSum;
+            long long diff = abs(leftSum - rightSum);
+
+            if (diff == 0) return true; 
+
+            // If we need to remove 'diff' from the larger side
+            if (valToPos.count(diff)) {
+                for (auto& [r, c] : valToPos[diff]) {
+                    bool inLeft = (c <= j);
+                    bool inRight = (c > j);
+
+                    // Check if removing this element from the heavier side balances them
+                    if (leftSum > rightSum && inLeft) {
+                        if (isRemovable(r, c, M, j + 1)) return true;
+                    } 
+                    else if (rightSum > leftSum && inRight) {
+                        if (isRemovable(r, c - (j + 1), M, N - (j + 1))) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // Connectivity logic: Can we remove element at (r, c) from an M x W subgrid?
+    bool isRemovable(int r, int c, int M, int W) {
+        // If width > 1 and height > 1, the piece remains connected regardless of where you pull from
+        if (M > 1 && W > 1) return true;
+        // If it's a single column (W=1), only top or bottom can be removed
+        if (W == 1) return (r == 0 || r == M - 1);
+        // If it's a single row (M=1), only left or right can be removed
+        if (M == 1) return (c == 0 || c == W - 1);
+        return false;
+    }
+
+public:
+    bool canPartitionGrid(vector<vector<int>>& grid) {
+        // 1. Check vertical cuts
+        if (check(grid)) return true;
+
+        // 2. Transpose the grid
+        int M = grid.size(), N = grid[0].size();
+        vector<vector<int>> transposed(N, vector<int>(M));
+        for (int i = 0; i < M; ++i)
+            for (int j = 0; j < N; ++j)
+                transposed[j][i] = grid[i][j];
+
+        // 3. Check horizontal cuts (as vertical cuts on transposed grid)
+        return check(transposed);
+    }
+};
+```
