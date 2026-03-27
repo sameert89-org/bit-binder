@@ -1,8 +1,9 @@
 > Builder is an assembly line, which lets you construct complex objects step by step!
 
-**Why do I need a builder?**
+### Why do I need a builder?
 If you ever run into Constructors/Factories with a large number of parameters, then you need a builder!
 
+### How do I Implement a Builder?
 ```cpp
 enum Class Crust {
 	CLASSIC_TOSSED,
@@ -39,6 +40,9 @@ public:
 	};
 }
 ```
+
+> [!NOTE] Builder doesn't just add
+> The only restriction about builder is that its supposed to be used during object creation, but one important  distinction is that its absolutely fine to have a `removeTopping` in your Pizza class, a Pizza is considered built when the order is confirmed!
 
 ```csharp
 class AiAgentBuilder{
@@ -86,7 +90,5 @@ class AiAgentBuilder(string name){
 		_tools.Add(tool);
 		return this;
 	}
-
 }
-
 ```
