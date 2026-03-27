@@ -1,0 +1,1 @@
+> A decorator is a pattern that allows you to add behaviors to objects 
