@@ -33,4 +33,8 @@ See the problem? We need to add functionality but we are having a multitude of c
 
 ### Example: Aspect Oriented Programming, Metaprogramming and Decorators
 
-> Aspect Oriented Programming(AOP)
+> **Aspect Oriented Programming (AOP)** is a programming paradigm which allows you to separate cross cutting concerns into pluggable, reusable modules.
+
+> **Metaprogramming** The ability of a program to treat another program as input data, do modifications on it.
+
+AOP is generally 
