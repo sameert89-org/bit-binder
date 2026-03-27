@@ -37,4 +37,33 @@ See the problem? We need to add functionality but we are having a multitude of c
 
 > **Metaprogramming** The ability of a program to treat another program as input data, do modifications on it.
 
-AOP is generally 
+AOP is generally implemented using metaprogramming! Let's take the cliché example of a cross cutting concern of logging.
+
+```csharp
+// csharp lacks native support for AOP unlike AspectJ for Java, but similar thing can be achieved using reflection + attributes, there are commercial libraries like PostSharp available for this.
+[Serializable]
+public class LogAspect : OnMethodBoundaryAspect 
+{
+    public override void OnEntry(MethodExecutionArgs args) 
+    {
+        Console.WriteLine($"[AOP] Entering {args.Method.Name}");
+    }
+    
+    public override void OnExit(MethodExecutionArgs args) 
+    {
+        Console.WriteLine($"[AOP] Exiting {args.Method.Name}");
+    }
+    
+    public override void OnException(MethodExecutionArgs args) 
+    {
+        Console.WriteLine($"[AOP] Exception: {args.Exception.Message}");
+        args.FlowBehavior = FlowBehavior.RethrowException;
+    }
+}
+
+public class BusinessService 
+{
+    [LogAspect]  // Just this attribute - no interface needed!
+    public void DoWork() { /* ... */ }
+}
+```
