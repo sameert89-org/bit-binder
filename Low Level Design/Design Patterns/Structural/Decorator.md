@@ -41,29 +41,58 @@ AOP is generally implemented using metaprogramming! Let's take the cliché examp
 
 ```csharp
 // csharp lacks native support for AOP unlike AspectJ for Java, but similar thing can be achieved using reflection + attributes, there are commercial libraries like PostSharp available for this.
-[Serializable]
-public class LogAspect : OnMethodBoundaryAspect 
+// The contract
+public interface IOrderService 
 {
-    public override void OnEntry(MethodExecutionArgs args) 
+    void ProcessOrder(int orderId);
+}
+
+// The real business logic (clean, no logging)
+public class OrderService : IOrderService 
+{
+    public void ProcessOrder(int orderId) 
     {
-        Console.WriteLine($"[AOP] Entering {args.Method.Name}");
-    }
-    
-    public override void OnExit(MethodExecutionArgs args) 
-    {
-        Console.WriteLine($"[AOP] Exiting {args.Method.Name}");
-    }
-    
-    public override void OnException(MethodExecutionArgs args) 
-    {
-        Console.WriteLine($"[AOP] Exception: {args.Exception.Message}");
-        args.FlowBehavior = FlowBehavior.RethrowException;
+        // Pure business logic
+        Console.WriteLine($"Processing order {orderId}");
     }
 }
 
-public class BusinessService 
+// The Aspect - wraps the real service
+public class LoggingDecorator : IOrderService 
 {
-    [LogAspect]  // Just this attribute - no interface needed!
-    public void DoWork() { /* ... */ }
+    private readonly IOrderService _inner;
+    private readonly ILogger _logger;
+
+    public LoggingDecorator(IOrderService inner, ILogger logger) 
+    {
+        _inner = inner;
+        _logger = logger;
+    }
+
+    public void ProcessOrder(int orderId) 
+    {
+        _logger.LogInfo($"[ASPECT] Starting ProcessOrder with id={orderId}");
+        
+        try 
+        {
+            _inner.ProcessOrder(orderId);
+            _logger.LogInfo("[ASPECT] Completed successfully");
+        }
+        catch (Exception ex) 
+        {
+            _logger.LogError($"[ASPECT] Failed: {ex.Message}");
+            throw;
+        }
+    }
 }
+
+// Wire-up (usually in Startup.cs or DI container)
+IOrderService realService = new OrderService();
+IOrderService loggedService = new LoggingDecorator(realService, logger);
+loggedService.ProcessOrder(123);  // Logs automatically
 ```
+
+### Example: `rclone` layers
+`rclone` is a robust Linux tool which is used to sync files locally to virtually any cloud provider! If we look closely at the architecture of `rclone` layers it is a decorator.
+
+![[Decorator 2026-03-28 00.31.23.excalidraw]]
