@@ -100,35 +100,48 @@ Adding each layer creates a wrapper and fundamentally changes the `read` and `wr
 
 ```cpp
 #include <iostream>
+#include <string>
+#include <vector>
+
 using namespace std;
+
 class Base {
 private:
-	string _target;
+    string _target;
 public:
-	Base(target)
-		: _target(target){}
-		
-	string readFile(string path) {
-	
-	}
+    Base(string target)
+        : _target(target) {}
+
+    string readFile(string path) {
+        return "Content from " + path;
+    }
 };
 
 class Crypt {
 private:
-	Base _inner;
-	string _key;
+    Base _inner;
+    string _key;
 public:
-	Crypt(Base inner)
-		:_inner(inner) {}
-	string readFile(string key) {
-		// decrypt
-		return _inner.readFile();
-	}
+    Crypt(Base inner, string key)
+        : _inner(inner), _key(key) {}
+
+    string readFile(string path) {
+	    // decrypt
+        return _inner.readFile(path);
+    }
 };
 
-
 class Cache {
-	Crypt _inner;
-	
-}
+private:
+    Crypt _inner;
+    vector<string> _filePaths;
+public:
+    Cache(Crypt inner)
+        : _inner(inner) {}
+
+    string readFile(string path) {
+	    // check cache to reduce network calls
+        return _inner.readFile(path);
+    }
+};
 ```
