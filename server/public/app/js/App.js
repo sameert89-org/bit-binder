@@ -49,7 +49,13 @@ class AppController {
 
     this.openNewTabButton.addEventListener("click", () => {
       if (this.frame.src) {
-        window.open(this.frame.src, "_blank", "noopener");
+        let targetUrl = this.frame.src;
+        this.withFrameWindow((win) => {
+          if (win.location && win.location.href !== "about:blank") {
+            targetUrl = win.location.href;
+          }
+        });
+        window.open(targetUrl, "_blank", "noopener");
       }
     });
 
