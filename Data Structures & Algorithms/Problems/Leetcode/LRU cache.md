@@ -7,3 +7,8 @@ A key becomes recently used if:
 
 The standard way of implementing this is by using a **Doubly Linked List** and a Hashmap
 
+However it can easily get overwhelmingly complex if the linked list part is not implemented properly.
+
+```cpp
+
+```
