@@ -7,3 +7,4 @@ Journal/
 # Ignore Obsidian per-vault UI state and completr cache across all vaults.
 **/.obsidian/workspace.json
 **/.obsidian/plugins/obsidian-completr/scanned_words.txt
+**/.obsidian/plugins/copilot-auto-completion/data.json

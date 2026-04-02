@@ -1,0 +1,10 @@
+These are the two approaches to solve dynamic programming problems..
+
+| Factor         | Top-Down (Memoization)                                                                                        | Bottom-Up (Tabulation)                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Approach**   | Recursive                                                                                                     | Iterative (loops)                                                                                                      |
+| **Order**      | Starts from the main problem and breaks it down to base cases.                                                | Starts from the base cases (smallest subproblems) and builds up to the main problem.                                   |
+| **Storage**    | Uses a memoization table (array or hash map) to store results as subproblems are solved.                      | Fills a DP table in a predefined order (e.g., from index 0 to _n_).                                                    |
+| **Space**      | Uses extra space for the recursion call stack, which can lead to stack overflow for deep recursion trees.     | Typically uses less auxiliary space as it avoids the call stack, and sometimes can be optimized to use O(1) space.     |
+| **Intuition**  | Often more intuitive to implement as it follows the natural recursive definition of the problem.              | Requires careful planning to define the correct iterative order for filling the table.                                 |
+| **Efficiency** | Only solves the necessary subproblems, which can be faster if only a fraction of the problem space is needed. | Solves all subproblems in the defined order, which can be less efficient if many are unnecessary for the final answer. |
