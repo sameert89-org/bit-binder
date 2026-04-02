@@ -1,1 +1,1 @@
-Rabin karp algorithm uses 
+This is another substring find 
