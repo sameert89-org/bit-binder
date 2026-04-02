@@ -18,4 +18,12 @@ where $s_i$ represents the character in the string at index i. $d^x$ represents 
 **Why does this work?**
 The q allows this hash function to be uniform and in the range $[0, q-1]$
 
-Regarding the base, if we choose a base that is smaller than the character set 
+Regarding the base, if we choose a base that is smaller than the character set then that means *more than one character in the string is going to have the same representation* which will guarantee collisions.
+
+The polynomial specifically allows $O(1)$ rolling and avoids *anagrams*. Since each character is going to be multiplied by a different number $b^x$ this guarantees that the contributions of those in the hash value would vary!
+
+Below are implementations of the algorithm
+
+```cpp
+
+```
