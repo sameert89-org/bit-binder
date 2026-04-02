@@ -12,5 +12,12 @@ However it can easily get overwhelmingly complex if the linked list part is not 
 The main idea is to use two  sentinel nodes to avoid having to check for null pointers.
 
 ```cpp
+class ListNode  {
+    int key;
+    int value;
+    ListNode* prev;
+    ListNode* next;
+    ListNode(int k, int v) : key(k), value(v), prev(nullptr), next(nullptr) {}
+};
 
 ```
