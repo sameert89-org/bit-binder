@@ -52,3 +52,12 @@ But hey every bad has a good in it, we can learn about one of the biggest modern
 > For courtesy here is the definition: A VPN works by routing your internet traffic through a remote server, so websites see the VPN server’s IP address instead of yours.
 
 ![[Proxy 2026-04-02 23.19.08.excalidraw]]
+
+ When you connect to a website through a VPN, your requests go to the VPN server first. The VPN server then forwards them to the real website, so the website only sees the VPN server—not you—while you still use the internet normally.
+
+So in this case:
+- The **Client** is  your device
+- The **Real Object** is the Destination Web Server
+- The **Proxy** is the VPN
+
+To your device 
