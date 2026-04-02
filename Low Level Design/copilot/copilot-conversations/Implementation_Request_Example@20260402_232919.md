@@ -56,3 +56,68 @@ int main() {
 
 If you want it even more “VPN-like”, I can tweak it so the **destination server prints which IP it thinks you are** (your real IP vs VPN IP), still keeping it tiny.
 [Timestamp: 2026/04/02 23:30:28]
+
+**user**: Can you correct the Rihanna's manager example its incomplete code-wise use csharp, use a common interface like CelebrityPerformer or some relevant name
+[Context: Notes: Proxy.md]
+[Timestamp: 2026/04/02 23:34:34]
+
+**ai**: ```csharp
+using System;
+
+public interface ICelebrityPerformer
+{
+    void Perform(string venue);
+}
+
+public class Rihanna : ICelebrityPerformer
+{
+    public void Perform(string venue)
+    {
+        Console.WriteLine($"Rihanna performs at {venue}.");
+    }
+}
+
+public class ManagerProxy : ICelebrityPerformer
+{
+    private readonly ICelebrityPerformer _realPerformer;
+    private readonly decimal _minimumFee;
+
+    public ManagerProxy(ICelebrityPerformer realPerformer, decimal minimumFee)
+    {
+        _realPerformer = realPerformer;
+        _minimumFee = minimumFee;
+    }
+
+    public void Perform(string venue)
+    {
+        Console.WriteLine("Manager: booking approved.");
+        _realPerformer.Perform(venue);
+    }
+
+    public bool TryBook(string venue, decimal offeredFee)
+    {
+        if (offeredFee < _minimumFee)
+        {
+            Console.WriteLine($"Manager: rejected (need at least {_minimumFee}).");
+            return false;
+        }
+
+        Console.WriteLine($"Manager: accepted for {offeredFee}.");
+        Perform(venue);
+        return true;
+    }
+}
+
+public static class Program
+{
+    public static void Main()
+    {
+        ICelebrityPerformer rihanna = new Rihanna();
+        var manager = new ManagerProxy(rihanna, minimumFee: 1_000_000m);
+
+        manager.TryBook("Private Party", 100_000m);
+        manager.TryBook("Super Bowl Halftime Show", 2_000_000m);
+    }
+}
+```
+[Timestamp: 2026/04/02 23:35:25]

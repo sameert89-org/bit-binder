@@ -24,11 +24,11 @@ In this case the manager is acting as a proxy for Rihanna.
 Rihanna's Original Interface would look like this with a lot of things that are not required for everybody.
 
 ```csharp
-public interface IRihanna
+public interface ICelebrityPerformer
 {
-    void Perform();
-    void BookWedding();
+    void Perform(string venue);
 }
+
 ```
 
 You could not go through her directly its very difficult to do so, how would the venue work, how much would be the payment, what is her availability etc. etc. 
@@ -64,3 +64,43 @@ To an app running on your phone, the  common interface is `HTTP/HTTPS`,  the dat
 
 Below is a simplified example in C++ demonstrating this example.
 
+```cpp
+#include <iostream>
+#include <string>
+
+struct IHttpClient {
+    virtual ~IHttpClient() = default;
+    virtual std::string get(const std::string& url) = 0;
+};
+
+class RealHttpClient : public IHttpClient {
+public:
+    std::string get(const std::string& url) override {
+        return "200 OK from " + url;
+    }
+};
+
+class VpnProxy : public IHttpClient {
+    IHttpClient& real;
+    std::string vpnIp;
+
+public:
+    VpnProxy(IHttpClient& real, std::string vpnIp)
+        : real(real), vpnIp(std::move(vpnIp)) {}
+
+    std::string get(const std::string& url) override {
+        std::cout << "[VPN " << vpnIp << "] encrypting & forwarding GET " << url << "\n";
+        return real.get(url);
+    }
+};
+
+int main() {
+    RealHttpClient internet;
+    VpnProxy vpn(internet, "203.0.113.10");
+
+    IHttpClient& client = vpn;
+    std::cout << client.get("https://example.com") << "\n";
+}
+```
+
+There are many other great examples of proxies like `nginx`. Read more about proxies [here](https://notes.kernelrider.in/Microservices/proxies-and-reverse-proxies.html)
