@@ -56,8 +56,11 @@ But hey every bad has a good in it, we can learn about one of the biggest modern
  When you connect to a website through a VPN, your requests go to the VPN server first. The VPN server then forwards them to the real website, so the website only sees the VPN server—not you—while you still use the internet normally.
 
 So in this case:
-- The **Client** is  your device
+- The **Client** is  any program running on your phone
 - The **Real Object** is the Destination Web Server
 - The **Proxy** is the VPN
 
-To your device 
+To an app running on your phone, the  common interface is `HTTP/HTTPS`,  the data is first sent to the proxy server (The VPN server) which is then forwarded to the Server.
+
+Below is a simplified example in C++ demonstrating this example.
+
