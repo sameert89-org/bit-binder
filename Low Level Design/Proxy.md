@@ -45,4 +45,10 @@ public interface IPeterGriffinTalentAgency
  The manager can then handle the details, check availability, negotiate payment, and only if everything is fine, forward the request to Rihanna. It is important to notice here that `BookWedding` has the same name but there is a lot of added functionality inside, before this is forwarded to Rihanna.
 
 ### Example : VPNs
-Here is to another modern day snake-oil 🍷 that is VPNs. You believe PeterGriffinb
+Here is to another modern day snake-oil 🍷 that is VPNs. You believe 50 thousandth `GlennQuagmiresTotallyLegitSecureVPN.apk` isn't selling your data? God bless you.
+
+But hey every bad has a good in it, we can learn about one of the biggest modern day example of Proxy Patterns via VPNs!
+
+> For courtesy here is the definition: A VPN works by routing your internet traffic through a remote server, so websites see the VPN server’s IP address instead of yours.
+
+![[Proxy 2026-04-02 23.19.08.excalidraw]]
