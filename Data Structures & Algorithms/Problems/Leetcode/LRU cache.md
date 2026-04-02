@@ -9,7 +9,7 @@ The standard way of implementing this is by using a **Doubly Linked List** and a
 
 However it can easily get overwhelmingly complex if the linked list part is not implemented properly.
 
-The main idea is to use two  sentinel nodes to avoid having to check for null pointers.
+The main idea is to use two sentinel nodes to avoid having to check for null pointers. 
 
 ```cpp
 class ListNode  {
