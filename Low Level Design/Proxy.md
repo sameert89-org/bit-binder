@@ -28,7 +28,13 @@ public interface ICelebrityPerformer
 {
     void Perform(string venue);
 }
-
+public class Rihanna : ICelebrityPerformer
+{
+    public void Perform(string venue)
+    {
+        Console.WriteLine($"Rihanna performs at {venue}.");
+    }
+}
 ```
 
 You could not go through her directly its very difficult to do so, how would the venue work, how much would be the payment, what is her availability etc. etc. 
@@ -36,9 +42,28 @@ You could not go through her directly its very difficult to do so, how would the
  So the manager would expose a simpler interface like this:
 
 ```csharp
-public interface IPeterGriffinTalentAgency
+public class ManagerProxy : ICelebrityPerformer
 {
-    void BookWedding();
+    private readonly ICelebrityPerformer _real;
+    private readonly decimal _minimumFee;
+
+    public ManagerProxy(ICelebrityPerformer real, decimal minimumFee)
+    {
+        _real = real;
+        _minimumFee = minimumFee;
+    }
+
+    public void Perform(string venue, decimal offeredFee)
+    {
+        if (offeredFee < _minimumFee)
+        {
+            Console.WriteLine($"Manager: rejected (need at least {_minimumFee}).");
+            return;
+        }
+
+        Console.WriteLine("Manager: approved.");
+        _real.Perform(venue, offeredFee);
+    }
 }
 ```
 

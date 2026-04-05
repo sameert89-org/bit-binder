@@ -1,0 +1,1 @@
+>  The Composite Design Pattern is a structural pattern used to treat individual objects and groups of objects (compositions) uniformly.

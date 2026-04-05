@@ -121,3 +121,63 @@ public static class Program
 }
 ```
 [Timestamp: 2026/04/02 23:35:25]
+
+**user**: This looks like an adapter, they don't share the interface here, client needs to know about this additional trybook
+[Context: Notes: Proxy.md]
+[Timestamp: 2026/04/02 23:36:54]
+
+**ai**: ```csharp
+using System;
+
+public interface ICelebrityPerformer
+{
+    void Perform(string venue, decimal offeredFee);
+}
+
+public class Rihanna : ICelebrityPerformer
+{
+    public void Perform(string venue, decimal offeredFee)
+    {
+        Console.WriteLine($"Rihanna performs at {venue}.");
+    }
+}
+
+public class ManagerProxy : ICelebrityPerformer
+{
+    private readonly ICelebrityPerformer _real;
+    private readonly decimal _minimumFee;
+
+    public ManagerProxy(ICelebrityPerformer real, decimal minimumFee)
+    {
+        _real = real;
+        _minimumFee = minimumFee;
+    }
+
+    public void Perform(string venue, decimal offeredFee)
+    {
+        if (offeredFee < _minimumFee)
+        {
+            Console.WriteLine($"Manager: rejected (need at least {_minimumFee}).");
+            return;
+        }
+
+        Console.WriteLine("Manager: approved.");
+        _real.Perform(venue, offeredFee);
+    }
+}
+
+public static class Program
+{
+    public static void Main()
+    {
+        ICelebrityPerformer performer = new ManagerProxy(
+            real: new Rihanna(),
+            minimumFee: 1_000_000m
+        );
+
+        performer.Perform("Private Party", 100_000m);
+        performer.Perform("Super Bowl Halftime Show", 2_000_000m);
+    }
+}
+```
+[Timestamp: 2026/04/02 23:36:57]
