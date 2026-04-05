@@ -153,12 +153,21 @@ Process:
 def morris_in_order(TreeNode root):
 	TreeNode curr = root
 	
-	while(curr):
+	while curr:
 		if curr.left is None:
 			print(curr.val)
 			curr = curr.right
 		else:
 			pred = curr.left
-			while(pred)
+			while pred.right and pred.right != curr :
+				pred = pred.right
+			
+			if pred.right is None:
+				pred.right = curr
+				curr = curr.left
+			else:
+				pred.right = None
+				print(curr.val)
+				curr = curr->right
 		
 ```
