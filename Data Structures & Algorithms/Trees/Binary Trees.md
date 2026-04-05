@@ -176,7 +176,7 @@ def morris_in_order(TreeNode root):
 			if pred.right is None:
 				pred.right = curr
 				curr = curr.left
-			else:
+			else: # pred.right = curr, we have already visited this node, so undo the link changes
 				pred.right = None
 				print(curr.val)
 				curr = curr->right
