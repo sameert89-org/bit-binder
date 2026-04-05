@@ -149,3 +149,16 @@ The most common traversal done using Morris method is in-order traversal.
 Process:
 > *link predecessor-> come back -> unlink -> process*
 
+```python
+def morris_in_order(TreeNode root):
+	TreeNode curr = root
+	
+	while(curr):
+		if curr.left is None:
+			print(curr.val)
+			curr = curr.right
+		else:
+			pred = curr.left
+			while(pred)
+		
+```
