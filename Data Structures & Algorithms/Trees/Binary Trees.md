@@ -155,6 +155,7 @@ In case of *recursion* I use the recusion stack. If I am doing it iteratively I 
 I need one way to get back, *Morris* travesal uses the right pointers temporarily to create this backup path.
 
 - If the current node has a left child, that means I would need to return to this node, I will create a path to this node by going to the rightmost leaf from here and linking its right side to the current node.
+- If the node has no left child, that means this is the last time I am going to visit the node, so I will just process this and go to the right subtree.
 
 The most common traversal done using Morris method is in-order traversal.
 
