@@ -29,7 +29,7 @@ void preOrder(TreeNode *root) {
 	if(root == nullptr)
 		return;
 		
-	cout << root << ",";
+	cout << root->val << ",";
 	
 	preOrder(root->left);
 	preOrder(root->right);
@@ -39,7 +39,7 @@ void preOrder(TreeNode *root) {
 This can also be done iteratively. Below is the iterative implementation in C++. This is done using a stack.
 
 ```cpp
-void preOrder(TreeNode *root) {
+void preOrderIter(TreeNode *root) {
 	if (root == nullptr) return;
 
 	std::stack<TreeNode*> st;
@@ -49,7 +49,7 @@ void preOrder(TreeNode *root) {
 		TreeNode *node = st.top();
 		st.pop();
 
-		cout << node << ",";
+		cout << node->val << ",";
 
 		if (node->right) st.push(node->right);
 		if (node->left) st.push(node->left);
@@ -70,13 +70,11 @@ void inOrder(TreeNode *root) {
 		return;
 		
 	inOrder(root->left);
-	cout << root << ",";
+	cout << root->val << ",";
 	inOrder(root->right);
 }
 
-void inOrder(TreeNode *root) {
-	if (root == nullptr) return;
-
+void inOrderIter(TreeNode *root) {
 	std::stack<TreeNode*> st;
 	TreeNode *curr = root;
 
@@ -89,9 +87,20 @@ void inOrder(TreeNode *root) {
 		curr = st.top();
 		st.pop();
 
-		cout << curr << ",";
+		cout << curr->val << ",";
 
 		curr = curr->right;
 	}
 }
+```
+
+### Post Order Traversal
+`left->right->root`
+
+Visit the left and right subtree first, then the root node.
+
+Below are the recursive and iterative implementations
+
+```cpp
+
 ```
