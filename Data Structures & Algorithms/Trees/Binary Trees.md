@@ -144,10 +144,20 @@ Traversal Technique for binary trees without using recursion and without using s
 
 The core idea is that we want to use empty right pointers to temporarily link back to the parent.
 
+When I want to do say, inorder traversal the main thing I want to do is the following:
+
+`left->root->right` I want to keep going left then process the left then process the root and finally process the right. 
+
+After going far left, how do I come back?
+
+In case of *recursion* I use the recusion stack. If I am doing it iteratively I will use a *stack*.
+
+I need one way to get back, *Morris* travesal uses the right pointers temporarily to create this backup path.
+
+- If the current node has a left child, that means I would need to return to this node, I will create a path to this node by going to the rightmost leaf from here and linking its right side to the current node.
+
 The most common traversal done using Morris method is in-order traversal.
 
-Process:
-> *link predecessor-> come back -> unlink -> process*
 
 ```python
 def morris_in_order(TreeNode root):
