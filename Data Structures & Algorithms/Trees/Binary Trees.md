@@ -140,4 +140,12 @@ void posOrderIter(TreeNode *root){
 ```
 
 ### Morris Traversal
-Traversal Technique for binary trees without using recursion and without using 
+Traversal Technique for binary trees without using recursion and without using stack using $O(1)$ space.
+
+The core idea is that we want to use empty right pointers to temporarily link back to the parent.
+
+The most common traversal done using Morris method is in-order traversal.
+
+Process:
+> *link predecessor-> come back -> unlink -> process*
+
