@@ -102,5 +102,35 @@ Visit the left and right subtree first, then the root node.
 Below are the recursive and iterative implementations
 
 ```cpp
+void postOrder(TreeNode *root) {
+	if (root == nullptr)
+		return;
 
+	postOrder(root->left);
+	postOrder(root->right);
+	cout << root->val << ",";
+}
+
+void postOrderIter(TreeNode *root) {
+	if (root == nullptr) return;
+
+	std::stack<TreeNode*> st1, st2;
+	st1.push(root);
+
+	while (!st1.empty()) {
+		TreeNode *node = st1.top();
+		st1.pop();
+
+		st2.push(node);
+
+		if (node->left) st1.push(node->left);
+		if (node->right) st1.push(node->right);
+	}
+
+	while (!st2.empty()) {
+		cout << st2.top()->val << ",";
+		st2.pop();
+	}
+}
+```
 ```
