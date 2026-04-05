@@ -19,3 +19,79 @@ There are different classifications of binary trees based on their properties.
 Tree traversals are ways to visit all nodes in the tree. There are 4 main ways of doing a tree traversal.
 
 ### Pre Order Traversal
+`root->left->right`
+
+Visit the root node first, then visit the left subtree and finally the right subtree.
+
+Below is the recursive implementation in C++
+```cpp
+void preOrder(TreeNode *root) {
+	if(root == nullptr)
+		return;
+		
+	cout << root << ",";
+	
+	preOrder(root->left);
+	preOrder(root->right);
+}
+```
+
+This can also be done iteratively. Below is the iterative implementation in C++. This is done using a stack.
+
+```cpp
+void preOrder(TreeNode *root) {
+	if (root == nullptr) return;
+
+	std::stack<TreeNode*> st;
+	st.push(root);
+
+	while (!st.empty()) {
+		TreeNode *node = st.top();
+		st.pop();
+
+		cout << node << ",";
+
+		if (node->right) st.push(node->right);
+		if (node->left) st.push(node->left);
+	}
+}
+```
+
+### In Order Traversal
+`left->root->right`
+
+Visit the left subtree first, then the root node, and finally the right subtree.
+
+Below are the recursive and iterative implementations:
+
+```cpp
+void inOrder(TreeNode *root) {
+	if(root == nullptr)
+		return;
+		
+	inOrder(root->left);
+	cout << root << ",";
+	inOrder(root->right);
+}
+
+void inOrder(TreeNode *root) {
+	if (root == nullptr) return;
+
+	std::stack<TreeNode*> st;
+	TreeNode *curr = root;
+
+	while (curr != nullptr || !st.empty()) {
+		while (curr != nullptr) {
+			st.push(curr);
+			curr = curr->left;
+		}
+
+		curr = st.top();
+		st.pop();
+
+		cout << curr << ",";
+
+		curr = curr->right;
+	}
+}
+```
