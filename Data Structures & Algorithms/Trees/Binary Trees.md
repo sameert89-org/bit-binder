@@ -110,27 +110,31 @@ void postOrder(TreeNode *root) {
 	postOrder(root->right);
 	cout << root->val << ",";
 }
+```
 
-void postOrderIter(TreeNode *root) {
-	if (root == nullptr) return;
+The iterative version can be done using 1 stack but it gets super hairy. One of the easiest ways to remember t his is to use a modified preorder
 
-	std::stack<TreeNode*> st1, st2;
-	st1.push(root);
+In pre-order: root->left->right, If we just swap `right` and `left` then we get `root->right->left` which is the reverse of post-order (left->right->root), so reversing the output gives post-order.
 
-	while (!st1.empty()) {
-		TreeNode *node = st1.top();
-		st1.pop();
+```cpp
+void posOrderIter(TreeNode *root){
+	
+	stack<int> st, res;
+	st.push(root);
 
-		st2.push(node);
-
-		if (node->left) st1.push(node->left);
-		if (node->right) st1.push(node->right);
+	while(!st.empty()) {
+		TreeNode *top = st.top();
+		st.pop();
+		
+		res.push(top);
+		
+		st.push(root->left);
+		st.push(root->right);
 	}
-
-	while (!st2.empty()) {
-		cout << st2.top()->val << ",";
-		st2.pop();
+	
+	while(!res.empty()) {
+		cout << res.top()->val << ",";
+		res.pop();
 	}
 }
-```
 ```
