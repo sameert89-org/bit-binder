@@ -16,14 +16,18 @@ Here is a cliche but good example of this.
 
 ```csharp
 public interface IFsItem {
-	public string Name { get; }
-	public lo GetSize();
+	public string Name { get; set; }
 	public bool Delete();
-	public bool Rename();
+	public IFsItem Clone();
+}
+
+// Leaf
+public sealed class File(string name) : IFsItem {
+	public string Name {get; set;} = name;
+	
 }
 
 public sealed class Folder(string Name) : IFsItem {
 	public string Name {get;}
-	public 
 }
 ```
