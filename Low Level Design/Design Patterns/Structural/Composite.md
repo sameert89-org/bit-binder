@@ -24,14 +24,62 @@ public interface IFsItem {
 
 // Leaf
 public sealed class File(string name) : IFsItem {
-	public string Name {get;} = name;
-	public bool Rename(string newName) {
-		if(string.isNullOrWhiteSpace(newName))
-			throw new ArgumentException()
+	public string Name { get; private set;} = name;
+	public void Rename(string newName)
+	{
+		if(string.IsNullOrWhiteSpace(newName))
+			throw new ArgumentException("Invalid name provided");
+		Name = newName;
 	}
+
+	public void Delete()
+	{
+		// delete from file system
+	}
+
+	public IFsItem Clone()
+	{
+		return new File(Name);
+	}
+
 }
 
-public sealed class Folder(string Name) : IFsItem {
-	public string Name {get;}
+public sealed class Folder(string name) : IFsItem {
+	private readonly Dictionary<string, IFsItem> _children = [];
+	public string Name {get; private set; } = name;
+
+	public void AddItem (IFsItem fsItem)
+	{
+		_children.Add(fsItem.Name, fsItem);
+	}
+
+	public void RemoveItem(string name)
+	{
+		if(_children.TryGetValue(name, out var fsItem))
+		{
+			_children.Remove(name);
+			fsItem.Delete();
+		}
+	}
+
+
+    public IFsItem Clone()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Delete()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Rename(string newName)
+    {
+		if(string.IsNullOrWhiteSpace(newName))
+			throw new ArgumentException("Invalid name provided");
+		Name = newName;
+    }
 }
 ```
+
+### JavaScript DOM Tree
