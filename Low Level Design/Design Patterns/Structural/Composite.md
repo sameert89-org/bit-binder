@@ -16,6 +16,14 @@ Here is a cliche but good example of this.
 
 ```csharp
 public interface IFsItem {
-	public void
+	public string Name { get; }
+	public lo GetSize();
+	public bool Delete();
+	public bool Rename();
+}
+
+public sealed class Folder(string Name) : IFsItem {
+	public string Name {get;}
+	public 
 }
 ```
