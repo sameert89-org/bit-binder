@@ -16,15 +16,19 @@ Here is a cliche but good example of this.
 
 ```csharp
 public interface IFsItem {
-	public string Name { get; set; }
-	public bool Delete();
+	public string Name { get; }
+	public void Rename(string newName);
+	public void Delete();
 	public IFsItem Clone();
 }
 
 // Leaf
 public sealed class File(string name) : IFsItem {
-	public string Name {get; set;} = name;
-	
+	public string Name {get;} = name;
+	public bool Rename(string newName) {
+		if(string.isNullOrWhiteSpace(newName))
+			throw new ArgumentException()
+	}
 }
 
 public sealed class Folder(string Name) : IFsItem {
