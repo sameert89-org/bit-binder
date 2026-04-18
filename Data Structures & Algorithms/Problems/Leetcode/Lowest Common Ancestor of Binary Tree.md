@@ -32,8 +32,12 @@ public:
 ```
 
 An even cleaner solution is:
+- if current node is p or q, return it
+- ask left subtree what it found
+- ask right subtree what it found
+- if both found something, current node is LCA
+- otherwise propagate the non-null one upward
 ```cpp
-// Solution.cpp
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -52,3 +56,28 @@ public:
     }
 };
 ```
+
+
+### Special BST Case
+The time complexity can be reduced for $O(N)$ to $O(H)$  if the tree is a BST.
+
+Searching for `P` if current node is smaller than P then I have to go into the *right* subtree, if not then I have to go to the *left* subtree.
+
+```cpp
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        while (root != nullptr) {
+            if (p->val < root->val && q->val < root->val) {
+                root = root->left;
+            } else if (p->val > root->val && q->val > root->val) {
+                root = root->right;
+            } else {
+                return root;
+            }
+        }
+        return nullptr;
+    }
+};
+```
+
