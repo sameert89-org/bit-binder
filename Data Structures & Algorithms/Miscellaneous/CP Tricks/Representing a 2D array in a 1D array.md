@@ -1,10 +1,17 @@
 This is super usefuly for matrix problems. There are 2 kinds of mappings possible:
 
 ### Row Major
-In this mapping the traversal is done row-wise
+In this mapping the traversal is done row-wise, this is most commonly used.
 
 ![[Representing a 2D array in a 1D array 2026-04-18 11.28.49.excalidraw]]
 
-The index mapping is as follows;
+The index mapping is as follows
 
-$i_{flat} = 
+$i_{2D} = i_{flat} / C$
+$j_{2D} = i_{flat}\mod{C}$
+
+and reverse:
+
+$i_{flat} = i_{2D}\cdot C + j_{2D}$
+
+Where, $i_{2D
