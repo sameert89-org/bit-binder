@@ -3,17 +3,17 @@
 This is the simplest way of doing this
 
 ```cpp
-int numDigits(int n) {
+int numDigits(int n, int base = 10) {
 	int res = 0;
 	while(n) {
-		n /= 10;
+		n /= base; 
 		res++;
 	}
 	return res;
 }
 ```
 
-For binary numbers we can use gnu compiler collections.
+For binary numbers we can use gnu compiler collections which is more direct.
 
 ```cpp
 int numDigitsBin(int n) {
