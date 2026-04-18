@@ -1,0 +1,1 @@
+In a circular array the rollback logic can get messy if you use `if-else` s
