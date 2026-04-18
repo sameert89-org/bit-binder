@@ -5,7 +5,19 @@ This is the simplest way of doing this
 ```cpp
 int numDigits(int n) {
 	int res = 0;
-	while(n) 
+	while(n) {
+		n /= 10;
+		res++;
+	}
+	return res;
+}
+```
+
+For binary numbers we can use gnu compiler collections.
+
+```cpp
+int numDigitsBin(int n) {
+	return 32 - __builtin_clz(n); // clz counts the number of leading zeros
 }
 ```
 
@@ -29,4 +41,6 @@ Adding 1 after performing greatest integer function, we get numb digits = 3. Whi
 
 
 > [!warning] This method is unreliable and only works for $n\geq1   \forall n\in Z$
-> This only works for such numbers because logarithm is not defined for numbers less than equal to zero. This is also not applicable on non integers. This can produce wrong results due to floating point precisions.
+> This only works for such numbers because logarithm is not defined for numbers less than equal to zero. This is also not applicable on non integers. This can produce wrong results due to floating point precisions. But the method works fine for the `int` range.
+
+
