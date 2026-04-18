@@ -17,7 +17,9 @@ There are different classifications of binary trees based on their properties.
 ### Common Binary Tree Terminology:
 **Height** Height is the number of edges on the longest path from the root to a leaf. This gets super <mark style="background: #FF5582A6;">annoying</mark> because some people define this by edges and some people define this by nodes, in [[Leetcode]] style problems its number of edges.
 
+![[Binary Trees 2026-04-18 13.16.55.excalidraw]]
 
+**Depth** Depth of a node is defined as number of *edges* from root to that node. Maximum depth of tree is the deepest node from the root.
 ## Tree Traversals
 Tree traversals are ways to visit all nodes in the tree. There are 4 main ways of doing a tree traversal.
 
