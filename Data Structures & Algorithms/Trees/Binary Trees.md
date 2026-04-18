@@ -14,6 +14,9 @@ There are different classifications of binary trees based on their properties.
 
 **Binary Search Tree**: For every node, all values in its left subtree are smaller, and all values in its right subtree are larger (or equal, depending on the convention).
 
+### Common Binary Tree Terminology:
+**Height** Height is the number of edges on the longest path from the root to a leaf. This gets super <mark style="background: #FF5582A6;">annoying</mark> because some people define this by edges and some people define this by nodes, in [[Leetcode]] style problems its number of edges.
+
 
 ## Tree Traversals
 Tree traversals are ways to visit all nodes in the tree. There are 4 main ways of doing a tree traversal.
