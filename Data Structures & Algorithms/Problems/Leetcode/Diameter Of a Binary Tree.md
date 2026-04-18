@@ -6,19 +6,18 @@ The diameter = height of left subtree + height of right subtree
 class Solution {
 public:
     int diameter = 0;
+    int height(TreeNode* root){
+        if(!root) return 0;
 
-    int height(TreeNode* root) {
-        if (!root) return 0;
+        int lHeight = height(root->left);
+        int rHeight = height(root->right);
 
-        int left = height(root->left);
-        int right = height(root->right);
+        diameter = max(diameter, lHeight + rHeight);
 
-        diameter = max(diameter, left + right);
-
-        return 1 + max(left, right);
+        return 1 + max(lHeight, rHeight);
     }
-
     int diameterOfBinaryTree(TreeNode* root) {
+        diameter = 0;
         height(root);
         return diameter;
     }
