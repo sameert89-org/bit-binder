@@ -24,4 +24,10 @@ In this mapping the columnwise traversal is done.
 
 The index mapping in this case is as follows:
 
-$i_
+$i_{2D} = i_{flat}\mod{R}$
+$j_{2D} = i_{flat} / R$
+
+and reverse:
+$i_{flat} = j_{2D}\cdot R + i_{2D}$
+
+Where, $\{i_{2D}, j_{2D}\}$, represents the coordinates in the 2D matrix and $i_{flat}$ represents the index in 1D array and $R$ represents the number of rows.
