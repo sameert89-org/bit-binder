@@ -37,6 +37,7 @@ An even cleaner solution is:
 - ask right subtree what it found
 - if both found something, current node is LCA
 - otherwise propagate the non-null one upward
+
 ```cpp
 class Solution {
 public:
@@ -81,3 +82,25 @@ public:
 };
 ```
 
+Suppose current node is `root`.
+
+#### Case 1: both on left
+
+`p->val < root->val && q->val < root->val`
+
+then both nodes must lie in the left subtree, so LCA cannot be `root` or anything on the right.
+
+#### Case 2: both on right
+
+`p->val > root->val && q->val > root->val`
+
+then both must lie in the right subtree.
+
+#### Case 3: split point
+
+Otherwise:
+
+- one is on the left and one is on the right, or
+- one of them is equal to `root`
+
+In both cases, `root` is the lowest node that has both as descendants, so it is the LCA.
