@@ -46,3 +46,7 @@ def find(st, sub, lps):
 
 ## Related problems
 Leetcode: Smallest prefix to make given string palindromic.
+
+![[KMP algorithm 2026-04-25 01.31.45.excalidraw.svg]]
+%%[[KMP algorithm 2026-04-25 01.31.45.excalidraw.md|🖋 Edit in Excalidraw]]%%
+
