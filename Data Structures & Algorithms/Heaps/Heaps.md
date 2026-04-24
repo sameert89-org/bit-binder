@@ -68,6 +68,7 @@ int main(){
     int left_child = parent*2 + 1; //for 0 based indexing
     int right_child = parent*2 + 2;
     bool complete = false;
+	// heapify algorithm essentially
     while(!complete){
         int temp = parent;
         left_child = parent*2 + 1;
