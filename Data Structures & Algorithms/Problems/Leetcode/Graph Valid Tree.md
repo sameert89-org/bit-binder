@@ -43,5 +43,5 @@ class Solution {
                all_of(vis.begin(), vis.end(), [](int v) { return v == true; });
     }
 };
-
 ```
+
