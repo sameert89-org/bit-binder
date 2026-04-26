@@ -374,3 +374,162 @@ int main() {
     t2.join();
 }
 ```
+
+## Condition Variables
+
+Its a synchronization primitive:
+
+A condition variable does the following:
+- Acquire a lock
+- Check of the condition is true
+- If not release the lock (*During this stage the thread is parked/blocked/sleeping by the OS*)
+- Wait for a notification that the condition has been met
+- Reacquire the lock and execute
+
+**What do we mean by wait for a notification?**
+A condition variable in on itself cannot check for the condition to be true, for that it would have to poll something which is the thing that we are trying to avoid, instead there's `notify_*` methods on it which could be called by the consumers when the condition changes.
+
+There is `notify_one` and `notify_all`, notify_one wakes one waiting thread, notify_all wakes all waiting threads.
+
+| Method       | Use for                                                                                               |
+| ------------ | ----------------------------------------------------------------------------------------------------- |
+| `notify_one` | producer-consumer queue<br>thread pool task queue<br>one resource became available                    |
+| `notify_all` | shutdown signal<br>configuration/state changed<br>barrier-style logic<br>many threads may now proceed |
+
+```cpp
+#include <chrono>
+#include <condition_variable>
+#include <cstdlib>
+#include <format>
+#include <queue>
+#include<iostream>
+#include <mutex>
+#include<thread>
+
+class BlockingQueue {
+public:
+	std::queue<int> q;
+	std::mutex m;
+	std::condition_variable cv;
+
+	void push(int x) {
+		std::unique_lock<std::mutex> lock(m);
+		q.push(x);
+		std::cout << std::format("data pushed: {}\n", q.front());
+		cv.notify_one();
+	}
+
+	void pop() {
+		std::unique_lock<std::mutex> lock(m);
+
+		cv.wait(lock, [&]{
+			return !q.empty();
+		});
+
+		q.pop(); // this should wait for data to come if there is no data
+		
+		std::cout << "data popped";
+	}
+};
+
+void pushRandomWithWait(BlockingQueue& bq) {
+	std::this_thread::sleep_for(std::chrono::seconds(20));
+	bq.push(rand() % 1000);
+}
+
+int main() {
+	BlockingQueue bq;
+
+	std::thread t1([&]{bq.pop();});
+	
+	std::thread t2(pushRandomWithWait, std::ref(bq));
+
+	t1.join();
+	t2.join();
+
+	return 0;
+}
+```
+
+## Promise and Future
+
+Getting data out of a thread used to be notoriously difficult but with `std::promise` and `std::future` it became much easier. Initially you would have to setup a mutex and a condition variable then notify the condition variable to get the data.
+
+Also if a secondary thread crashes or throws, the program calls `std::terminate` and just crashes. Promise allows you to catch the exception in a worker thread and ship it over to the calling thread.
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <future>
+#include <stdexcept>
+
+void workerTask(std::promise<int> p) {
+    try {
+        // Simulating a logic failure
+        throw std::runtime_error("Something went wrong in the background!");
+        
+        p.set_value(100); // This will never be reached
+    } catch (...) {
+        // Captures the exception currently being handled and stores it in the promise
+        p.set_exception(std::current_exception());
+    }
+}
+
+int main() {
+    std::promise<int> p;
+    std::future<int> f = p.get_future();
+
+    std::thread t(workerTask, std::move(p));
+
+    try {
+        // This blocks until set_value() or set_exception() is called
+        int result = f.get(); 
+        std::cout << "Result: " << result << std::endl;
+    } catch (const std::exception& e) {
+        // The exception thrown in the worker is RE-THROWN here!
+        std::cerr << "Caught in main: " << e.what() << std::endl;
+    }
+
+    t.join();
+    return 0;
+}
+```
+
+## `std::async`
+
+`std::async` is a high-level wrapper designed to solve one specific problem: **Reducing the boilerplate and complexity of running a task and getting a result.**
+
+Nobody likes writing threads, promises, and futures boilerplate, normally you would:
+1. Create a promise
+2. Get the future from the promise
+3. Create a thread and pass the promise to it (moving it into the worker)
+4. Wait on the future and retrieve the result (e.g., call `f.get()`).
+5. Manually join or detach the thread
+
+With `std::thread` you are explicitly telling the OS: "Give me a new thread", this is a expensive and can lead to over subscription (too many threads on the CPU)
+
+`std::async` shifts the focus from threads to tasks. You tell the C++ runtime: *Here is a piece of work* and the runtime decides how to run it based on a **Launch Policy**
+
+ The two main launch policies are `std::launch::async` (run the task on a new thread) and `std::launch::deferred` (run it lazily when you call `future::get()`/`wait()`). Default behavior is the system chooses either `std::launch::async` or `std::launch::deferred`, if low on resources it might defer, if the CPU is free, it spawns a thread.
+
+```cpp
+// replace all this
+std::promise<int> p;
+auto f = p.get_future();
+std::thread t([&](std::promise<int> p_in) {
+    p_in.set_value(calculate());
+}, std::move(p));
+
+int result = f.get();
+t.join();
+
+// with this
+auto f2 = std::async(std::launch::async, [] { return calculate(); });
+int result2 = f2.get();
+```
+
+### Atomic
+
+`atomic<T>` allows you to safely perform atomic operations on shared data across threads without data races, T can only be trivially copyable. 
+
+Atomic operations here mean that they are automatically thread safe for reads and writes, they internally maintain synchronization mechanisms to prevent concurrency issues.
