@@ -53,4 +53,20 @@ public class BufferedStream : Stream {}
 // and many more
 ```
 
-This is fine till now. 
+This is fine till now. Although a `Byte[]` seems intimidating to look at, so Microsoft generously provided the following abstractions
+
+```csharp
+public class StreamReader(Stream stream) {}
+public class StreamWriter(Stream stream) {}
+```
+
+This is a clean example of Bridge where `StreamReader` and `XStream` are growing parallelly. We can also see that `StreamReader`  composes of a stream.
+
+Now without bridge the pattern would look something like:
+
+```csharp
+public class MemoryStreamReader {};
+public class FileStreamReader {};
+public class MemoryStreamWriter {};
+public class FileStreamWriter {};
+```
