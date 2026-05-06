@@ -36,13 +36,21 @@ This example is not limited to `.NET` but it is very clearly visible in the way 
 > A stream is a sequence of data elements made available over time. Streams are generally categorized based on the channel they flow through, we have *MemoryStreams* *FileStreams* *NetworkStreams* etc.
 
 ```csharp
-public interface IStream {
-	public Write(Byte[], Int32, IntPtr);
-	public Clone(IStream);
-	Public Read(Byte[], Int32, IntPtr);
+public abstract class Stream {
+	public BeginRead(Byte[], Int32, Int32, AsyncCallback, Object) {};
+	public BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object) {};
+	public Close() {};
 }
 ```
 
-Above is the actual `IStream` interface present in `.NET` though only a few of the methods are listed here.
+Above is the actual `Stream` class present in `.NET` though only a few of the methods are listed here.
+Now based on the channel we would have the following:
 
-Now based on the channel we would have the following 
+```csharp
+public class MemoryStream : Stream {}
+public class FileStream : Stream {}
+public class BufferedStream : Stream {}
+// and many more
+```
+
+This is fine till now. 
