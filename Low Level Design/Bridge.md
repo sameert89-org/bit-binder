@@ -14,4 +14,18 @@ public:
 }
 ```
 
-Many of the methods in the above class may not be implemented by everyone. Fthis is a classic violation of [[ISP]]. 
+Many of the methods in the above class may not be implemented by everyone. For example it makes sense for `SetVolume` to be present on a device with a speaker, but not on a `Fan`, this is a classic violation of [[ISP]]. 
+
+A really easy way t0 spot Bridges in your code is having class names such as:
+
+```bash
+Remote
+ ├── TVRemote
+ ├── RadioRemote
+ ├── SmartTVRemote
+ └── ProjectorRemote
+```
+
+This means Remote is probably too generic for you, a better way to approach this would be to use a bridge and 2 interfaces:
+- `IRemote`
+- ``
