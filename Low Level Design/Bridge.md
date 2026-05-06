@@ -27,3 +27,11 @@ Bridge tries to solve this inheritance chain by replacing it with composition. I
 
 There is a clean bridge between the *Device* and the *Remote*.
 
+![[Bridge 2026-05-06 23.13.58.excalidraw]]
+
+### Example: `.NET` Streams
+This example is not limited to `.NET` but it is very clearly visible in the way its implemented in `.NET`
+
+
+> [!INFO] What is a stream
+> A stream is a sequence of data elements made available over time. Streams are generally categorized based on the channel they flow through, we have *MemoryStreams* *FileSXt*
