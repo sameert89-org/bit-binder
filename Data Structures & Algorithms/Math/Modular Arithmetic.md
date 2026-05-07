@@ -67,9 +67,11 @@ $$
 
 In the division case the result is not distributive, because divison creates fractions and decimals.
 
-Take $\frac{10}{5}\mod{3}$ for example, if I calculate the individual terms $10\mod{3}$, $5\mod{3}$ and divide them I get, $1+2=3$ but clearly the result if we directly do it is $2$
+It may seem to work sometimes:
 
-This works because $\frac{10}{5}$ is an improper fraction and results in a whole number as quiotent, take $\frac{10}{4}$ for instance, the result is `0.25` what even is the remainder when you divide `0.25/3` this result is not defined.
+Take $\frac{14}{2}\mod{5}$ for example, if I calculate the individual terms $14\mod{5}$, $2\mod{5}$ and divide them I get, $4/2=2$ which is equal to the result if we directly do it 7 % 5 = 2
+
+This works because $\frac{14}{2}$ is an improper fraction and results in a whole number as quiotent, take $\frac{10}{4}$ for instance, the result is `0.25` what even is the remainder when you divide `0.25/3` this result is not defined.
 
 So how do I find the value of $\frac{a}{b} \mod{m}$?
 
