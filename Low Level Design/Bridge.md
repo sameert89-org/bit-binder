@@ -68,5 +68,5 @@ Now without bridge the pattern would look something like:
 public class MemoryStreamReader {};
 public class FileStreamReader {};
 public class MemoryStreamWriter {};
-public class FileStreamWriter {};
+public class StreamWriter {};
 ```
