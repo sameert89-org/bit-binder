@@ -8,5 +8,12 @@ This problem was really good, even though its marked medium and wrongly tagged I
 I came close to solving this, basically the observation I made is this:
 
 - For the maximum number in the array the answer is itself
-- For anything right of the array, the answer will maximum as well, since you can't do better than that.
-- 
+- For anything right of the maximum, the answer will maximum as well, since you can't do better than that.
+- Now we go to the second maximum, again same logic applies on its bucket the answer *should* be second maximum *unless* there exisits an number in the previous maximum's bucket which is smaller than the number in the current bucket then that number will happily jump to the previous maximum!
+
+
+This became a problem for me, I got side tracked to think: *How do I find the rightmost bucket where a number which is smaller than current number exists?*
+
+The actual idea to get around this problem is to realize that you could merge intervals,
+
+Basically any number in the current bucket can jump to previous bucket iff they are greater than the any number in that bucket, best chance we have is to compare it with *smallest* number of previous bucket!
