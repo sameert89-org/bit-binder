@@ -59,15 +59,19 @@ Here, `tree` is an array of all nodes in the segment tree, root node is the firs
 ```cpp
 vector<int> tree;
 
-void buildTree(int n) {
-	// convert to 
+void buildTree(int n, vector<int> &nums) {
+	// pad for power of 2
 	while(__builtin_popcount(n) != 1) {
 		n++;
 	} 
 	
-	tree.resize(n);
+	tree.resize(n, INT_MAX);
+
+	// insert leaves
+	for(int i = 0; i < nums.size(); i++) {
+		tree[n+i] = nums[i];
+	}
 	
-	
-	
-}
-```
+	// create the first half
+	for(int i = n - 1; i > -1; i++) {
+		tree[i] = min(tree[2*i], tree[2])
