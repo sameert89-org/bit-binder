@@ -46,5 +46,5 @@ fn query(Node* node,int node_left, int node_right, int query_low, int query_high
 	if(node does not overlap at all with [query_low, query_high]):
 		return INF;
 	int mid = (node_left + node_right)/2;
-	return query(node.left, query_low,  mid - 1, , left_end) + query(node.right, left_end+1, query_high);
+	return query(node.left, query_low,  mid - 1,  , left_end) + query(node.right, left_end+1, query_high);
 ```
