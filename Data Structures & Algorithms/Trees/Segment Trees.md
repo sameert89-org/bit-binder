@@ -31,8 +31,7 @@ fn query(Node* node, int query_low, int query_high) -> int:
 		return node.val;
 	if(node does not overlap at all with [query_low, query_high]):
 		return INF;
-	return query(node.left, query_low, left_end) + query(node.right, left_end+1, query_high);
-	
+	return query(left_subtree) + query(right_subtree);	
 ```
 
 The problem with this is how do I know  whether the node overlaps? For the root node its easy to say that its interval is `[0, N - 1]` where N is the size of tree.
@@ -45,9 +44,29 @@ int query(int node, int nodeLow, int nodeHigh, int queryLow, int queryHigh) {
 		return tree[node];
 	
 	if(nodeHigh < queryLow or nodeLow > queryHigh)
-		return 0;
+		return INT_MAX;
 		
 	int mid = (nodeLow + nodeHigh)/2;
+	
+	return min(query(2*node, nodeLow, mid - 1, queryLow, queryHigh), query(2*node + 1 , mid, nodeHigh, queryLow, queryHigh); 
+}
+```
+
+But wait we what is this? what happened  to pointers? Like Heaps its very beneficial to represent the segment trees as arrays, since they are significanlty faster and easier to work with.
+
+Here, `tree` is an array of all nodes in the segment tree, root node is the first node. Here's how you build the tree
+
+```cpp
+vector<int> tree;
+
+void buildTree(int n) {
+	// convert to 
+	while(__builtin_popcount(n) != 1) {
+		n++;
+	} 
+	
+	tree.resize(n);
+	
 	
 	
 }
