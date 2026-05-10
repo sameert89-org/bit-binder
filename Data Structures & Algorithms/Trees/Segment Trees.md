@@ -34,3 +34,7 @@ fn query(Node* node, int query_low, int query_high) -> int:
 	return query(node.left, query_low, left_end) + query(node.right, left_end+1, query_high);
 	
 ```
+
+The problem with this is how do I know  whether the node overlaps? For the root node its easy to say that its interval is `[0, N - 1]` where N is the size of tree.
+
+There is interesting math here, since its a complete binary tree we can calculate the number of elements in its subtrees, each of the children of the `ROOT` will have `N-1 / 2` nodes each. Hence the left child will have the sum of `[0, N / 2 - 1]`and  `[N/2 `
