@@ -25,5 +25,12 @@ But queries are not going to always be stored in a node, for example we may get 
 
 The general algorithm looks like this:
 
-```t
+```text
+fn query(Node* node, int query_low, int query_high) -> int:
+	if(node overlaps exactly with [query_low, query_high]):
+		return node.val;
+	if(node does not overlap at all with [query_low, query_high]):
+		return INF;
+	return query(node.left, query_low, left_end) + query(node.right, left_end+1, query_high);
+	
 ```
