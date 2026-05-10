@@ -8,5 +8,3 @@
 Given an array of integers: `[1, 5, 2, 3, 1, -1, 15, 11, 2, 3, 9, -12]` find the minimum number in range range `[query_low, query_high]`
 
 We start by building the tree, a built tree looks like below:
-
-![[Segment Trees 2026-05-10 10.01.10.excalidraw]]
