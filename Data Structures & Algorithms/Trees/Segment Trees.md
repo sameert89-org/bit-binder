@@ -14,5 +14,16 @@ There is zero padding done to make the size a power of 2, it results in a [[Bina
 
 The number of nodes in the tree is `32` which is `2*N` hence the *time & space complexity of building the segment tree for an array of size N is O(N)* 
 
-Here are some observations from this tree:
-- Each node stores the result of the operation 
+**Here is the key observation:** Each node stores the result of the operation (which is minimum in this case) of a range of nodes.
+
+We can utilize this to answer our queries,
+Take a look at a simple query: `[0, 7]` then the *left child* of the root node has our result.
+
+We can recurse (or iterate) on this binary tree to find this answer.
+
+But queries are not going to always be stored in a node, for example we may get an assymetrical query such as `[0, 9]` then we need a spliced result. To tackle this we can ask each subtrees to find the part of the query that lies within them. 
+
+The general algorithm looks like this:
+
+```t
+```
