@@ -48,7 +48,7 @@ int query(int node, int nodeLow, int nodeHigh, int queryLow, int queryHigh) {
 		
 	int mid = (nodeLow + nodeHigh)/2;
 	
-	return min(query(2*node, nodeLow, mid - 1, queryLow, queryHigh), query(2*node + 1 , mid, nodeHigh, queryLow, queryHigh); 
+	return min(query(2*node, nodeLow, mid, queryLow, queryHigh), query(2*node + 1 , mid+1, nodeHigh, queryLow, queryHigh)); 
 }
 ```
 
@@ -65,7 +65,7 @@ void buildTree(int n, vector<int> &nums) {
 		n++;
 	} 
 	
-	tree.resize(n, INT_MAX);
+	tree.resize(2*n, INT_MAX);
 
 	// insert leaves
 	for(int i = 0; i < nums.size(); i++) {
@@ -73,5 +73,8 @@ void buildTree(int n, vector<int> &nums) {
 	}
 	
 	// create the first half
-	for(int i = n - 1; i > -1; i++) {
-		tree[i] = min(tree[2*i], tree[2])
+	for(int i = n - 1; i >= 1; i++) {
+		tree[i] = min(tree[2*i], tree[2*i + 1]);
+	}
+}
+```
