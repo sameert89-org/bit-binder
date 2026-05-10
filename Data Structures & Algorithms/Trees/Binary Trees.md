@@ -7,6 +7,7 @@ There are different classifications of binary trees based on their properties.
 **Full Binary Trees:** Every Node has *0* or *2* children, no node has exactly one child.
 
 **Complete Binary Trees:** All levels are completely filled except possibly the last level, which is filled from left to right.
+^cbt
 
 **Perfect Binary Tree:** Every level is completely filled i.e. every internal node has exactly two children, and all leaves are at the same depth.
 
