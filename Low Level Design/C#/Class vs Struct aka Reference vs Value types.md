@@ -1,4 +1,6 @@
 - Class is a reference type, struct is a value type.
 - They are called that because of their behavior when passed around.
 - String, class, dynamic, object, delegate, record are all reference types.
-- int, float and other numbers, structs
+- int, float and other numbers, structs, enums, tuples, bool, char etc.
+
+[[ref keyword]]
