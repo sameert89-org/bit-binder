@@ -3,3 +3,8 @@ CLR: Common Language Runtime. Same runtime is shared by other languages such as 
 > C# is a managed language because it compiles its source code into managed code, which is represented in Intermediate Language (IL). *CLR* converts this to native code. This is referred to as *Just in time compilation*
 
 BCL: Base Class Library
+
+Collection of utilities, such as standard methods, algorithms, abstractions over threading, i/o and networking.
+
+
+CLR + BCL are shipped with the runtime.
