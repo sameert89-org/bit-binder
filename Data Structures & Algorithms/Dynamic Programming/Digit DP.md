@@ -15,4 +15,5 @@ The core trick is:
 
 > answer for `[L, R]` = `count(<= R) - count(<= L - 1)`
 
-Now you only need to write the count functii
+Now you only need to write the count function with dynamic programing.
+
