@@ -1,0 +1,1 @@
+>A *structural* design pattern which helps **reduce memory** when having a large number of similar objects.
