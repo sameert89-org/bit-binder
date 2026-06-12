@@ -67,7 +67,7 @@ public:
         while ((1 << LOG) <= N) {
             LOG++;
         }
-
+		// for root at 1 we need N + 1 storage
         depth.assign(N + 1, 0);
         lift.assign(N + 1, vector<int>(LOG, -1));
 
@@ -99,7 +99,7 @@ public:
 		
 		// Lift both together
 		for(int j = LOG - 1; j >= 0; j--) {
-			if(lift[u][j] != lift[v][j]) {
+			if(lift[u][j] != -1 and lift[v][j] != -1 and lift[u][j] != lift[v][j]) {
 				u = lift[u][j];
 				v = lift[v][j];
 			}
