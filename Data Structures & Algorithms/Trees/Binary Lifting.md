@@ -1,5 +1,4 @@
-# Binary Lifting
-#dp
+#tree-dp
 Binary Lifting solves a specific problem: _there is a tree of size `N` rooted at 0._
 _Answer Q queries:_
 _given v and k, find the kth ancestor of v;_
