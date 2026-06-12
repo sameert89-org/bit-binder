@@ -89,9 +89,24 @@ public:
     }
     
     int lca(int u, int v) {
-	    if(depth[u] > depth[v])
+	    if(depth[u] < depth[v])
 		    swap(u, v);
-		return findKthAncestor(u, depth[u]);
+		// lift the deeper node to make them at same height
+		u = findKthAncestor(u, depth[u] - depth[v]);
+		
+		if(u == v) 
+			return u;
+		
+		// Lift both together
+		for(int j = LOG - 1; j >= 0; j--) {
+			if(lift[u][j] != lift[v][j]) {
+				u = lift[u][j];
+				v = lift[v][j];
+			}
+		}
+		
+		// both are just below the LCA
+		return lift[u][0];
     }
 };
 ```
