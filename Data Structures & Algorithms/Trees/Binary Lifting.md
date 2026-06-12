@@ -89,3 +89,7 @@ public:
     }
 };
 ```
+
+This can be used to find LCA as well.
+
+For 2 nodes, lift the deeper node by its extra height and lift both nodes afterwards by remaining height.
