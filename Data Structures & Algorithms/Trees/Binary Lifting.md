@@ -87,6 +87,12 @@ public:
 
         return node;
     }
+    
+    int lca(int u, int v) {
+	    if(depth[u] > depth[v])
+		    swap(u, v);
+		return findKthAncestor(u, depth[u]);
+    }
 };
 ```
 
