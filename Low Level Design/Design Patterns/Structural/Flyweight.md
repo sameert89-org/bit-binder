@@ -43,4 +43,5 @@ Tree object:
 > [!DANGER] Flyweight and thread safety
 > Flyweight objects should be treated as **immutable/read-only** so they become inherently **thread-safe**.
 
+This design pattern is very prevalent in game development where you need a lot of similar objects (players, mobs, environment etc.)
 
