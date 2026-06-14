@@ -45,3 +45,18 @@ Tree object:
 
 This design pattern is very prevalent in game development where you need a lot of similar objects (players, mobs, environment etc.)
 
+```csharp
+public sealed class TreeType
+{
+    public string Type { get; } // readonly
+    public string Texture { get; }
+    public string Color { get; }
+
+    public TreeType(string type, string texture, string color)
+    {
+        Type = type;
+        Texture = texture;
+        Color = color;
+    }
+}
+```
