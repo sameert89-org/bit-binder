@@ -89,4 +89,7 @@ public:
 
 
 > [!INFO] Factories and intrinsic properties
-> The contents of the flyweight are referred to as *intrinsic* properties and those of the object are called *extrinsic* properties. Generally the flyweight is used with a factory, for each unique instance, the factory caches the type of flyweight created and returns the same referen
+> The contents of the flyweight are referred to as *intrinsic* properties and those of the object are called *extrinsic* properties. Generally the flyweight is used with a factory, for each unique instance, the factory caches the type of flyweight created and returns the same reference.
+
+
+**Read More:** [[Factory]]
