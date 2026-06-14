@@ -1,3 +1,3 @@
-You ain't gonna need it!
+> **You ain't gonna need it!**
 
-Don't implement stuff just because you foresee a requirement, only do it when you actually need it.
+Do not implement something merely because you foresee a requirement. Implement it when you actually need it.

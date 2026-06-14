@@ -1,14 +1,16 @@
-> Abstract factory is a *system of factories*, it allows creation of creating families of related objects without having to specify their concrete classes.
+> Abstract Factory is a **system of factories** that creates families of related objects without specifying their concrete classes.
 
-**Why do I need Abstract Factory?**
-Similar to [[Factory]] to avoid code duplication and having an easy way to create nested families of objects.
+## Why do I need an Abstract Factory?
 
-**How do I implement an Abstract Factory?**
+Like [[Factory]], it avoids duplicated creation logic and provides an easy way to create families of related objects.
 
-Follow the 3 steps:
-1. Group your classes into kinds of products, for example Buttons and Textboxes
-2. Create the abstract factory, this has methods for returning the kinds of products identified in 1.
-3. Now if something wants to provide both buttons and textboxes (say a theme) then it is a concrete implementation for the abstract factory.
+## How do I implement an Abstract Factory?
+
+Follow three steps:
+
+1. Group classes into kinds of products, such as buttons and text boxes.
+2. Create an abstract factory with methods that return each kind of product.
+3. Create concrete factories for related product families, such as a theme that provides both buttons and text boxes.
 
 ```csharp
 // 1. Abstract Products

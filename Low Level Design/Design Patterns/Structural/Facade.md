@@ -1,23 +1,26 @@
 > A facade provides a simplified interface to a complex set of classes.
 
-### Why do I need a Facade?
-Modern systems are complex, there are hundreds of different components, external libraries, duct tape and hope holding things together, when a client actually wants to use this system it should not have to know the internals of how things work! A Facade helps with exactly this, by only showing what clients need.
+## Why do I need a facade?
 
-### Example:  SCRAM in a nuclear reactor
-Here is an example straight from <span style="color: #39FF14">Chernobyl</span>
+Modern systems are complex. There can be hundreds of components, external libraries, duct tape, and hope holding things together. A client should not need to understand those internals. A facade helps by showing clients only what they need.
 
-In our nuclear reactor we have 3 critical components:
-1. **The Coolant Pump:** This is used to run water and cool down the reactor core.
-2. **The Rod Actuator:** This component controls the graphite rods which absorb excess neutrons and help prevent a reactor meltdown.
-3. **The Flux Monitor:** This monitors the flux (flow) of neutrons in a reactor.
+## Example: SCRAM in a nuclear reactor
 
-If something goes wrong during the Fission reaction all 3 must act to do something called as a **SCRAM**, it is an emergency procedure used to control the reactor and prevent a meltdown!
+Here is an example straight from <span style="color: #39FF14">Chernobyl</span>.
 
-Now you the operator want to trigger this via the giant red button!
+Our nuclear reactor has three critical components:
+
+1. **Coolant pump:** Runs water to cool down the reactor core
+2. **Rod actuator:** Controls the graphite rods that absorb excess neutrons and help prevent a meltdown
+3. **Flux monitor:** Monitors the flux, or flow, of neutrons in the reactor
+
+If something goes wrong during the fission reaction, all three must perform a **SCRAM**, an emergency procedure used to control the reactor and prevent a meltdown.
+
+As the operator, you want to trigger this using the giant red button.
 
 ![[Pasted image 20260324235526.png|200]]
 
-Would you want to be this guy and press 3 different buttons, not sure which to push first?  You *the client* should not have to rely on these low level details in order to do your job.
+Would you want to be this guy, pressing three different buttons without knowing which to push first? You, *the client*, should not have to rely on these low-level details to do your job.
 
 Facade to save the day!
 
@@ -73,17 +76,18 @@ public:
 };
 ```
 
-### Example: ScrapingBee
-Its 2026 everyone is trying to steal data from the websites to train the next **S**tate-**O**f-**T**he-**A**rt AI model. The websites know this and they don't want to become the next stack overflow with people never clicking on them and use AI to get the yolk inside the egg.
+## Example: ScrapingBee
+It is 2026, and everyone is trying to steal data from websites to train the next state-of-the-art AI model. Websites know this, and they do not want to become the next Stack Overflow, with people using AI to get the yolk without clicking through the shell.
 
-That's why they take a tonne of countermeasures to prevent scraping:
-1. `robots.txt` Silicon Valley tech bros laughing on this point
-2. Captchas: This prevents humans more than AI bots I guess
-3. Rate Limiting
-4. IP Blacklisting
-5. Geo Restrictions
+That is why they take a tonne of countermeasures to prevent scraping:
 
-Let's be honest its a war you cannot win and let's join the Darkside! and try to see how a Facade can help us scrape the entire web.
+1. `robots.txt`: Silicon Valley tech bros are laughing at this point
+2. CAPTCHAs: These prevent humans more than AI bots, I guess
+3. Rate limiting
+4. IP blacklisting
+5. Geo-restrictions
+
+Let's be honest: it is a war you cannot win. Let's join the Dark Side and see how a facade can help us scrape the entire web.
 
 ![[Pasted image 20260325001651.png]]
 

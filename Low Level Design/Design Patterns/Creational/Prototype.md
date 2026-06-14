@@ -1,12 +1,14 @@
-> An object that supports cloning is called a *prototype*.
+> An object that supports cloning is called a **prototype**.
 
-**Why do I need a prototype?**
-To clone objects, cloning from outside is tough, if you clone from outside you cannot clone the private fields and then whoever makes this clone has the dependency on that class which its cloning you need to know the anatomy of that class.
-Prototype pattern delegates the *cloning* process to the objects themselves.
+## Why do I need a prototype?
 
-**How do I implement a prototype?**
+Cloning objects from outside is difficult because private fields are inaccessible, and the cloning code becomes dependent on the class's internal structure. Prototype delegates the *cloning* process to the objects themselves.
 
-Minecraft slime, splits every time its hit into two smaller halves.
+## How do I implement a prototype?
+
+### Example: Minecraft slime
+
+A Minecraft slime splits into two smaller halves every time it is hit.
 
 ```csharp
 public class Slime(int size, int hp) {
@@ -16,7 +18,7 @@ public class Slime(int size, int hp) {
 			return null; // can't split further
 		}
 
-		size /= 2; 
+		size /= 2;
 		hp /= 2;
 
 		return new Slime(size, hp);
@@ -24,10 +26,11 @@ public class Slime(int size, int hp) {
 }
 ```
 
-Copy a folder
+### Example: Copy a folder
+
 ```cpp
 #include <memory>
-#include <string> 
+#include <string>
 #include <vector>
 
 using string = std::string;

@@ -1,12 +1,12 @@
-**Dependency Inversion Principle**
-- **High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g., interfaces).**
-- **Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.**
+> **High-level modules should not depend on low-level modules. Both should depend on abstractions.**
+>
+> **Abstractions should not depend on details. Details should depend on abstractions.**
 
 ```csharp
 // ❌ VIOLATION: High-level depends directly on Low-level
 public class WarehouseManager {
     // Hard-coded to a specific 2024-era drone model
-    private SkyeDroneV2 _drone = new SkyeDroneV2(); 
+    private SkyeDroneV2 _drone = new SkyeDroneV2();
 
     public void ProcessDelivery(string packageId) {
         Console.WriteLine($"Processing {packageId}...");
@@ -16,7 +16,7 @@ public class WarehouseManager {
 }
 ```
 
-The solution: Depend on interfaces
+## Solution: Depend on interfaces
 
 ```csharp
 public interface IDeliveryVehicle {

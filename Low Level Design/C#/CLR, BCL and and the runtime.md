@@ -1,10 +1,11 @@
-CLR: Common Language Runtime. Same runtime is shared by other languages such as F# & VB, this provides runtime features such as memory management, exception handling, thread management, and security enforcement.
+## Common Language Runtime
 
-> C# is a managed language because it compiles its source code into managed code, which is represented in Intermediate Language (IL). *CLR* converts this to native code. This is referred to as *Just in time compilation*
+The Common Language Runtime (CLR) is shared by languages such as C#, F#, and Visual Basic. It provides runtime features such as memory management, exception handling, thread management, and security enforcement.
 
-BCL: Base Class Library
+> C# is a managed language because it compiles source code into managed Intermediate Language (IL). The CLR converts IL to native code through **just-in-time compilation**.
 
-Collection of utilities, such as standard methods, algorithms, abstractions over threading, i/o and networking.
+## Base Class Library
 
+The Base Class Library (BCL) is a collection of utilities, including standard methods, algorithms, and abstractions over threading, I/O, and networking.
 
-CLR + BCL are shipped with the runtime.
+The CLR and BCL are shipped with the .NET runtime.

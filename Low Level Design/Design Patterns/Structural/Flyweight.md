@@ -1,11 +1,12 @@
->A *structural* design pattern which helps **reduce memory** when having a large number of similar objects.
+> Flyweight helps **reduce memory usage** when you have a large number of similar objects.
 
-Instead of storing repeated data you:
+Instead of storing repeated data, separate it into two types:
 
 | Type                | Meaning                      | Stored Where                    |
 | ------------------- | ---------------------------- | ------------------------------- |
 | **Intrinsic state** | Shared, reusable data        | Inside flyweight object         |
 | **Extrinsic state** | Unique/context-specific data | Passed from outside when needed |
+
 ```cpp
 // without flyweight
 Tree object:
@@ -43,7 +44,7 @@ Tree object:
 > [!DANGER] Flyweight and thread safety
 > Flyweight objects should be treated as **immutable/read-only** so they become inherently **thread-safe**.
 
-This design pattern is very prevalent in game development where you need a lot of similar objects (players, mobs, environment etc.)
+This design pattern is prevalent in game development, where you need many similar objects such as players, mobs, and environmental objects.
 
 ```csharp
 public sealed class TreeType
@@ -63,11 +64,11 @@ public sealed class TreeType
 public class Tree {
 	public int X;
 	public int Y;
-	public TreeType type; 
+	public TreeType type;
 }
 ```
 
-Another common example of flyweight is in **text editors** instead of storing the font glyphs and rendering information in each character we only store its position.
+Another common example of Flyweight is a **text editor**. Instead of storing font glyphs and rendering information in each character, each character stores only its position and a reference to shared style information.
 
 ```cpp
 class CharacterStyle {
@@ -89,7 +90,6 @@ public:
 
 
 > [!INFO] Factories and intrinsic properties
-> The contents of the flyweight are referred to as *intrinsic* properties and those of the object are called *extrinsic* properties. Generally the flyweight is used with a factory, for each unique instance, the factory caches the type of flyweight created and returns the same reference.
+> The contents of the flyweight are called *intrinsic* properties, while the object's unique properties are *extrinsic*. Flyweight is generally used with a factory that caches each unique flyweight and returns the same reference.
 
-
-**Read More:** [[Factory]]
+Related: [[Factory]]
