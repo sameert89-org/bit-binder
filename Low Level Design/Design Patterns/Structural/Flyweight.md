@@ -48,7 +48,7 @@ This design pattern is very prevalent in game development where you need a lot o
 ```csharp
 public sealed class TreeType
 {
-    public string Type { get; } // readonly
+    public string Type { get; } // same as public readonly string Type;
     public string Texture { get; }
     public string Color { get; }
 
@@ -59,4 +59,13 @@ public sealed class TreeType
         Color = color;
     }
 }
+
+public class Tree {
+	public int X;
+	public int Y;
+	public TreeType type; 
+}
 ```
+
+Another common example of flyweight is in **text editors** instead of storing the font glyphs and rendering information in each character we only store its position.
+
