@@ -4,7 +4,7 @@
 How does one know when a certain event has occurred? Sure you can poll the object in question but that results in unnecessary calls. Observer helps with just that.
 
 ## Example: Newsletters
-Probably the simplest and the most straightforward example of the observer pattern. You simply provide your email to the newsletter and it sends you an email everytime a new edition of the newsletter arrives. 
+Probably the simplest and the most straightforward example of the observer pattern. You simply provide your email to the newsletter and it sends you an email every time a new edition of the newsletter arrives. 
 
 Here you are the observer and newsletter is the thing you are observing.
 
@@ -29,4 +29,19 @@ public class Newsletter
         }
     }
 }
+```
+
+## JavaScript DOM events
+This is another classic example of observer pattern, basically any `event listener` you add does this exact pattern under the hood.
+
+```js
+const button = document.querySelector('button');
+
+// Named callback function
+function handleButtonClick(event) {
+  console.log('Button clicked!', event.target);
+}
+
+// Attach the listener
+button.addEventListener('click', handleButtonClick);
 ```
