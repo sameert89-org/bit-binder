@@ -69,3 +69,24 @@ public class Tree {
 
 Another common example of flyweight is in **text editors** instead of storing the font glyphs and rendering information in each character we only store its position.
 
+```cpp
+class CharacterStyle {
+public:
+	string font;
+	ushort size;
+	string color;
+	bool bold;
+	bool italic;
+}
+
+class Character {
+public:
+	int x;
+	int y;
+	std::shared_ptr<CharacterStyle> style;
+}
+```
+
+
+> [!INFO] Factories and intrinsic properties
+> The contents of the flyweight are referred to as *intrinsic* properties and those of the object are called *extrinsic* properties. Generally the flyweight is used with a factory, for each unique instance, the factory caches the type of flyweight created and returns the same referen
