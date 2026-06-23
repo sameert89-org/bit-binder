@@ -33,3 +33,8 @@ public class CreditCardPaymentStrategy : IPaymentStrategy
 
 ## File compression
 File compression apps allow you to choose which format you want to compress the data to
+![[Pasted image 20260623161702.png | 300]]
+
+This can be implemented easily using strategy pattern.
+
+Other notable example is retry strategy: no retry, fixed retry, retry with exponential backoff etc.
