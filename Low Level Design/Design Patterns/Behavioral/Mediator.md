@@ -12,3 +12,15 @@ Plane C -> Control Tower
 ```
 
 The control tower decides who can land, who must wait, and which runway is available.
+
+A mediator not only routes, it coordinates: 
+
+```
+Router:
+"Send this to X."
+
+Mediator:
+"Given that A happened, decide what B, C, and D should do, in what order, under what conditions."
+```
+
+## Example: Distributed Transactions 2Phased Commits
