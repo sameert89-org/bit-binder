@@ -34,4 +34,9 @@ An auction house:
 - Notify seller when reserve price is met.
 - Close auction after time expires.
 - Prevent seller from bidding on their own item.
-l
+
+```csharp
+public class AuctionHouse {
+	
+}
+```
