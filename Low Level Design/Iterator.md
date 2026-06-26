@@ -29,3 +29,5 @@ foreach item in collection:
 Behind the scenes this almost always relies on the iterator pattern.
 
 In C# we have `IEnumerable` interface which is heavily utilised in LINQ operations.
+
+Basically any type of traversals be it, directory traversals, reading files line by line and anything else can be modeled using this pattern.
