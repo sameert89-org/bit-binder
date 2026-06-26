@@ -51,3 +51,46 @@ public class CommandHistory
 
 The command history keeps track of the commands which are already executed and then they can be undone. Every command implements the `execute` and `undo`.
 
+## Example: Event Loop/Job Queues
+Event loop queues tasks which can be run later, each task can be represented as a Command
+
+```csharp
+public interface ICommand
+{
+    void Execute();
+}
+public class PrintCommand : ICommand
+{
+    private readonly string _message;
+
+    public PrintCommand(string message)
+    {
+        _message = message;
+    }
+
+    public void Execute()
+    {
+        Console.WriteLine(_message);
+    }
+}
+public class EventLoop
+{
+    private readonly Queue<ICommand> _queue = new();
+
+    public void Post(ICommand command)
+    {
+        _queue.Enqueue(command);
+    }
+
+    public void Run()
+    {
+        while (_queue.Count > 0)
+        {
+            var command = _queue.Dequeue();
+            command.Execute();
+        }
+    }
+}
+```
+
+In practice the commands are not as simple, there is i/o, events promises and callbacks.
