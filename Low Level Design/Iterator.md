@@ -18,3 +18,14 @@ public interface Iterator<T> {
 ```
 
 Now you can call next if next exists and get the desired item. `foreach` loop in C# and range-based for loop in C++ and almost all other languages have some built in syntax to take advantage of the Iterator pattern.
+
+
+## Example: `foreach`
+In most languages `foreach` looks like this
+```pseudocode
+foreach item in collection:
+	print item
+```
+Behind the scenes this almost always relies on the iterator pattern.
+
+In C# we have `IEnumerable` interface which is heavily utilised in LINQ operations.
