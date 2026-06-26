@@ -24,3 +24,14 @@ Mediator:
 ```
 
 ## Example: Distributed Transactions 2Phased Commits
+Read about it [here](https://notes.kernelrider.in/Microservices/database-transactions.html)
+
+## Example: Auction House
+An auction house:
+- Reject bids lower than current price.
+- Track highest bidder.
+- Notify previous highest bidder they were outbid.
+- Notify seller when reserve price is met.
+- Close auction after time expires.
+- Prevent seller from bidding on their own item.
+l
