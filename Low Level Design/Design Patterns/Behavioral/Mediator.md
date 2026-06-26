@@ -37,9 +37,36 @@ An auction house:
 
 ```csharp
 public class AuctionHouse {
-	private readonly Dictionary<int, double> _bids;
-	public void PlaceBid(int itemId, int userId, double amt) {
-		if()
-	}
+    private readonly Dictionary<int, double> _bids = [];
+    public void TryPlaceBid(int itemId, int userId, double amt) {
+        if(_bids.GetValueOrDefault(itemId) < amt) {
+            _bids[itemId] = amt;
+            Console.WriteLine($"User {userId} placed a bid of {amt} on item {itemId}");
+            NotifyOutbid(itemId);
+        } else {
+            Console.WriteLine($"Bid of {amt} is too low for item {itemId}");
+        }
+    }
+    
+    private void NotifyOutbid(int itemId) {
+        Console.WriteLine($"You have been outbid on item {itemId} by amount { _bids[itemId] }");
+    }
+}
+
+public class User
+{
+    private readonly int _userId;
+    private readonly AuctionHouse _auctionHouse;
+
+    public User(int userId, AuctionHouse auctionHouse) {
+        _userId = userId;
+        _auctionHouse = auctionHouse;
+    }
+
+    public void PlaceBid(int itemId, double amt) {
+        _auctionHouse.TryPlaceBid(itemId, _userId, amt);
+    }
 }
 ```
+
+Other scenarios are not implemented in above example for simplicity.
