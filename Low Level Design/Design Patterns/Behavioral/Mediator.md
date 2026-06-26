@@ -37,6 +37,9 @@ An auction house:
 
 ```csharp
 public class AuctionHouse {
-	
+	private readonly Dictionary<int, double> _bids;
+	public void PlaceBid(int itemId, int userId, double amt) {
+		if()
+	}
 }
 ```
