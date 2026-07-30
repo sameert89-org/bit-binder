@@ -67,7 +67,7 @@ $$
 f_1, f_2, \dots, f_k
 $$
 
-the number of distinct permutations is:
+the number of distinct permutations is: ^6f5072
 
 $$
 \frac{n!}{f_1!f_2!\dots f_k!}

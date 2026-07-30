@@ -21,4 +21,8 @@ But the problem has $N = 10^4$ and $K = 10^6$ this would be $O(NK)$ in the best 
 The main deviation here is that in the other problem N is small (only upto 9), and 9! is doable and you will have every element as unique.
 
 This brings us to some math.
+[[Permutations & Combinations#^6f5072]]
 
+The above topic has details on exactly this, since the number of unique characters is just limited to 26 (since there are only 26 alphabets) to achieve this N letters must repeat. This solves one problem of skipping stuff, but the block sizes are still absurdly huge.
+
+in the worst case, `N/2 = 5000 and each 26 character repeats equal times` then the number of permutations is $\frac{5000!}{5000/26)}
