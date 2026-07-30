@@ -1,5 +1,3 @@
-# Gamma Function
-
 The Gamma function extends factorials from integers to real and complex numbers.
 
 For positive integers:
@@ -171,28 +169,6 @@ long double approx = std::exp(logNcr(n, r));
 
 But for absurdly large answers, keep it in log form.
 
-## rgamma
-
-`rgamma(x)` means reciprocal gamma:
-
-$$
-\operatorname{rgamma}(x) = \frac{1}{\Gamma(x)}
-$$
-
-This is not part of standard C++ or Python's `math` module. It exists in libraries like SciPy as `scipy.special.rgamma`.
-
-Why does it exist? Because directly computing `1 / gamma(x)` can overflow or lose accuracy when `gamma(x)` is huge. A dedicated `rgamma` implementation can be more numerically stable.
-
-In Python with SciPy:
-
-```python
-from scipy.special import rgamma
-
-print(rgamma(6)) # 1 / 5! = 0.008333333333333333
-```
-
-For CP, you will rarely need `rgamma` directly. Most problems want integer answers modulo something, where Gamma is not the right tool. Use `lgamma` for estimates and comparisons.
-
 ## Gamma vs modular factorials
 
 Gamma functions are floating-point tools. They are not exact integer combinatorics tools.
@@ -255,4 +231,3 @@ Mental model:
 
 - `gamma(n + 1)` estimates `n!` until floating point overflows.
 - `lgamma(n + 1)` estimates `log(n!)` safely for huge `n`.
-- `rgamma(x)` estimates `1 / gamma(x)` and is mostly a numerical-library thing.
