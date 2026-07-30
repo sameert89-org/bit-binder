@@ -18,5 +18,7 @@ Surely if N is small enough we can start with smallest permutation (which is not
 But the problem has $N = 10^4$ and $K = 10^6$ this would be $O(NK)$ in the best case which is slow. This takes us to problem i, which has the optimal solution of it by block skipping technique. Which gives us a rough idea on how to solve this problem.
 
 ### The main deviation
-The main deviation here is that in the other problem N is small (only upto 9), and 9! fits in things and you will have every element as unique.
+The main deviation here is that in the other problem N is small (only upto 9), and 9! is doable and you will have every element as unique.
+
+This brings us to some math.
 
