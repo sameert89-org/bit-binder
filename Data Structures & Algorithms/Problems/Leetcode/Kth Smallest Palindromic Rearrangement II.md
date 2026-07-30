@@ -38,4 +38,89 @@ But then how do I calculate this incrementally? since we are not only multiplyin
 ### Incremental Calculation of the Multinomial Coefficient
  ![[Media.jpg]]
 
-This is the trick, this can also be done in reverse, can fill x slots first then remaining n - x slots with y the
+This is the trick, this can also be done in reverse, can fill x slots first then remaining n - x slots with y then remaining n - x - y slots with z but we need to start with the smaller number here.
+
+This allows us to cap at k and break out and actually apply the skip technique properly.
+
+```cpp
+class Solution {
+public:
+    long long distinctPermutations(const vector<int>& freq, long long k) {
+        long long permutations = 1;
+        int elementsAlreadyPlaced = 0;
+
+        for (const int frequency : freq) {
+            for (int added = 1; added <= frequency; ++added) {
+                const long long next =
+                    permutations * (elementsAlreadyPlaced + added) / added;
+
+                if (next >= k) {
+                    return k;
+                }
+
+                permutations = static_cast<long long>(next);
+            }
+
+            elementsAlreadyPlaced += frequency;
+        }
+
+        return permutations;
+    }
+    string smallestPalindrome(string s, int k) {
+        const int N = s.size();
+        string half = s.substr(0, N / 2);
+        sort(half.begin(), half.end());
+
+        // take half of the string, now find the kth lexicographically smallest
+        // permutation of it, this can be done using skip technique for each
+        // position
+        vector<int> freq(26);
+
+        for (auto ch : half) {
+            freq[ch - 'a']++;
+        }
+
+        string res = "";
+        res.reserve(2 * half.size());
+        
+        for (int i = 0; i < N / 2; i++) {
+            int j = 0;
+            while (j < 26 and !freq[j])
+                j++;
+            while (j < 26 and k) {
+                if (!freq[j]) {
+                    j++;
+                    continue;
+                }
+                freq[j]--;
+                long long blockSize = distinctPermutations(freq, k);
+                if(k > blockSize) {
+                    k -=  blockSize; // k doesnt exist in this block, keep going next
+                    freq[j]++;
+                } else {
+                    res += static_cast<char>('a' + j);   // k exists in this block
+                    break;
+                }
+                
+                j++;
+            }
+            // cout << format("count: {}, res: {}, j: {}\n", count ,res, j);
+            if (j == 26 and k)
+                return "";
+            // cout << j << endl;
+            2 1 22
+        }
+        // cout << res;
+
+        int end = res.size() - 1;
+        if (N & 1) {
+            res += s[N / 2];
+        }
+
+        for (int i = end; i > -1; i--) {
+            res += res[i];
+        }
+        return res;
+    }
+};
+```
