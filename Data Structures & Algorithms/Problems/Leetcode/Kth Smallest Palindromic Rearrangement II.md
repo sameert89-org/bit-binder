@@ -36,4 +36,6 @@ We know we are capped by k, if we can somehow incrementally calculate this expre
 But then how do I calculate this incrementally? since we are not only multiplying but dividing stuff?
 
 ### Incremental Calculation of the Multinomial Coefficient
- 
+ ![[Media.jpg]]
+
+This is the trick, this can also be done in reverse, can fill x slots first then remaining n - x slots with y the
