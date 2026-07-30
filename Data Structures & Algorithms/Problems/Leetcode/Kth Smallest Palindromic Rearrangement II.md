@@ -25,4 +25,12 @@ This brings us to some math.
 
 The above topic has details on exactly this, since the number of unique characters is just limited to 26 (since there are only 26 alphabets) to achieve this N letters must repeat. This solves one problem of skipping stuff, but the block sizes are still absurdly huge.
 
-in the worst case, `N/2 = 5000 and each 26 character repeats equal times` then the number of permutations is $\frac{5000!}{5000/26)}
+in the worst case, `N/2 = 5000 and each 26 character repeats equal times` then the number of permutations is $\frac{5000!}{\frac{5000}{26}!^{26}}$ which when [[Gamma Function|approximated]] has 7000+ digits.
+
+This will never fit inside anything. 
+
+So we can utilize this approach but then how do we find these huge block sizes? 
+
+We know we are capped by k, if we can somehow incrementally calculate this expression then we can skip immediately if we exceed k, this will prevent overflows.
+
+But then how do I calculate this incrementally? since we are not only multiplying but dividing stuff?

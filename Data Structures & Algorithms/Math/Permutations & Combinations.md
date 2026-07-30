@@ -30,6 +30,7 @@ Useful identities:
 - $\binom{n}{0} = \binom{n}{n} = 1$
 - $\binom{n}{r} = 0$ when $r < 0$ or $r > n$
 - $\binom{n}{r} = \binom{n-1}{r} + \binom{n-1}{r-1}$
+- 
 
 The last identity is the reason Pascal's triangle works. Either you do not take the current element, giving $\binom{n-1}{r}$, or you take it, giving $\binom{n-1}{r-1}$.
 
