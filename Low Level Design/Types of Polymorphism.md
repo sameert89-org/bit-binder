@@ -1,8 +1,9 @@
-There are 2 types of polymorphism: 
-1. Compile time polymorphism (Overloading/Static Dispatch)
-2. Runtime polymorphism (Overriding/Dynamic Dispatch)
+There are two types of polymorphism:
 
-Overloading is pretty simple, but to achieve dynamic dispatch you need virtual methods and pointers.
+1. **Compile-time polymorphism:** Overloading or static dispatch
+2. **Runtime polymorphism:** Overriding or dynamic dispatch
+
+Overloading is straightforward, but dynamic dispatch requires virtual methods and pointers.
 
 ```cpp
 #include <iostream>

@@ -1,12 +1,11 @@
-Open Closed Principle
+> **A class should be open for extension but closed for modification.**
 
-> "**A class should be open for extension but closed for modification.**"
+A system will always need new features, but existing features should not need to change when those features are added.
 
-A system will always need new features, but existing features should not have to be changed for adding new features.
+Interfaces and abstractions are your friends :), but do not overdo them.
 
-Interfaces and abstractions are your friend :) but you need to not over do it.
+## Example: Code that violates OCP
 
-### Example of a code violating OCP
 ```cpp
 enum class ExportFormat { Json, Csv };
 
@@ -26,7 +25,8 @@ public:
     }
 };
 ```
-### Corrected Code
+## Corrected code
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -59,7 +59,7 @@ class ReportEngine {
 public:
     // This function never changes, no matter how many formats you add
     void generate(const std::string& rawData, const IFormatter& formatter) {
-        std::string processed = "--- Proccessed Data ---\n" + rawData;
+        std::string processed = "--- Processed Data ---\n" + rawData;
         formatter.format(processed);
     }
 };
@@ -74,7 +74,7 @@ public:
 
 int main() {
     ReportEngine engine;
-    
+
     JsonFormatter json;
     XmlFormatter xml; // Added later without modifying ReportEngine
 

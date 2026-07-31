@@ -1,9 +1,10 @@
-> Builder is an assembly line, which lets you construct complex objects step by step!
+> Builder is an assembly line that lets you construct complex objects step by step.
 
-### Why do I need a builder?
-If you ever run into Constructors/Factories with a large number of parameters, then you need a builder!
+## Why do I need a builder?
+If you run into constructors or factories with a large number of parameters, you may need a builder.
 
-### How do I Implement a Builder?
+## How do I implement a builder?
+
 ```cpp
 enum Class Crust {
 	CLASSIC_TOSSED,
@@ -28,7 +29,7 @@ private:
 	bool olives = false;
 public:
 	Pizza(int size, Crust crust) : _size(size), _crust(crust) {};
-	
+
 	Pizza& AddCheese() {
 		_cheese = true;
 	};
@@ -42,7 +43,7 @@ public:
 ```
 
 > [!NOTE] Builder doesn't just add
-> The only restriction about builder is that its supposed to be used during object creation, but one important  distinction is that its absolutely fine to have a `removeTopping` in your Pizza class, a Pizza is considered built when the order is confirmed!
+> Builder is intended for use during object creation. However, it is fine to have a `removeTopping` method on the `Pizza` class; a pizza is considered built only when the order is confirmed.
 
 ```csharp
 class AiAgentBuilder{
@@ -75,7 +76,7 @@ class AiAgentBuilder(string name){
 		_model = model;
 		return this;
 	}
-	
+
 	public AiAgentBuilder SetMaxTokens(int tokens) {
 		_maxTokens = tokens;
 		return this;
@@ -85,7 +86,7 @@ class AiAgentBuilder(string name){
 		_region = region;
 		return this;
 	}
-	
+
 	public AiAgentBuilder AddTool(string tool) {
 		_tools.Add(tool);
 		return this;

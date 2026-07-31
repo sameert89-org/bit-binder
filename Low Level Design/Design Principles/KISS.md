@@ -1,3 +1,3 @@
-**Keep it simple stupid.**
+> **Keep it simple, stupid.**
 
-Try to avoid complexity whenever possible, these include *overengineering*, anticipating requirements and un-necessary requirements.
+Avoid unnecessary complexity, including *overengineering*, anticipating requirements too early, and implementing requirements that do not exist.

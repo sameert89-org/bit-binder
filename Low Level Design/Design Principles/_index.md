@@ -3,6 +3,7 @@
 [[YAGNI]]
 [[LOD]]
 ## SOLID
+
 [[SRP]]
 [[OCP]]
 [[LSP]]

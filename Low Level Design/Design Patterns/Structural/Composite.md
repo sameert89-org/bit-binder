@@ -1,18 +1,22 @@
->  The Composite Design Pattern is a structural pattern used to treat individual objects and groups of objects (compositions) uniformly.
+> Composite treats individual objects and groups of objects uniformly.
 
-### Why do I need a Composite?
-The most common example would be *files* and *folders*.  A folder is a composite of files. Both files and folders can share certain methods. The units which a **Composite** is made of are called **Leaves**. This pattern makes a lot of sense when there is a clear hierarchy between classes and they benefit from a shared interface.
+## Why do I need a composite?
+
+The most common example is files and folders. A folder is a composite of files, and both files and folders can share certain methods. The units that a composite contains are called **leaves**. This pattern makes sense when classes form a clear hierarchy and benefit from a shared interface.
 
 ![[Composite 2026-04-06 00.57.52.excalidraw]]
 
-There are 2 types of composites:
-1. *Transparent composite*: Both Leaf and Composite expose management methods
-2. *Safe composite*: Leaves do not expose management methods (only composites can add/remove children).
+There are two types of composites:
 
-*Note: These are only applicable for management methods like add or remove child from composite, the shared interface is still applicable*
+1. **Transparent composite:** Both leaves and composites expose management methods.
+2. **Safe composite:** Leaves do not expose management methods; only composites can add or remove children.
 
-### Example: Files and Folders
-Here is a cliche but good example of this.
+> [!NOTE] Management methods
+> This distinction applies only to management methods such as adding or removing children. The shared interface still applies.
+
+## Example: Files and folders
+
+Here is a cliché but useful example:
 
 ```csharp
 public interface IFsItem {
@@ -82,4 +86,4 @@ public sealed class Folder(string name) : IFsItem {
 }
 ```
 
-### JavaScript DOM Tree
+## Example: JavaScript DOM tree

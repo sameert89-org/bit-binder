@@ -1,7 +1,8 @@
 > A decorator is a pattern that allows you to add behaviors to objects dynamically.
 
-### Why do I need a Decorator?
-The subclass explosion is the main reason for having this pattern, sometimes you have a base functionality in a class and need to add a functionality to this class, the easiest thing to do is *inheritance*. But this is where the problem lies in. Imagine having the following set of classes:
+## Why do I need a decorator?
+
+Subclass explosion is the main reason for this pattern. Sometimes you have base functionality in a class and need to add more. The easiest approach is *inheritance*, but that is where the problem begins. Imagine the following set of classes:
 
 ```cpp
 class Building {
@@ -21,36 +22,36 @@ class BuildingWithSecurityGuardAndIdScanner : public class BuildingWithSecurityG
 	public void idScan() {
 		// id scan
 		this.securityCheck();
-		this.openDoor();	
+		this.openDoor();
 	}
 }
 ```
 
-See the problem? We need to add functionality but we are having a multitude of classes. 
+See the problem? We need to add functionality, but we are creating a multitude of classes.
 
 > [!Question] How is Decorator different from Builder?
-> On the first glace it seems like Decorator is just like [[Builder]], since its adding functionality to an object. That is true but the main difference here is that decorator is meant to be dynamic i.e. it adds functionality to existing object, whereas builder is supposed to only work during the object creation. Take the pizza for example, once the pizza is baked there is no way for adding functionality to it, hence builder sits right in that case, but if you want to do it at any time, a decorator is best suited. Moreover Decorator is somewhat like an onion 🧅, once a layer is wrapped there is no easy way to unwrap, the object identity is considered lost. If you need to keep adding and removing things dynamically [[Strategy]] maybe a better choice.
+> At first glance, Decorator looks like [[Builder]] because both add functionality to an object. The main difference is that Decorator is dynamic: it adds functionality to an existing object, while Builder works during object creation. Once a pizza is baked, there is no way to add functionality to it, so Builder fits that case. If you want to add behavior at any time, Decorator is better suited. Decorator is also somewhat like an onion 🧅: once a layer is wrapped, there is no easy way to unwrap it, and the object's identity is considered lost. If you need to add and remove behaviors dynamically, [[Strategy]] may be a better choice.
 
-### Example: Aspect Oriented Programming, Metaprogramming and Decorators
+## Example: Aspect-oriented programming and metaprogramming
 
-> **Aspect Oriented Programming (AOP)** is a programming paradigm which allows you to separate cross cutting concerns into pluggable, reusable modules.
+> **Aspect-oriented programming (AOP)** separates cross-cutting concerns into pluggable, reusable modules.
 
-> **Metaprogramming** The ability of a program to treat another program as input data, do modifications on it.
+> **Metaprogramming** is the ability of a program to treat another program as input data and modify it.
 
-AOP is generally implemented using metaprogramming! Let's take the cliché example of a cross cutting concern of logging.
+AOP is generally implemented using metaprogramming. Consider the cliché cross-cutting concern of logging.
 
 ```csharp
 // csharp lacks native support for AOP unlike AspectJ for Java, but similar thing can be achieved using reflection + attributes, there are commercial libraries like PostSharp available for this.
 // The contract
-public interface IOrderService 
+public interface IOrderService
 {
     void ProcessOrder(int orderId);
 }
 
 // The real business logic (clean, no logging)
-public class OrderService : IOrderService 
+public class OrderService : IOrderService
 {
-    public void ProcessOrder(int orderId) 
+    public void ProcessOrder(int orderId)
     {
         // Pure business logic
         Console.WriteLine($"Processing order {orderId}");
@@ -58,27 +59,27 @@ public class OrderService : IOrderService
 }
 
 // The Aspect - wraps the real service
-public class LoggingDecorator : IOrderService 
+public class LoggingDecorator : IOrderService
 {
     private readonly IOrderService _inner;
     private readonly ILogger _logger;
 
-    public LoggingDecorator(IOrderService inner, ILogger logger) 
+    public LoggingDecorator(IOrderService inner, ILogger logger)
     {
         _inner = inner;
         _logger = logger;
     }
 
-    public void ProcessOrder(int orderId) 
+    public void ProcessOrder(int orderId)
     {
         _logger.LogInfo($"[ASPECT] Starting ProcessOrder with id={orderId}");
-        
-        try 
+
+        try
         {
             _inner.ProcessOrder(orderId);
             _logger.LogInfo("[ASPECT] Completed successfully");
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             _logger.LogError($"[ASPECT] Failed: {ex.Message}");
             throw;
@@ -92,8 +93,8 @@ IOrderService loggedService = new LoggingDecorator(realService, logger);
 loggedService.ProcessOrder(123);  // Logs automatically
 ```
 
-### Example: `rclone` layers
-`rclone` is a robust Linux tool which is used to sync files locally to virtually any cloud provider! If we look closely at the architecture of `rclone` layers it is a decorator.
+## Example: `rclone` layers
+`rclone` is a robust Linux tool used to sync local files to virtually any cloud provider. If we look closely at its layered architecture, it is a decorator.
 
 ![[Decorator 2026-03-28 00.31.23.excalidraw|200]]
 Adding each layer creates a wrapper and fundamentally changes the `read` and `write` procedures.
