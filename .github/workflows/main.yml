@@ -23,5 +23,5 @@ jobs:
           COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
         run: |
           curl --fail-with-body --request POST \
-            "http://100.95.23.115:8000/api/v1/deploy?uuid=qkookcw8ssg4k8wg0sg4k0oo&force=false" \
+            "http://100.95.23.115:8000/api/v1/deploy?uuid=ssr5zdenfheyxzmm1f1acyfn&force=false" \
             --header "Authorization: Bearer ${COOLIFY_API_TOKEN}"
