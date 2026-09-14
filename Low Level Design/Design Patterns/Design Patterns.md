@@ -1,7 +1,7 @@
-Design patterns in software engineering are reusable, proven solutions to common, recurring problems in software design.
+> Design patterns are reusable, proven solutions to common, recurring problems in software design.
 
-There are 3 types of design patterns:
+There are three types of design patterns:
 
-1. **Creational**: Focus on Mechanisms for creating objects
-2. **Structural**: Deals with how to structure classes
-3. **Behavioral**: Deals with behavior of classes with each other.
+1. **Creational:** Focus on mechanisms for creating objects
+2. **Structural:** Deal with how classes and objects are structured
+3. **Behavioral:** Deal with how classes and objects communicate

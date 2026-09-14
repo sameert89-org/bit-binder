@@ -1,1 +1,1 @@
-Welcome to Low Level Design, your home for OOPs, Design Principles &  Design Patterns!
+Welcome to Low Level Design, your home for object-oriented programming, design principles, and design patterns!

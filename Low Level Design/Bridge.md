@@ -1,7 +1,8 @@
 > Split an abstraction and its implementation so both can evolve independently.
 
 ## Why do I need a bridge?
-It is usual to get into inheritance hell, take a look at the following class
+
+It is easy to get into inheritance hell. Consider the following class:
 
 ```cpp
 class Remote {
@@ -10,7 +11,7 @@ public:
 };
 ```
 
-Now you needed to make a *Voice Remote*, then its natural to do something like below:
+Now you need to make a voice remote, so it is natural to do something like this:
 
 ```cpp
 class TVRemote : public Remote {
@@ -21,19 +22,20 @@ public:
 }
 ```
 
-Then you wanted an *AC remote* one after the other, you realize that the `Remote` interface is not enough to *compose* the diversity in its children.
+Then you want an AC remote. As more remote types are added, you realize that the `Remote` interface is not enough to represent the diversity among its children.
 
-Bridge tries to solve this inheritance chain by replacing it with composition. Instead of `DeviceRemote` being a child of `Remote` the `Device` composes its remote.
+Bridge solves this inheritance chain by replacing it with composition. Instead of `DeviceRemote` being a child of `Remote`, a remote composes a `Device`.
 
-There is a clean bridge between the *Device* and the *Remote*.
+There is a clean bridge between the `Device` and the `Remote`.
 
 ![[Bridge 2026-05-06 23.13.58.excalidraw]]
 
-### Example: `.NET` Streams
-This example is not limited to `.NET` but it is very clearly visible in the way its implemented in `.NET`
+## Example: .NET streams
 
-> [!INFO] What is a stream
-> A stream is a sequence of data elements made available over time. Streams are generally categorized based on the channel they flow through, we have *MemoryStreams* *FileStreams* *NetworkStreams* etc.
+This example is not limited to .NET, but it is clearly visible in the way streams are implemented there.
+
+> [!INFO] What is a stream?
+> A stream is a sequence of data elements made available over time. Streams are generally categorized by the channel they flow through, such as `MemoryStream`, `FileStream`, and `NetworkStream`.
 
 ```csharp
 public abstract class Stream {
@@ -43,8 +45,7 @@ public abstract class Stream {
 }
 ```
 
-Above is the actual `Stream` class present in `.NET` though only a few of the methods are listed here.
-Now based on the channel we would have the following:
+Above is the actual `Stream` class present in .NET, though only a few methods are listed. Based on the channel, we could have the following implementations:
 
 ```csharp
 public class MemoryStream : Stream {}
@@ -53,16 +54,16 @@ public class BufferedStream : Stream {}
 // and many more
 ```
 
-This is fine till now. Although a `Byte[]` seems intimidating to look at, so Microsoft generously provided the following abstractions
+This works, but a `Byte[]` can be intimidating to work with, so Microsoft provides the following abstractions:
 
 ```csharp
 public class StreamReader(Stream stream) {}
 public class StreamWriter(Stream stream) {}
 ```
 
-This is a clean example of Bridge where `StreamReader` and `XStream` are growing parallelly. We can also see that `StreamReader`  composes of a stream.
+This is a clean example of Bridge where readers and streams can evolve independently. We can also see that `StreamReader` composes a `Stream`.
 
-Now without bridge the pattern would look something like:
+Without Bridge, the design would look something like this:
 
 ```csharp
 public class MemoryStreamReader {};

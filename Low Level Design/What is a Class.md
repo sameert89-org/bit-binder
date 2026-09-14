@@ -1,6 +1,6 @@
-> A class is a *blueprint/template/recipe* for creating objects.
+> A class is a **blueprint, template, or recipe** for creating objects.
 
-It groups related data (fields) & behaviors (functions) together.
+It groups related data, or fields, and behaviors, or functions, together.
 
 ```cpp
 struct Color {
@@ -15,9 +15,8 @@ private:
 	Color color_;
 
 public:
-	Car(string &model, string &year, Color &color) : 
+	Car(string &model, string &year, Color &color) :
 		model_(model), year_(year), color_(color) { }
 };
 ```
-
 

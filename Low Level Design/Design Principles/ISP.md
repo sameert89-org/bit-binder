@@ -1,10 +1,6 @@
-**Interface segregation principle**
+> **Clients should not be forced to depend on methods they do not use.**
 
-**Clients should not be forced to depend on methods they do not use.**
-
-Means DO NOT MAKE FAT INTERFACES 
-
-If an interface expects too much of the clients then they will be implementing un-necessary functionality for no reason.
+In other words, **do not make fat interfaces**. If an interface expects too much from its clients, they must implement unnecessary functionality.
 
 ```csharp
 public interface ISmartDevice {
@@ -26,7 +22,7 @@ public class BasicSmartBulb : ISmartDevice {
 }
 ```
 
-The solution
+## Solution
 
 ```cpp
 public interface IPowerable {
@@ -46,4 +42,4 @@ public interface IMotionSensor {
 }
 ```
 
-The `smart_bulb` only needs to implement `IPowerable` & `ILightable` .
+The smart bulb only needs to implement `IPowerable` and `ILightable`.
