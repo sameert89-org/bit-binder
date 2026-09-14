@@ -5,11 +5,14 @@
 **/.trash
 
 # Existing local exports must never enter the build context. Docker regenerates
-# these in isolated stages.
-server/public/Data Structures & Algorithms
-server/public/Low Level Design
-server/public/Microservices
-server/public/Rust
+# these in isolated stages. Explicitly allow only the hand-written landing-page
+# files and assets; this remains independent of vault names.
+server/public/**
+!server/public/index.html
+!server/public/favicon.ico
+!server/public/cat.gif
+!server/public/app/
+!server/public/app/**
 
 server/main
 server/main.exe

@@ -55,7 +55,7 @@ for index_path in "${indexes[@]}"; do
   rm -rf /vault /output
   mkdir -p /vault /output "${site_root}/${site_name}"
   cp -a "${vault_root}/." /vault/
-  SITE_NAME="${site_name}" /run-export.sh
+  VAULT_PATH="${relative_path}" SITE_NAME="${site_name}" /run-export.sh
   cp -a /output/. "${site_root}/${site_name}/"
   exported=$((exported + 1))
 done

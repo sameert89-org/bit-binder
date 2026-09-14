@@ -30,11 +30,21 @@ RUN mkdir -p /opt/obsidian /plugin \
         --output "/plugin/${asset}"; \
     done
 
+COPY .docker/obsidian-assets.json /obsidian-assets.json
+COPY .docker/install-obsidian-assets.sh /install-obsidian-assets.sh
+COPY .docker/obsidian/snippets/ /obsidian-assets/snippets/
+RUN sed -i 's/\r$//' /install-obsidian-assets.sh \
+    && chmod +x /install-obsidian-assets.sh \
+    && /install-obsidian-assets.sh /obsidian-assets.json /obsidian-assets
+
+COPY .docker/vaults.json /build-vaults.json
+
 COPY --from=injector /usr/local/cargo/bin/electron-injector /usr/local/bin/electron-injector
 COPY .docker/export-vault.mjs /export-vault.mjs
 COPY .docker/run-export.sh /run-export.sh
 COPY .docker/export-all.sh /export-all.sh
-RUN chmod +x /run-export.sh /export-all.sh
+RUN sed -i 's/\r$//' /run-export.sh /export-all.sh \
+    && chmod +x /run-export.sh /export-all.sh
 
 FROM exporter AS sites
 COPY . /source
