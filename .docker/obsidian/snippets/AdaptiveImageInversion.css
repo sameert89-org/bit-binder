@@ -1,0 +1,38 @@
+/* Preserve the Microservices vault's enabled image-adaptation snippet. */
+.theme-dark img {
+  display: block;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  mix-blend-mode: screen;
+  filter: opacity(1);
+}
+
+.theme-light img {
+  display: block;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  mix-blend-mode: multiply;
+  filter: opacity(0.95);
+}
+
+.theme-dark span[src$="invert_B"] img,
+.theme-dark div[src$="invert_B"] img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.theme-light span[src$="#invert_W"] img,
+.theme-light div[src$="#invert_W"] img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.theme-dark span[src$="invert_B_C"] img,
+.theme-dark div[src$="invert_B_C"] img {
+  filter: invert(1) hue-rotate(180deg) contrast(1.5);
+}
+
+.theme-light span[src$="#invert_W_C"] img,
+.theme-light div[src$="#invert_W_C"] img {
+  filter: invert(1) hue-rotate(180deg) contrast(1.45);
+}

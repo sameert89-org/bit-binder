@@ -3,5 +3,86 @@
   "exclude": [
     "Archived/*"
   ],
-  "siteNames": {}
+  "siteNames": {},
+  "vaultSettings": {
+    "Data Structures & Algorithms": {
+      "theme": "Blue Topaz",
+      "snippets": [
+        "custom"
+      ],
+      "plugins": [
+        "obsidian-excalidraw-plugin",
+        "highlightr-plugin"
+      ],
+      "pluginData": {
+        "obsidian-excalidraw-plugin": {
+          "displaySVGInPreview": true,
+          "previewImageType": "SVG",
+          "displayExportedImageIfAvailable": true,
+          "autoexportSVG": true
+        },
+        "highlightr-plugin": {
+          "highlighterStyle": "realistic",
+          "highlighterMethods": "inline-styles"
+        }
+      }
+    },
+    "Low Level Design": {
+      "theme": "Catppuccin",
+      "snippets": [],
+      "plugins": [
+        "obsidian-excalidraw-plugin"
+      ],
+      "pluginData": {
+        "obsidian-excalidraw-plugin": {
+          "displaySVGInPreview": true,
+          "previewImageType": "SVG",
+          "displayExportedImageIfAvailable": true,
+          "autoexportSVG": true
+        }
+      }
+    },
+    "Microservices": {
+      "theme": "Typewriter",
+      "snippets": [
+        "AdaptiveImageInversion"
+      ],
+      "plugins": [
+        "obsidian-excalidraw-plugin",
+        "highlightr-plugin"
+      ],
+      "pluginData": {
+        "obsidian-excalidraw-plugin": {
+          "displaySVGInPreview": true,
+          "previewImageType": "SVG",
+          "displayExportedImageIfAvailable": true,
+          "autoexportSVG": true
+        },
+        "highlightr-plugin": {
+          "highlighterStyle": "realistic",
+          "highlighterMethods": "inline-styles"
+        }
+      }
+    },
+    "Rust": {
+      "theme": "Obsidian gruvbox",
+      "snippets": [],
+      "plugins": [
+        "obsidian-excalidraw-plugin",
+        "highlightr-plugin"
+      ],
+      "pluginData": {
+        "obsidian-excalidraw-plugin": {
+          "displaySVGInPreview": true,
+          "previewImageType": "SVG",
+          "displayExportedImageIfAvailable": true,
+          "autoexportSVG": true
+        },
+        "highlightr-plugin": {
+          "highlighterStyle": "realistic",
+          "highlighterMethods": "inline-styles"
+        }
+      }
+    }
+  }
 }

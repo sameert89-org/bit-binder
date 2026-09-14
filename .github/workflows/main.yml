@@ -1,64 +1,16 @@
-name: Build and deploy notes
+name: Trigger notes deployment
 
 on:
   push:
-    branches: [master]
-  pull_request:
     branches: [master]
   workflow_dispatch:
 
 permissions:
   contents: read
 
-concurrency:
-  group: notes-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  build:
-    name: Export vaults and build server image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          load: true
-          push: false
-          tags: bit-binder:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Smoke-test generated sites
-        shell: bash
-        run: |
-          set -euo pipefail
-          container_id=$(docker run --detach --publish 127.0.0.1:8080:8080 "bit-binder:${GITHUB_SHA}")
-          trap 'docker rm --force "${container_id}"' EXIT
-
-          for attempt in {1..30}; do
-            if curl --fail --silent http://127.0.0.1:8080/api/directories > /tmp/sites.json; then
-              break
-            fi
-            sleep 1
-          done
-
-          curl --fail --silent http://127.0.0.1:8080/ > /dev/null
-          jq --exit-status 'length > 0' /tmp/sites.json > /dev/null
-          jq --raw-output '.[].entry' /tmp/sites.json | while IFS= read -r entry; do
-            curl --fail --silent "http://127.0.0.1:8080${entry}" > /dev/null
-          done
-
   deploy:
-    name: Trigger Coolify deployment
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    needs: build
+    name: Pass deployment webhook
     runs-on: ubuntu-latest
     steps:
       - name: Connect runner to tailnet
