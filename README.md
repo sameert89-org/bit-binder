@@ -15,6 +15,10 @@ The build pins Obsidian and Webpage HTML Export versions in the root
 and copies only the server plus generated static output into the runtime image.
 The first build can take several minutes because Obsidian renders every note
 and Excalidraw drawing; later builds reuse Docker's dependency layers.
+Each vault export is also cached by its content and renderer configuration, so
+changing one vault only re-renders that vault when the same BuildKit builder is
+reused (as it normally is on a persistent Coolify server). A cold builder or a
+pruned BuildKit cache performs a full export once.
 
 ## Selecting vaults
 

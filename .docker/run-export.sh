@@ -23,7 +23,7 @@ for plugin_id in "${render_plugins[@]}"; do
   cp -a "/obsidian-assets/plugins/${plugin_id}" "${obsidian_dir}/plugins/"
 done
 
-plugins_json=$(printf '%s\n' "${render_plugins[@]}" "webpage-html-export" | jq -R . | jq -s .)
+plugins_json=$(printf '%s\n' "${render_plugins[@]}" | sed '/^$/d' | jq -R . | jq -s .)
 printf '%s\n' "${plugins_json}" > "${obsidian_dir}/community-plugins.json"
 
 theme=$(jq --raw-output --arg path "${vault_path}" \
@@ -64,16 +64,24 @@ done
 
 render_plugins_csv=$(IFS=,; echo "${render_plugins[*]}")
 
-cat > "${config_dir}/obsidian.json" <<'JSON'
-{"vaults":{"bit-binder":{"path":"/vault","ts":0,"open":true}}}
-JSON
+# Every retry starts from the same pristine, fully configured vault. The
+# injected script intentionally kills Electron, which can otherwise leave an
+# empty app.json or partially materialized drawing behind for the next attempt.
+rm -rf /vault-template
+mkdir -p /vault-template
+cp -a /vault/. /vault-template/
 
 # Obsidian/Electron startup is occasionally flaky on shared CI runners. Retry a
 # failed export from a clean output directory, while still failing the image
 # build if every attempt fails.
 for attempt in 1 2 3; do
-  rm -rf /output
-  mkdir -p /output
+  rm -rf /vault /output "${config_dir}"
+  mkdir -p /vault /output "${config_dir}"
+  cp -a /vault-template/. /vault/
+  printf '{}\n' > "${obsidian_dir}/app.json"
+  cat > "${config_dir}/obsidian.json" <<'JSON'
+{"vaults":{"bit-binder":{"path":"/vault","ts":0,"open":true}}}
+JSON
   status=0
 
   RENDER_PLUGINS="${render_plugins_csv}" RUST_LOG=info xvfb-run --auto-servernum electron-injector \

@@ -50,7 +50,8 @@ FROM exporter AS sites
 COPY . /source
 # Network isolation prevents Obsidian from replacing its pinned app bundle and
 # makes every export deterministic. export-all.sh serializes Electron instances.
-RUN --network=none /export-all.sh /source /site /source/.docker/vaults.json
+RUN --mount=type=cache,id=bit-binder-vault-exports,target=/export-cache,sharing=locked \
+    --network=none /export-all.sh /source /site /source/.docker/vaults.json
 
 FROM golang:1.25-alpine AS server-build
 WORKDIR /src
