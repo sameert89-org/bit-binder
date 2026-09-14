@@ -18,6 +18,20 @@ if [[ "${#indexes[@]}" -eq 0 ]]; then
 fi
 
 mkdir -p "${site_root}"
+cache_root="${EXPORT_CACHE_ROOT:-/export-cache}"
+mkdir -p "${cache_root}"
+
+# BuildKit cache mounts survive invalidation of the source COPY layer. Include
+# every rendering dependency in the signature so cache hits are never reused
+# after changing Obsidian, a plugin/theme/snippet, or the injected export logic.
+export_signature=$(
+  {
+    sha256sum /build-vaults.json /export-vault.mjs /run-export.sh
+    sha256sum /opt/obsidian/resources/obsidian.asar
+    find /plugin /obsidian-assets -type f -print0 | sort -z | xargs -0 sha256sum
+  } | sha256sum | cut -d ' ' -f 1
+)
+
 declare -A output_names=()
 exported=0
 
@@ -51,12 +65,38 @@ for index_path in "${indexes[@]}"; do
   fi
   output_names["${site_name}"]="${relative_path}"
 
+  vault_signature=$(
+    find "${vault_root}" -type f -print0 | sort -z | xargs -0 sha256sum |
+      sha256sum | cut -d ' ' -f 1
+  )
+  cache_key=$(
+    printf '%s\0%s\0%s\0' "${relative_path}" "${site_name}" \
+      "${export_signature}:${vault_signature}" |
+      sha256sum | cut -d ' ' -f 1
+  )
+  cached_site="${cache_root}/${cache_key}"
+
+  if [[ -s "${cached_site}/index.html" ]]; then
+    echo "Using cached export: ${relative_path} -> ${site_name}"
+    mkdir -p "${site_root}/${site_name}"
+    cp -a "${cached_site}/." "${site_root}/${site_name}/"
+    exported=$((exported + 1))
+    continue
+  fi
+
   echo "Exporting vault: ${relative_path} -> ${site_name}"
   rm -rf /vault /output
   mkdir -p /vault /output "${site_root}/${site_name}"
   cp -a "${vault_root}/." /vault/
   VAULT_PATH="${relative_path}" SITE_NAME="${site_name}" /run-export.sh
   cp -a /output/. "${site_root}/${site_name}/"
+
+  cache_staging="${cache_root}/.${cache_key}.staging"
+  rm -rf "${cache_staging}"
+  mkdir -p "${cache_staging}"
+  cp -a /output/. "${cache_staging}/"
+  rm -rf "${cached_site}"
+  mv "${cache_staging}" "${cached_site}"
   exported=$((exported + 1))
 done
 

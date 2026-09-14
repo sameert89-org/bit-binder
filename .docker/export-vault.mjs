@@ -2,6 +2,32 @@ console.log("Starting headless vault export...");
 
 (async () => {
   try {
+    const sleep = (milliseconds) =>
+      new Promise((resolve) => setTimeout(resolve, milliseconds));
+    const waitUntil = async (description, predicate, timeout = 60_000) => {
+      const deadline = Date.now() + timeout;
+      while (Date.now() < deadline) {
+        if (predicate()) return;
+        await sleep(250);
+      }
+      throw new Error(`Timed out waiting for ${description}`);
+    };
+
+    // electron-injector's delay is measured from process startup, while vault
+    // loading time varies substantially with CPU and disk speed. In particular,
+    // Coolify can inject while Obsidian is still loading community plugins.
+    await waitUntil(
+      "Obsidian application",
+      () => this.app?.workspace && this.app?.vault && this.app?.plugins,
+      120_000,
+    );
+    await new Promise((resolve) => this.app.workspace.onLayoutReady(resolve));
+    await waitUntil(
+      "vault files",
+      () => this.app.vault.getMarkdownFiles().length > 0,
+    );
+    await sleep(2_000);
+
     await this.app.plugins.setEnable(true);
 
     const renderPlugins = (process.env.RENDER_PLUGINS ?? "")
@@ -84,13 +110,22 @@ console.log("Starting headless vault export...");
     if (!plugin) {
       throw new Error("Webpage HTML Export failed to load");
     }
+    await waitUntil(
+      "Webpage HTML Export settings",
+      () => plugin.settings?.exportOptions && plugin.settings?.onlinePreset,
+    );
+    await sleep(1_000);
 
     // 1.9.2's Docker API uses the in-memory settings object. An empty file list
     // means "all files" in most of the exporter, but one validation path still
     // indexes element zero, so populate it explicitly.
     await plugin.settings.onlinePreset();
+    // Attachments referenced by notes are collected automatically. Exporting
+    // every vault file here also creates redundant standalone pages for images,
+    // generated SVG previews, and the raw Excalidraw Markdown sources.
     plugin.settings.exportOptions.filesToExport = this.app.vault
-      .getFiles()
+      .getMarkdownFiles()
+      .filter((file) => !file.path.toLowerCase().endsWith(".excalidraw.md"))
       .map((file) => file.path);
     plugin.settings.exportOptions.siteName = process.env.SITE_NAME;
     plugin.settings.onlyExportModified = false;
@@ -100,7 +135,7 @@ console.log("Starting headless vault export...");
     await plugin.exportDocker();
     console.log("Vault export completed");
   } catch (error) {
-    console.error("Vault export failed", error);
+    console.error("Vault export failed", error?.stack ?? error);
     process.exitCode = 1;
   } finally {
     // Obsidian/Electron does not terminate after an injected script completes.
