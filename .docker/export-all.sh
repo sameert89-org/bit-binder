@@ -1,0 +1,68 @@
+#!/bin/bash
+set -euo pipefail
+
+source_root="${1:-/source}"
+site_root="${2:-/site}"
+config_path="${3:-/source/.docker/vaults.json}"
+
+jq --exit-status '(.indexFile | type == "string") and (.exclude | type == "array") and (.siteNames | type == "object")' \
+  "${config_path}" > /dev/null
+
+index_file=$(jq --raw-output '.indexFile' "${config_path}")
+mapfile -t exclusions < <(jq --raw-output '.exclude[]' "${config_path}")
+mapfile -d '' indexes < <(find "${source_root}" -type f -iname "${index_file}" -print0 | sort -z)
+
+if [[ "${#indexes[@]}" -eq 0 ]]; then
+  echo "No vaults found: expected a ${index_file} file in each publishable vault" >&2
+  exit 1
+fi
+
+mkdir -p "${site_root}"
+declare -A output_names=()
+exported=0
+
+for index_path in "${indexes[@]}"; do
+  vault_root=$(dirname "${index_path}")
+  relative_path=${vault_root#"${source_root}"/}
+  excluded=false
+
+  for pattern in "${exclusions[@]}"; do
+    if [[ "${relative_path}" == ${pattern} ]]; then
+      excluded=true
+      break
+    fi
+  done
+
+  if [[ "${excluded}" == true ]]; then
+    echo "Skipping excluded vault: ${relative_path}"
+    continue
+  fi
+
+  site_name=$(jq --raw-output --arg path "${relative_path}" \
+    '.siteNames[$path] // ($path | split("/") | last)' "${config_path}")
+
+  if [[ -z "${site_name}" || "${site_name}" == "." || "${site_name}" == ".." || "${site_name}" == */* ]]; then
+    echo "Invalid site name '${site_name}' for vault '${relative_path}'" >&2
+    exit 1
+  fi
+  if [[ -n "${output_names[${site_name}]:-}" ]]; then
+    echo "Duplicate site name '${site_name}' for '${relative_path}' and '${output_names[${site_name}]}'" >&2
+    exit 1
+  fi
+  output_names["${site_name}"]="${relative_path}"
+
+  echo "Exporting vault: ${relative_path} -> ${site_name}"
+  rm -rf /vault /output
+  mkdir -p /vault /output "${site_root}/${site_name}"
+  cp -a "${vault_root}/." /vault/
+  SITE_NAME="${site_name}" /run-export.sh
+  cp -a /output/. "${site_root}/${site_name}/"
+  exported=$((exported + 1))
+done
+
+if [[ "${exported}" -eq 0 ]]; then
+  echo "Every discovered vault was excluded" >&2
+  exit 1
+fi
+
+echo "Exported ${exported} vault(s)"

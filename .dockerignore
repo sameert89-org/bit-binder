@@ -1,0 +1,24 @@
+.git
+.github
+.tmp
+**/.obsidian
+**/.trash
+
+# Existing local exports must never enter the build context. Docker regenerates
+# these in isolated stages.
+server/public/Data Structures & Algorithms
+server/public/Low Level Design
+server/public/Microservices
+server/public/Rust
+
+server/main
+server/main.exe
+*.log
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json

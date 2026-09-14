@@ -69,5 +69,5 @@ Without Bridge, the design would look something like this:
 public class MemoryStreamReader {};
 public class FileStreamReader {};
 public class MemoryStreamWriter {};
-public class FileStreamWriter {};
+public class StreamWriter {};
 ```

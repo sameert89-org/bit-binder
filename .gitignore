@@ -1,12 +1,33 @@
-Journal/
-.obsidian/workspace.json
-.obsidian/app.json
-.obsidian/plugins/
-.obsidian/themes/
+# Obsidian stores device state, downloaded plugin bundles, caches, and plugin
+# credentials here. Vault content belongs in Git; this runtime data does not.
+**/.obsidian/
+**/.trash/
 
-# Ignore Obsidian per-vault UI state and completr cache across all vaults.
-**/.obsidian/workspace.json
-**/.obsidian/plugins/obsidian-completr/scanned_words.txt
-**/.obsidian/plugins/copilot-auto-completion/data.json
-**/.obsidian/plugins/obsidian-ghost-text/data.json
-**/.obsidian/plugins/copilot/data.json
+# Generated Webpage HTML Export sites. The small hand-written landing page and
+# its assets remain tracked under server/public.
+server/public/*/
+!server/public/app/
+!server/public/app/**
+
+# Local secrets and credentials.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Build products, caches, and local tooling.
+server/main
+server/main.exe
+.tmp/
+.cache/
+*.log
+.DS_Store
+Thumbs.db
+
+# Personal/non-published notes.
+Journal/
