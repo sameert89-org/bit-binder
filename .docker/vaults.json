@@ -1,0 +1,7 @@
+{
+  "indexFile": "index.md",
+  "exclude": [
+    "Archived/*"
+  ],
+  "siteNames": {}
+}
